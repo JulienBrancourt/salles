@@ -39,7 +39,6 @@ h1 {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  /* max-width: 600px; */
   padding: 1px 15px;
 }
 
@@ -73,7 +72,7 @@ th, td {
 }
 
 tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: #29c056;
 }
 
 footer {
@@ -82,4 +81,37 @@ footer {
     align-items: center;
     margin-top: 15px;
     font-size: 10px;
+}
+
+input {
+  accent-color: #29c056;
+}
+
+.filters button {
+  position: relative;
+  overflow: hidden; /*empêche le after de dépasser visuellement*/
+  z-index: 0;
+}
+
+.filters button::after {
+  background-color: #2c3e50;
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-100%,0) rotate(10deg); /*fais démarrer le after hors du bouton avec une petite rotation*/
+  transform-origin: top left; /*la transformation se fait à partir du coin haut gauche*/
+  transition: 0.2s transform ease-out;
+  z-index: -1; /*after sous le bouton pour ne pas le masquer*/
+}
+
+.filters button:hover::after {
+  transform: translate(0,0); /*after glisse depuis la gauche jusqu'à recouvrir le bouton grâce à transition*/
+}
+
+.filters button:hover {
+  color: white;
 }
