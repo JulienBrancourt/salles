@@ -72,6 +72,7 @@ function renderTable(rows) {
       <td>${row.Capacité}</td>
       <td>${row.examen}</td>
       <td>${row.catégorie}</td>
+	  <td>${row.Réservé}</td>
       <td>${row.Bâtiment}</td>
       <td>${row.Accessibilité || ""}</td>
       <td>${row.observation || ""}</td>
