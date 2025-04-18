@@ -100,7 +100,7 @@ resetButton.addEventListener("click", () => {
 
 function scrollFunction() {
 	// Get the button
-	var mybutton = document.getElementById("scrollToTopButton");
+	let mybutton = document.getElementById("scrollToTopButton");
 
 	if ( document.documentElement.scrollTop > 20 ) {
 		mybutton.style.opacity = 1;
