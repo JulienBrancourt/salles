@@ -1,6 +1,9 @@
 let data = [];
 let filteredData = [];
 
+// Execute a function when the window is being scrolled
+window.onscroll = function () { scrollFunction() };
+
 const searchInput = document.getElementById("searchInput");
 const categorySelect = document.getElementById("categorySelect");
 const buildingCheckboxes = document.getElementById("buildingCheckboxes");
@@ -92,3 +95,23 @@ resetButton.addEventListener("click", () => {
 		.forEach((cb) => (cb.checked = false));
 	applyFilters();
 });
+
+// -----------------------------
+
+function scrollFunction() {
+	// Get the button
+	var mybutton = document.getElementById("scrollToTopButton");
+
+	if ( document.documentElement.scrollTop > 20 ) {
+		mybutton.style.opacity = 1;
+		mybutton.style.visibility = "visible";
+	} else {
+		mybutton.style.opacity = 0;
+		mybutton.style.visibility = "hidden";
+	}
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+	document.documentElement.scrollTop = 0;
+}

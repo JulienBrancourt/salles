@@ -115,3 +115,33 @@ input {
 .filters button:hover {
   color: white;
 }
+
+#scrollToTopButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background-color 0.3s, opacity 0.5s, visibility 0.5s, color 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  background-color: #333333bf;
+  font-weight: bolder;
+  font-size: 24px;
+}
+
+#scrollToTopButton:hover,
+#scrollToTopButton:focus,
+#scrollToTopButton:focus-within {
+  cursor: pointer;
+  background-color: #2c3e50;
+  color: white;
+}
