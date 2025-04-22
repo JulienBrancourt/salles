@@ -87,14 +87,14 @@ input {
   accent-color: #29c056;
 }
 
-.filters button {
+.filters button, #submitButton {
   position: relative;
   overflow: hidden; /*empêche le after de dépasser visuellement*/
   z-index: 0;
   letter-spacing: 1px;
 }
 
-.filters button::after {
+.filters button::after, #submitButton::after {
   background-color: #2c3e50;
   content: '';
   display: block;
@@ -109,11 +109,11 @@ input {
   z-index: -1; /*after sous le bouton pour ne pas le masquer*/
 }
 
-.filters button:hover::after {
+.filters button:hover::after, #submitButton:hover::after {
   transform: translate(0,0); /*after glisse depuis la gauche jusqu'à recouvrir le bouton grâce à transition*/
 }
 
-.filters button:hover {
+.filters button:hover, #submitButton:hover {
   color: white;
 }
 
@@ -145,4 +145,66 @@ input {
   cursor: pointer;
   background-color: #2c3e50;
   color: white;
+}
+#contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 400px;
+  /* height: 400px; */
+  margin: auto;
+
+  & h2 {
+    margin-top: 20px;
+  }
+
+  & input, & textarea, & button {
+    margin-top: 15px;
+    padding: 10px;
+
+  }
+}
+
+
+@media screen and ( max-width: 800px ) { 
+  table thead {
+    display: none;
+  }
+  table body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
+  }
+  table tbody tr, table tbody td {
+    display: block;
+    border: 0;
+  }
+  table tbody td {
+    padding: 4px;
+    font-weight: bold;
+  }
+  table tbody td:before {
+  content: attr(data-name);
+  width: 100px;
+  display: inline-block;
+  text-transform: capitalize;
+  font-weight: normal;
+  }
+  table tbody td.status {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+  }
+  table tbody tr {
+    position: relative;
+    /* width: calc(50% - 8px); */
+    width: 90%;
+    border: 1px solid #E7E7E7;
+    padding: 8px;
+    /* margin: 4px; */
+    margin: 5px auto;
+  }
+
+
 }

@@ -71,14 +71,14 @@ function renderTable(rows) {
 	rows.forEach((row) => {
 		const tr = document.createElement("tr");
 		tr.innerHTML = `
-      <td>${row.Nom}</td>
-      <td>${row.Capacité}</td>
-      <td>${row.examen}</td>
-      <td>${row.catégorie}</td>
-	  <td>${row.Réservé}</td>
-      <td>${row.Bâtiment}</td>
-      <td>${row.Accessibilité || ""}</td>
-      <td>${row.observation || ""}</td>
+      <td data-name="Nom">${row.Nom}</td>
+      <td data-name="Capacité">${row.Capacité}</td>
+      <td data-name="Examen">${row.examen}</td>
+      <td data-name="Catégorie">${row.catégorie}</td>
+	  <td data-name="Réservé">${row.Réservé}</td>
+      <td data-name="Bâtiment">${row.Bâtiment}</td>
+      <td data-name="Accessibilité">${row.Accessibilité || ""}</td>
+      <td data-name="Observation">${row.observation || ""}</td>
     `;
 		tableBody.appendChild(tr);
 	});
@@ -115,3 +115,43 @@ function scrollFunction() {
 function topFunction() {
 	document.documentElement.scrollTop = 0;
 }
+
+// ---- formulaire de contact
+const form = document.getElementById("form");
+const result = document.getElementById("result");
+
+form.addEventListener("submit", function (e) {
+	e.preventDefault();
+	const formData = new FormData(form);
+	const object = Object.fromEntries(formData);
+	const json = JSON.stringify(object);
+	result.innerHTML = "Please wait...";
+
+	fetch("https://api.web3forms.com/submit", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+		},
+		body: json,
+	})
+		.then(async (response) => {
+			let json = await response.json();
+			if (response.status == 200) {
+				result.innerHTML = "Form submitted successfully";
+			} else {
+				console.log(response);
+				result.innerHTML = json.message;
+			}
+		})
+		.catch((error) => {
+			console.log(error);
+			result.innerHTML = "Something went wrong!";
+		})
+		.then(function () {
+			form.reset();
+			setTimeout(() => {
+				result.style.display = "none";
+			}, 3000);
+		});
+});
