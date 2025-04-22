@@ -125,6 +125,8 @@ form.addEventListener("submit", function (e) {
 	const formData = new FormData(form);
 	const object = Object.fromEntries(formData);
 	const json = JSON.stringify(object);
+	
+	result.style.display = "block";
 	result.innerHTML = "Please wait...";
 
 	fetch("https://api.web3forms.com/submit", {
@@ -149,9 +151,12 @@ form.addEventListener("submit", function (e) {
 			result.innerHTML = "Something went wrong!";
 		})
 		.then(function () {
-			form.reset();
 			setTimeout(() => {
+				form.reset(); // <-- ceci efface bien les champs
 				result.style.display = "none";
+				result.innerHTML = ""; // <-- pour tout nettoyer
 			}, 3000);
 		});
 });
+
+
