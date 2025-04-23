@@ -152,7 +152,6 @@ input {
   justify-content: center;
   text-align: center;
   width: 400px;
-  /* height: 400px; */
   margin: auto;
 
   & h2 {
@@ -205,6 +204,27 @@ input {
     /* margin: 4px; */
     margin: 5px auto;
   }
+  tbody tr:hover {
+  background-color: transparent;
+}
 
+  #contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 90%;
+  margin: auto;
+
+  & h2 {
+    font-size: 18px;
+  }
+
+  & input, & textarea, & button {
+    margin-top: 10px;
+    padding: 10px;
+
+  }
+}
 
 }
