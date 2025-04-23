@@ -115,7 +115,7 @@
         "Capacité": "14",
         "examen": "",
         "catégorie": "salle banalisée",
-        "Réservé": "Départ. PHYSIQUE",
+        "Réservé": "Départ. physique",
         "observation": "",
         "Accessibilité": "",
         "Bâtiment": "B"
@@ -126,7 +126,7 @@
         "Capacité": "26",
         "examen": "",
         "catégorie": "salle banalisée",
-        "Réservé": "Départ. PHYSIQUE",
+        "Réservé": "Départ. physique",
         "observation": "",
         "Accessibilité": "",
         "Bâtiment": "B"
@@ -313,7 +313,7 @@
         "Capacité": "44 / 22",
         "examen": "",
         "catégorie": "salle informatique",
-        "Réservé": "MASTER INFO",
+        "Réservé": "master info",
         "observation": "",
         "Accessibilité": "",
         "Bâtiment": "D"
@@ -434,7 +434,7 @@
         "Capacité": "38 / 6",
         "examen": "",
         "catégorie": "salle informatique",
-        "Réservé": "MASTER INFO & MIAGE",
+        "Réservé": "master info & MIAGE",
         "observation": "",
         "Accessibilité": "non accessible personnes en fauteuil",
         "Bâtiment": "F"
@@ -577,7 +577,7 @@
         "Capacité": "16",
         "examen": "8",
         "catégorie": "salle banalisée",
-        "Réservé": "MASTER CHIMIE",
+        "Réservé": "master chimie",
         "observation": "",
         "Accessibilité": "non accessible personnes en fauteuil",
         "Bâtiment": "H"
@@ -588,7 +588,7 @@
         "Capacité": "20",
         "examen": "10",
         "catégorie": "salle banalisée",
-        "Réservé": "MASTER CHIMIE",
+        "Réservé": "master chimie",
         "observation": "",
         "Accessibilité": "non accessible personnes en fauteuil",
         "Bâtiment": "H"
@@ -753,7 +753,7 @@
         "Capacité": "58",
         "examen": "29",
         "catégorie": "salle banalisée",
-        "Réservé": "MASTER MEEF",
+        "Réservé": "master MEEF",
         "observation": "",
         "Accessibilité": "",
         "Bâtiment": "Minimes"
