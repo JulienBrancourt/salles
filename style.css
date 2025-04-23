@@ -167,7 +167,7 @@ input {
 }
 
 
-@media screen and ( max-width: 800px ) { 
+@media ( max-width: 800px ) { 
   table thead {
     display: none;
   }
