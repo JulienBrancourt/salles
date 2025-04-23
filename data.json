@@ -101,7 +101,7 @@
     {
         "Code": "SC-B010 - 18 max (Info)",
         "Nom": "B010",
-        "Capacité": "18-20 postes",
+        "Capacité": "18 / 20",
         "examen": "",
         "catégorie": "salle informatique",
         "Réservé": "",
@@ -343,7 +343,7 @@
     {
         "Code": "SC-D13 - 36 (max)",
         "Nom": "D13",
-        "Capacité": "36 / 18 postes",
+        "Capacité": "36 / 18",
         "examen": "",
         "catégorie": "salle informatique",
         "Réservé": "",
@@ -354,7 +354,7 @@
     {
         "Code": "SC-D14-15 - 42 (max)",
         "Nom": "D14-15",
-        "Capacité": "42 / 22 postes",
+        "Capacité": "42 / 22",
         "examen": "",
         "catégorie": "salle informatique",
         "Réservé": "",
