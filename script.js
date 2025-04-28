@@ -1,107 +1,153 @@
+window.addEventListener("scroll", scrollFunction);
+
 let data = [];
 let filteredData = [];
+let mybutton = document.getElementById("scrollToTopButton");
 
-// Execute a function when the window is being scrolled
-window.onscroll = function () { scrollFunction() };
 
 const searchInput = document.getElementById("searchInput");
 const categorySelect = document.getElementById("categorySelect");
 const buildingCheckboxes = document.getElementById("buildingCheckboxes");
 const resetButton = document.getElementById("resetButton");
-const tableBody = document.querySelector("#dataTable tbody");
+const table = document.getElementById("dataTable");
+const tableBody = table.querySelector("tbody");
 
+// 1. Récupérer les données
 fetch("data.json")
-	.then((res) => res.json())
-	.then((json) => {
-		data = json;
-		populateFilters(data);
-		applyFilters();
-	});
+  .then((res) => res.json())
+  .then((json) => {
+    data = json;
+    populateFilters(data);
+    applyFilters(); // affiche les données
+    initResizers(); // initialise les redimensionneurs
+  });
 
+// 2. Remplir les filtres
 function populateFilters(data) {
-	const categories = [
-		...new Set(data.map((item) => item.catégorie).filter(Boolean)),
-	].sort();
-	const buildings = [
-		...new Set(data.map((item) => item.Bâtiment).filter(Boolean)),
-	].sort();
+  const categories = [...new Set(data.map((item) => item.catégorie).filter(Boolean))].sort();
+  const buildings = [...new Set(data.map((item) => item.Bâtiment).filter(Boolean))].sort();
 
-	// Catégories
-	categories.forEach((cat) => {
-		const option = document.createElement("option");
-		option.value = cat;
-		option.textContent = cat;
-		categorySelect.appendChild(option);
-	});
+  // Catégories
+  categories.forEach((cat) => {
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    categorySelect.appendChild(option);
+  });
 
-	// Bâtiments
-	buildings.forEach((b) => {
-		const label = document.createElement("label");
-		const checkbox = document.createElement("input");
-		checkbox.type = "checkbox";
-		checkbox.value = b;
-		label.appendChild(checkbox);
-		label.appendChild(document.createTextNode(b));
-		buildingCheckboxes.appendChild(label);
-	});
+  // Bâtiments
+  buildings.forEach((b) => {
+    const label = document.createElement("label");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.value = b;
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(b));
+    buildingCheckboxes.appendChild(label);
+  });
 }
 
+// 3. Appliquer les filtres
 function applyFilters() {
-	const searchTerm = searchInput.value.trim().toLowerCase();
-	const selectedCategory = categorySelect.value;
-	const selectedBuildings = [
-		...buildingCheckboxes.querySelectorAll("input:checked"),
-	].map((cb) => cb.value);
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  const selectedCategory = categorySelect.value;
+  const selectedBuildings = [...buildingCheckboxes.querySelectorAll("input:checked")].map(cb => cb.value);
 
-	filteredData = data.filter((item) => {
-		const matchName = item.Nom.toLowerCase().includes(searchTerm);
-		const matchCategory =
-			!selectedCategory || item.catégorie === selectedCategory;
-		const matchBuilding =
-			selectedBuildings.length === 0 ||
-			selectedBuildings.includes(item.Bâtiment);
-		return matchName && matchCategory && matchBuilding;
-	});
+  filteredData = data.filter((item) => {
+    const matchName = item.Nom.toLowerCase().includes(searchTerm);
+    const matchCategory = !selectedCategory || item.catégorie === selectedCategory;
+    const matchBuilding = selectedBuildings.length === 0 || selectedBuildings.includes(item.Bâtiment);
+    return matchName && matchCategory && matchBuilding;
+  });
 
-	renderTable(filteredData);
+  renderTable(filteredData);
 }
 
+// 4. Afficher la table
 function renderTable(rows) {
-	tableBody.innerHTML = "";
-	rows.forEach((row) => {
-		const tr = document.createElement("tr");
-		tr.innerHTML = `
+  tableBody.innerHTML = "";
+  rows.forEach((row) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
       <td data-name="Nom">${row.Nom}</td>
       <td data-name="Capacité">${row.Capacité}</td>
       <td data-name="Examen">${row.examen}</td>
       <td data-name="Catégorie">${row.catégorie}</td>
-	  <td data-name="Réservé">${row.Réservé}</td>
+      <td data-name="Réservé">${row.Réservé}</td>
       <td data-name="Bâtiment">${row.Bâtiment}</td>
       <td data-name="Accessibilité">${row.Accessibilité || ""}</td>
       <td data-name="Observation">${row.observation || ""}</td>
     `;
-		tableBody.appendChild(tr);
-	});
+    tableBody.appendChild(tr);
+  });
 }
 
+// 5. Écouteurs sur les filtres
 searchInput.addEventListener("input", applyFilters);
 categorySelect.addEventListener("change", applyFilters);
 buildingCheckboxes.addEventListener("change", applyFilters);
 resetButton.addEventListener("click", () => {
-	searchInput.value = "";
-	categorySelect.value = "";
-	buildingCheckboxes
-		.querySelectorAll("input")
-		.forEach((cb) => (cb.checked = false));
-	applyFilters();
+  searchInput.value = "";
+  categorySelect.value = "";
+  buildingCheckboxes.querySelectorAll("input").forEach((cb) => (cb.checked = false));
+  applyFilters();
 });
 
-// -----------------------------
+// 6. Redimensionnement des colonnes
+function initResizers() {
+  const thElements = table.querySelectorAll('th');
+
+  thElements.forEach(cell => {
+    const resizer = document.createElement('div');
+    resizer.style.width = '5px';
+    resizer.style.height = '100%';
+    resizer.style.position = 'absolute';
+    resizer.style.top = '0';
+    resizer.style.right = '0';
+    resizer.style.cursor = 'col-resize';
+    resizer.style.userSelect = 'none';
+    resizer.style.zIndex = '1';
+
+    cell.style.position = 'relative';
+    cell.appendChild(resizer);
+
+    let currentTh, startX, startWidth;
+
+    resizer.addEventListener('mousedown', function (e) {
+      currentTh = cell;
+      startX = e.pageX;
+      startWidth = currentTh.offsetWidth;
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+
+    function onMouseMove(e) {
+      if (!currentTh) return;
+      const newWidth = startWidth + (e.pageX - startX);
+      currentTh.style.width = newWidth + 'px';
+
+      const index = Array.from(currentTh.parentElement.children).indexOf(currentTh);
+      const rows = table.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const cell = row.children[index];
+        if (cell) {
+          cell.style.width = newWidth + 'px';
+        }
+      });
+    }
+
+    function onMouseUp() {
+      currentTh = null;
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    }
+  });
+}
+
+// ----- bouton retour en haut de page
 
 function scrollFunction() {
-	// Get the button
-	let mybutton = document.getElementById("scrollToTopButton");
-
 	if ( document.documentElement.scrollTop > 20 ) {
 		mybutton.style.opacity = 1;
 		mybutton.style.visibility = "visible";
@@ -111,7 +157,6 @@ function scrollFunction() {
 	}
 }
 
-// When the user clicks on the button, scroll to the top of the document
 function topFunction() {
 	document.documentElement.scrollTop = 0;
 }
@@ -158,5 +203,3 @@ form.addEventListener("submit", function (e) {
 			}, 3000);
 		});
 });
-
-
