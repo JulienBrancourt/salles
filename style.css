@@ -165,6 +165,15 @@ input {
   }
 }
 
+#capacityChart {
+  max-width: 80%;
+  max-height: 800px;
+  width: 100%;
+  height: auto;
+  margin: 15px auto;
+}
+
+
 
 @media ( max-width: 800px ) { 
   table thead {

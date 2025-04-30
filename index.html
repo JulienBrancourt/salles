@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Liste des Salles</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
   <h1>Liste des Salles :</h1>
@@ -42,6 +44,9 @@
     <tbody></tbody>
   </table>
 
+  <canvas id="capacityChart" width="800" height="400"></canvas>
+
+
   <form id="contact" action="https://api.web3forms.com/submit" method="POST">
     <h2>Une suggestion ?</h2>
     <!-- Replace with your Access Key -->
@@ -68,5 +73,6 @@
   </footer>
 
   <script src="script.js"></script>
+
 </body>
 </html>

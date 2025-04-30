@@ -1,8 +1,13 @@
+console.log("Script chargé !");
+
+
 window.addEventListener("scroll", scrollFunction);
 
 let data = [];
 let filteredData = [];
 let mybutton = document.getElementById("scrollToTopButton");
+let chartInstance;
+
 
 
 const searchInput = document.getElementById("searchInput");
@@ -61,6 +66,7 @@ function applyFilters() {
   });
 
   renderTable(filteredData);
+  updateChart(filteredData);
 }
 
 // 4. Afficher la table
@@ -203,3 +209,60 @@ form.addEventListener("submit", function (e) {
 			}, 3000);
 		});
 });
+
+//--graphique
+
+function updateChart(data) {
+  const labels = data.map(item => item.Nom);
+  const capacities = data.map(item => Number(item.Capacité));
+  const exams = data.map(item => Number(item.examen));
+
+  const ctx = document.getElementById('capacityChart').getContext('2d');
+
+  if (chartInstance) {
+    chartInstance.destroy(); // Supprime l'ancien graphique s'il existe
+  }
+
+  chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Cours',
+          data: capacities,
+          backgroundColor: 'rgba(54, 162, 235, 0.7)',
+        },
+        {
+          label: 'Examen',
+          data: exams,
+          backgroundColor: 'rgba(255, 99, 132, 0.7)',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Capacité des salles sélectionnées',
+          font: {
+            size: 18
+          },
+          padding: {
+            top: 30,
+            bottom: 10
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1
+          }
+        }
+      }
+    }
+  });
+}
