@@ -1,6 +1,3 @@
-console.log("Script chargé !");
-
-
 window.addEventListener("scroll", scrollFunction);
 
 let data = [];

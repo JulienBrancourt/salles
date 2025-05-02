@@ -110,6 +110,17 @@
         "Bâtiment": "B"
     },
     {
+        "Code": "SC-TP B204 - 14 max",
+        "Nom": "TP B204",
+        "Capacité": "20 / 18",
+        "examen": "",
+        "catégorie": "salle informatique",
+        "Réservé": "Départ. physique",
+        "observation": "",
+        "Accessibilité": "",
+        "Bâtiment": "B"
+    },
+    {
         "Code": "SC-B205 - 14 max",
         "Nom": "B205",
         "Capacité": "14",
