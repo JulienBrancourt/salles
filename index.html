@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Liste des Salles</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- librairie pour le graphique -->
+  <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script> <!--librairie pour l'export vers Excel -->
+  
 </head>
 <body>
   <h1>Liste des Salles :</h1>
@@ -27,6 +28,11 @@
 
     <button id="resetButton">Réinitialiser les filtres</button>
   </div>
+
+  <button onclick="exporterEnExcel('dataTable')" id="btnExportExcel">
+    <img src="https://img.icons8.com/color/24/000000/microsoft-excel-2019--v1.png" alt="Excel Icon">
+    Exporter vers Excel
+  </button>
 
   <table id="dataTable">
     <thead>
@@ -49,7 +55,7 @@
 
   <form id="contact" action="https://api.web3forms.com/submit" method="POST">
     <h2>Une suggestion ?</h2>
-    <!-- Replace with your Access Key -->
+  
     <input type="hidden" name="access_key" value="f6513fdb-6e04-4af5-81ac-f73fda3b9201">
 
     <!-- Form Inputs. Each input must have a name="" attribute -->

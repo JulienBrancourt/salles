@@ -1,11 +1,10 @@
+
 window.addEventListener("scroll", scrollFunction);
 
 let data = [];
 let filteredData = [];
 let mybutton = document.getElementById("scrollToTopButton");
 let chartInstance;
-
-
 
 const searchInput = document.getElementById("searchInput");
 const categorySelect = document.getElementById("categorySelect");
@@ -263,3 +262,33 @@ function updateChart(data) {
     }
   });
 }
+
+//--- exporter vers excel
+
+function exporterEnExcel(tableId) {
+  const table = document.getElementById(tableId);
+  const wb = XLSX.utils.book_new(); // créé un nouveau classeur excel
+  const ws = XLSX.utils.table_to_sheet(table); //convertit table en worksheet
+
+  // Largeur automatique : calcule la largeur de chaque colonne selon le contenu
+  const range = XLSX.utils.decode_range(ws['!ref']);
+  const colWidths = [];
+  for (let C = range.s.c; C <= range.e.c; ++C) {
+    let maxWidth = 10; // valeur par défaut
+    for (let R = range.s.r; R <= range.e.r; ++R) {
+      const cellAddress = XLSX.utils.encode_cell({ r: R, c: C });
+      const cell = ws[cellAddress];
+      if (cell && cell.v != null) {
+        const cellText = String(cell.v);
+        maxWidth = Math.max(maxWidth, cellText.length + 2); // marge
+      }
+    }
+    colWidths.push({ wch: maxWidth });
+  }
+
+  ws['!cols'] = colWidths;
+  
+  XLSX.utils.book_append_sheet(wb, ws, "Salles"); //ajoute ws au classeur et lui donne le nom d'onglet 
+  XLSX.writeFile(wb, "liste_des_salles.xlsx"); //génère et dl le fichier Excel
+}
+
