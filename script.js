@@ -21,6 +21,7 @@ fetch("data.json")
     populateFilters(data);
     applyFilters(); // affiche les données
     initResizers(); // initialise les redimensionneurs
+    
   });
 
 // 2. Remplir les filtres
@@ -54,6 +55,7 @@ function applyFilters() {
   const selectedCategory = categorySelect.value;
   const selectedBuildings = [...buildingCheckboxes.querySelectorAll("input:checked")].map(cb => cb.value);
 
+
   filteredData = data.filter((item) => {
     const matchName = item.Nom.toLowerCase().includes(searchTerm);
     const matchCategory = !selectedCategory || item.catégorie === selectedCategory;
@@ -63,6 +65,16 @@ function applyFilters() {
 
   renderTable(filteredData);
   updateChart(filteredData);
+  console.log(filteredData.length);
+  if (filteredData.length > 1) {
+    document.querySelector('#btnExportExcel span').textContent = `Exporter les ${filteredData.length} salles vers Excel`;
+  }
+  else {
+    document.querySelector('#btnExportExcel span').textContent = `Exporter vers Excel`;
+  }
+  console.log(filteredData.length);
+  
+  
 }
 
 // 4. Afficher la table
