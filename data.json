@@ -891,6 +891,17 @@
         "Bâtiment": "Minimes (école)"
     },
     {
+        "Code": "SC-Sophie Germain Salle",
+        "Nom": "Salle Sophie Germain",
+        "Capacité": "50",
+        "examen": "",
+        "catégorie": "salle de réunion",
+        "Réservé": "",
+        "observation": "salle de présentation : 200",
+        "Accessibilité": "",
+        "Bâtiment": "G"
+    },
+    {
         "Code": "SC-Salle annexe SG - 10 max",
         "Nom": "Salle annexe SG",
         "Capacité": "10",
