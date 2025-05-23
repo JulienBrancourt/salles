@@ -1,3 +1,23 @@
+:root {
+  color-scheme: light dark;
+  --bg: light-dark(white, #2c2c2c);
+  --text: light-dark(#2c2c2c, #e4e4e4);
+  --primary: light-dark(#2c3e50, #9ec7f7);
+  --secondary: #29c056;
+  --btn-bg: light-dark(#f0f0f0, #1b1b1b);
+  --btn-text: light-dark(#217346, #66ffb2);
+  --btn-hover-bg: light-dark(#1b5e3c, #29c056);
+  --btn-hover-text: light-dark(#f0f0f0, #000);
+  --table-bg: light-dark(white, #1e1e1e);
+  --table-border: light-dark(#ddd, #444);
+  --table-header-bg: light-dark(#2c3e50, #2a2a2a);
+  --table-header-text: light-dark(white, #eaeaea);
+  --table-row-hover: light-dark(#29c056, #2a754a);
+  --hover-row: light-dark(#29c056, #2a754a);
+  --scroll-btn-bg: light-dark(#333333bf, #666666bf);
+  --scroll-btn-hover: light-dark(#2c3e50, #66aaff);
+}
+
 *, ::before, ::after {
   box-sizing: border-box;
   margin: 0;
@@ -11,13 +31,14 @@ html {
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background: #f7f9fc;
-  color: #333;
+  background: var(--bg);
+  color: var(--text);
 }
+
 
 h1 {
   text-align: center;
-  color: #2c3e50;
+  color: var(--primary);
   padding: 15px;
   margin-bottom: 10px;
 }
@@ -59,8 +80,8 @@ legend {
   margin-bottom: 5px;
   padding: 7px;
   font-size: 1rem;
-  background-color: #f0f0f0;
-  color: #217346;
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
   border: 1px solid #ccc;
   cursor: pointer;
   font-weight: bold;
@@ -73,30 +94,30 @@ legend {
 }
 
 #btnExportExcel:hover {
-  background-color: #1b5e3c;
-  color: #f0f0f0;
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background: var(--table-bg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 thead {
-  background: #2c3e50;
-  color: white;
+  background: var(--table-header-bg);
+  color: var(--table-header-text);
 }
 
 th, td {
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--table-border);
   text-align: left;
 }
 
 tbody tr:hover {
-  background-color: #29c056;
+  background-color: var(--table-row-hover);
 }
 
 footer {
@@ -108,7 +129,7 @@ footer {
 }
 
 input {
-  accent-color: #29c056;
+  accent-color: var(--secondary);
 }
 
 .filters button, #submitButton {
@@ -120,7 +141,7 @@ input {
 }
 
 .filters button::after, #submitButton::after {
-  background-color: #2c3e50;
+  background-color: var(--primary);
   content: '';
   display: block;
   height: 110%;
@@ -159,7 +180,7 @@ input {
   width: 50px;
   height: 50px;
   padding-bottom: 5px;
-  background-color: #333333bf;
+  background-color: var(--scroll-btn-bg);
   font-size: 24px;
   text-align: center;
 }
@@ -168,7 +189,7 @@ input {
 #scrollToTopButton:focus,
 #scrollToTopButton:focus-within {
   cursor: pointer;
-  background-color: #2c3e50;
+  background-color: var(--scroll-btn-hover);
   color: white;
 }
 #contact {
