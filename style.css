@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light dark;
+  /* color-scheme: light dark;
   --bg: light-dark(white, #2c2c2c);
   --text: light-dark(#2c2c2c, #e4e4e4);
   --primary: light-dark(#2c3e50, #9ec7f7);
@@ -15,13 +15,81 @@
   --table-row-hover: light-dark(#29c056, #2a754a);
   --hover-row: light-dark(#29c056, #2a754a);
   --scroll-btn-bg: light-dark(#333333bf, #666666bf);
-  --scroll-btn-hover: light-dark(#2c3e50, #66aaff);
+  --scroll-btn-hover: light-dark(#2c3e50, #66aaff); */
+
+  --bg-light: white;
+  --text-light: #2c2c2c;
+  --primary-light: #2c3e50;
+  --btn-bg-light: #f0f0f0;
+  --btn-text-light: #217346;
+  --btn-hover-bg-light: #1b5e3c;
+  --btn-hover-text-light: #f0f0f0;
+  --table-bg-light: white;
+  --table-border-light: #ddd;
+  --table-header-bg-light: #2c3e50;
+  --table-header-text-light: white;
+  --table-row-hover-light: #29c056;
+  --hover-row-light: #29c056;
+  --scroll-btn-bg-light: #333333bf;
+  --scroll-btn-hover-light: #2c3e50;
+
+  --bg-dark: #2c2c2c;
+  --text-dark: #e4e4e4;
+  --primary-dark: #9ec7f7;
+  --btn-bg-dark: #1b1b1b;
+  --btn-text-dark: #66ffb2;
+  --btn-hover-bg-dark: #29c056;
+  --btn-hover-text-dark: #000;
+  --table-bg-dark: #1e1e1e;
+  --table-border-dark: #444;
+  --table-header-bg-dark: #2a2a2a;
+  --table-header-text-dark: #eaeaea;
+  --table-row-hover-dark: #2a754a;
+  --hover-row-dark: #2a754a;
+  --scroll-btn-bg-dark: #666666bf;
+  --scroll-btn-hover-dark: #66aaff;
 }
 
 *, ::before, ::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.light-theme {
+  --bg: var(--bg-light);
+  --text: var(--text-light);
+  --primary: var(--primary-light);
+  --btn-bg: var(--btn-bg-light);
+  --btn-text: var(--btn-text-light);
+  --btn-hover-bg: var(--btn-hover-bg-light);
+  --btn-hover-text: var(--btn-hover-text-light);
+  --table-bg: var(--table-bg-light);
+  --table-border: var(--table-border-light);
+  --table-header-bg: var(--table-header-bg-light);
+  --table-header-text: var(--table-header-text-light);
+  --table-row-hover: var(--table-row-hover-light);
+  --hover-row: var(--hover-row-light);
+  --scroll-btn-bg: var(--scroll-btn-bg-light);
+  --scroll-btn-hover: var(--scroll-btn-hover-light);
+}
+
+.dark-theme {
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+  --primary: var(--primary-dark);
+  --btn-bg: var(--btn-bg-dark);
+  --btn-text: var(--btn-text-dark);
+  --btn-hover-bg: var(--btn-hover-bg-dark);
+  --btn-hover-text: var(--btn-hover-text-dark);
+  --table-bg: var(--table-bg-dark);
+  --table-border: var(--table-border-dark);
+  --table-header-bg: var(--table-header-bg-dark);
+  --table-header-text: var(--table-header-text-dark);
+  --table-row-hover: var(--table-row-hover-dark);
+  --hover-row: var(--hover-row-dark);
+  --scroll-btn-bg: var(--scroll-btn-bg-dark);
+  --scroll-btn-hover: var(--scroll-btn-hover-dark);
 }
 
 html {
@@ -217,6 +285,62 @@ input {
   width: 100%;
   height: auto;
   margin: 15px auto;
+}
+
+.switch {
+  display: inline-block;
+  position: relative;
+  width: 60px;
+  height: 34px;
+  cursor: pointer;
+  overflow: hidden; /*permet de masquer l'inut car on le met hors champs*/
+}
+
+.switch input {
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  width: 0;
+  height: 0;
+}
+
+.switch input + span { /*cible le span qui est le frère immédiat de l'input */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fcd34d;
+  border-radius: 34px;
+}
+
+.switch input:checked + span {
+  background: #4b5563;
+}
+
+.switch input + span::before {
+  content: "🌞";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  /* top: 50%; */
+  top: 4px;
+  background: white;
+  left: 4px;
+  /* bottom: 4px; */
+  width: 26px;
+  height: 26px;
+  font-size: 16px;
+  border-radius: 50%;
+  /* transform: translateY(-50%); */
+  transition: all .4s;
+  line-height: 1;
+}
+
+.switch input:checked + span::before {
+  left: 34px;
+  content: "🌙";
 }
 
 

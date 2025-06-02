@@ -6,12 +6,24 @@ let filteredData = [];
 let mybutton = document.getElementById("scrollToTopButton");
 let chartInstance;
 
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body
+
 const searchInput = document.getElementById("searchInput");
 const categorySelect = document.getElementById("categorySelect");
 const buildingCheckboxes = document.getElementById("buildingCheckboxes");
 const resetButton = document.getElementById("resetButton");
 const table = document.getElementById("dataTable");
 const tableBody = table.querySelector("tbody");
+
+// Gestion du thème dark / light
+themeToggle.addEventListener('change', function () {
+  if (this.checked) {
+    body.classList.replace('light-theme', 'dark-theme')
+  } else {
+    body.classList.replace('dark-theme', 'light-theme')
+  }
+})
 
 // 1. Récupérer les données
 fetch("data.json")
