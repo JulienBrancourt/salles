@@ -339,7 +339,7 @@ input {
 }
 
 .switch input:checked + span::before {
-  left: 34px;
+  left: 30px;
   content: "🌙";
 }
 
