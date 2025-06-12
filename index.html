@@ -10,6 +10,7 @@
   
 </head>
 <body class="light-theme">
+  <div class="progress"></div>
   <header>
     <label class="switch">
       <input type="checkbox" id="themeToggle">
@@ -17,8 +18,8 @@
         
       </span>
     </label>
+    <h1>Liste des Salles</h1>
   </header>
-  <h1>Liste des Salles</h1>
 
   <div class="filters">
     <input type="text" id="searchInput" placeholder="Nom de la salle">
@@ -37,26 +38,29 @@
     <button id="resetButton">Réinitialiser les filtres</button>
   </div>
 
-  <button onclick="exporterEnExcel('dataTable')" id="btnExportExcel">
-    <img src="https://img.icons8.com/color/24/000000/microsoft-excel-2019--v1.png" alt="Excel Icon">
-    <span>Exporter vers Excel</span>
-  </button>
-
-  <table id="dataTable">
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Capacité</th>
-        <th>Examen</th>
-        <th>Catégorie</th>
-        <th>Réservé</th>
-        <th>Bâtiment</th>
-        <th>Accessibilité</th>
-        <th>Observation</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <div class="table-container">
+    <button onclick="exporterEnExcel('dataTable')" id="btnExportExcel">
+      <img src="https://img.icons8.com/color/24/000000/microsoft-excel-2019--v1.png" alt="Excel Icon">
+      <span>Exporter vers Excel</span>
+    </button>
+  
+    <table id="dataTable">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Capacité</th>
+          <th>Examen</th>
+          <th>Catégorie</th>
+          <th>Réservé</th>
+          <th>Bâtiment</th>
+          <th>Accessibilité</th>
+          <th>Observation</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
 
   <canvas id="capacityChart"></canvas>
 
