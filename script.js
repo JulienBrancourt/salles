@@ -16,14 +16,26 @@ const resetButton = document.getElementById("resetButton");
 const table = document.getElementById("dataTable");
 const tableBody = table.querySelector("tbody");
 
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  body.classList.remove('light-theme', 'dark-theme'); //supprime les  deux classes si un thème est dans le local strorage pour mettre le thème engeregistré
+  body.classList.add(savedTheme);
+  themeToggle.checked = savedTheme === 'dark-theme';
+}
+
+
 // Gestion du thème dark / light
 themeToggle.addEventListener('change', function () {
   if (this.checked) {
-    body.classList.replace('light-theme', 'dark-theme')
+    body.classList.replace('light-theme', 'dark-theme');
+    localStorage.setItem('theme', 'dark-theme');
   } else {
-    body.classList.replace('dark-theme', 'light-theme')
+    body.classList.replace('dark-theme', 'light-theme');
+    localStorage.setItem('theme', 'light-theme');
   }
-})
+});
+
 
 // 1. Récupérer les données
 fetch("data.json")

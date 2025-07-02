@@ -114,6 +114,13 @@ h1 {
   }
 }
 
+/* bloque l'affichage de la barre de progression car animation-timeline non pris en charge sur firefox actuellement  */
+@-moz-document url-prefix() {
+  .progress {
+    display: none !important;
+  }
+}
+
 .filters {
   width: 95%;
   display: flex;
@@ -303,7 +310,7 @@ input {
   width: 60px;
   height: 34px;
   cursor: pointer;
-  overflow: hidden; /*permet de masquer l'inut car on le met hors champs*/
+  overflow: hidden; /*permet de masquer l'input car on le met hors champs*/
 }
 
 .switch input {
@@ -334,16 +341,13 @@ input {
   align-items: center;
   justify-content: center;
   position: absolute;
-  /* top: 50%; */
   top: 4px;
   background: white;
   left: 4px;
-  /* bottom: 4px; */
   width: 26px;
   height: 26px;
   font-size: 16px;
   border-radius: 50%;
-  /* transform: translateY(-50%); */
   transition: all .4s;
   line-height: 1;
 }
