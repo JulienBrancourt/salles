@@ -539,9 +539,9 @@
         "Bâtiment": "H"
     },
     {
-        "Code": "SC-H23 - 56 max",
+        "Code": "SC-H23 - 64 max",
         "Nom": "H23",
-        "Capacité": "56",
+        "Capacité": "64",
         "examen": "28",
         "catégorie": "salle banalisée",
         "Réservé": "",
