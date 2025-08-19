@@ -1,18 +1,4 @@
-@view-transition {
-  navigation: auto;
-}
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: fade 0.3s ease both;
-}
-
-@keyframes fade {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-
-/*  
 /* Active la transition automatique lors de la navigation */
 @view-transition {
   navigation: auto;
@@ -51,7 +37,7 @@
     transform: scale(0.98) translateY(-10px);
   }
 }
-*/
+
 
 :root {
   --bg-light: white;
@@ -108,7 +94,7 @@
   --table-row-hover: var(--table-row-hover-light);
   --hover-row: var(--hover-row-light);
   --scroll-btn-bg: var(--scroll-btn-bg-light);
-  --scroll-btn-hover: var(--scroll-btn-hover-light);
+  --scroll-btn-hover: var(--scroll-btn-hover-light); 
 }
 
 .dark-theme {
@@ -145,6 +131,8 @@ header {
   width: 95%;
   margin: auto;
   padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
 h1 {
@@ -415,6 +403,10 @@ input {
 #dataTableAnnuaire {
   width: 75%;
   margin: 0 auto;
+}
+
+a {
+  color: var(--text);
 }
 
 
