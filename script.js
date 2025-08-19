@@ -18,6 +18,7 @@ const tableBody = table.querySelector("tbody");
 
 
 const savedTheme = localStorage.getItem('theme');
+
 if (savedTheme) {
   body.classList.remove('light-theme', 'dark-theme'); //supprime les  deux classes si un thème est dans le local strorage pour mettre le thème engeregistré
   body.classList.add(savedTheme);

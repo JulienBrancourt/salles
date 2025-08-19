@@ -1,3 +1,43 @@
+/* Active la transition automatique lors de la navigation */
+@view-transition {
+  navigation: auto;
+}
+
+/* Élément sortant : fondu + léger zoom arrière */
+::view-transition-old(root) {
+  animation: fade-out-zoom 0.4s ease-in-out both;
+}
+
+/* Élément entrant : fondu + léger zoom avant */
+::view-transition-new(root) {
+  animation: fade-in-zoom 0.4s ease-in-out both;
+}
+
+/* Animation pour l'entrée : fondu + zoom avant */
+@keyframes fade-in-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Animation pour la sortie : fondu + zoom arrière */
+@keyframes fade-out-zoom {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98) translateY(-10px);
+  }
+}
+
+
 :root {
   --bg-light: white;
   --text-light: #2c2c2c;
@@ -355,6 +395,11 @@ input {
 .switch input:checked + span::before {
   left: 30px;
   content: "🌙";
+}
+
+#dataTableAnnuaire {
+  width: 75%;
+  margin: 0 auto;
 }
 
 

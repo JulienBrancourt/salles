@@ -1,0 +1,45 @@
+[
+    {
+        "Prenom" : "",
+        "Nom" : "",
+        "Tel" : "",
+        "Mail" : ""
+    },
+    {
+        "Prenom" : "Hinda",
+        "Nom" : "N'Siri",
+        "Tel" : "7617",
+        "Mail" : "hinda.nsiri@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Natacha",
+        "Nom" : "Abraham",
+        "Tel" : "7614",
+        "Mail" : "natacha.abraham@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Maryanne",
+        "Nom" : "Cornet",
+        "Tel" : "7503",
+        "Mail" : "maryanne.cornet@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Marine",
+        "Nom" : "Lajara",
+        "Tel" : "7551",
+        "Mail" : "marine.lajara@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Véronique",
+        "Nom" : "Fetre",
+        "Tel" : "7518",
+        "Mail" : "veronique.fetre@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Centre d'assistance",
+        "Nom" : "",
+        "Tel" : "5929",
+        "Mail" : ""
+    }
+
+]
