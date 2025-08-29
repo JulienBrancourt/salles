@@ -52,6 +52,12 @@
         "Nom" : "Alavoine (salles PUC Cathédrale)",
         "Tel" : "",
         "Mail" : "floriane.alavoine@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Nicolas",
+        "Nom" : "Neveux",
+        "Tel" : "0643268553",
+        "Mail" : "nicolas.neveux@u-picardie.fr "
     }
 
 ]

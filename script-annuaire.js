@@ -6,6 +6,7 @@ const themeToggle = document.getElementById('themeToggle');
 const body = document.body
 const savedTheme = localStorage.getItem('theme');
 
+
 if (savedTheme) {
   body.classList.remove('light-theme', 'dark-theme'); //supprime les  deux classes si un thème est dans le local strorage pour mettre le thème engeregistré
   body.classList.add(savedTheme);
@@ -39,9 +40,20 @@ function renderTable(rows) {
     tr.innerHTML = `
       <td data-name="Prénom">${row.Prenom}</td>
       <td data-name="Nom">${row.Nom}</td>
-      <td data-name="Tel">${row.Tel.slice(0,2)} ${row.Tel.slice(2)}</td>
+      <td data-name="Tel">${
+      (() => {
+        let tel = row.Tel;
+        let parts = [];
+        for (let i = 0; i < tel.length; i += 2) {
+          parts.push(tel.slice(i, i + 2));
+        }
+        return parts.join(" ");
+      })()
+    }</td>
+
       <td data-name="Mail"><a href="mailto:${row.Mail}">${row.Mail}</a></td>
     `;
     tableBody.appendChild(tr);
   });
 }
+
