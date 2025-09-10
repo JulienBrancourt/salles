@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier Scolaire 2025-2026</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script-calendrier.js" defer></script>
+    <!-- <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .calendar-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .month-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            width: 800px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .month-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .week-number {
+            font-weight: bold;
+            background-color: #f9f9f9;
+        }
+
+        .weekend {
+            background-color: #ffebee;
+        }
+
+        .today {
+            background-color: #e3f2fd;
+            font-weight: bold;
+        }
+    </style> -->
+</head>
+<body>
+    <header>
+        <label class="switch">
+      <input type="checkbox" id="themeToggle">
+      <span>
+        
+      </span>
+    </label>
+    <a href="index.html">Liste des salles</a>
+    <a href="annuaire.html">Annuaire</a>
+    </header>
+
+    <h1>Calendrier Scolaire 2025-2026</h1>
+    <div class="calendar-container" id="calendar"></div>
+
+    <script>
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const months = [
+        //         { name: "Septembre", year: 2025, monthIndex: 8 },
+        //         { name: "Octobre", year: 2025, monthIndex: 9 },
+        //         { name: "Novembre", year: 2025, monthIndex: 10 },
+        //         { name: "Décembre", year: 2025, monthIndex: 11 },
+        //         { name: "Janvier", year: 2026, monthIndex: 0 },
+        //         { name: "Février", year: 2026, monthIndex: 1 },
+        //         { name: "Mars", year: 2026, monthIndex: 2 },
+        //         { name: "Avril", year: 2026, monthIndex: 3 },
+        //         { name: "Mai", year: 2026, monthIndex: 4 },
+        //         { name: "Juin", year: 2026, monthIndex: 5 },
+        //         { name: "Juillet", year: 2026, monthIndex: 6 },
+        //         { name: "Août", year: 2026, monthIndex: 7 }
+        //     ];
+
+        //     const calendarContainer = document.getElementById('calendar');
+        //     const today = new Date();
+
+        //     // Générer le calendrier pour chaque mois de l'année scolaire
+        //     months.forEach(month => {
+        //         const monthCard = document.createElement('div');
+        //         monthCard.className = 'month-card';
+
+        //         const monthTitle = document.createElement('div');
+        //         monthTitle.className = 'month-title';
+        //         monthTitle.textContent = `${month.name} ${month.year}`;
+        //         monthCard.appendChild(monthTitle);
+
+        //         const table = document.createElement('table');
+
+        //         // En-tête du tableau (numéro de semaine + jours)
+        //         const thead = document.createElement('thead');
+        //         const headerRow = document.createElement('tr');
+
+        //         const weekNumberHeader = document.createElement('th');
+        //         weekNumberHeader.textContent = "Semaine";
+        //         headerRow.appendChild(weekNumberHeader);
+
+        //         const daysOfWeek = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+        //         daysOfWeek.forEach(day => {
+        //             const th = document.createElement('th');
+        //             th.textContent = day;
+        //             headerRow.appendChild(th);
+        //         });
+
+        //         thead.appendChild(headerRow);
+        //         table.appendChild(thead);
+
+        //         // Corps du tableau
+        //         const tbody = document.createElement('tbody');
+
+        //         // Calculer le premier jour du mois
+        //         const firstDay = new Date(month.year, month.monthIndex, 1);
+        //         const lastDay = new Date(month.year, month.monthIndex + 1, 0);
+
+        //         let currentWeek = new Date(firstDay);
+        //         currentWeek.setDate(currentWeek.getDate() - currentWeek.getDay() + 1);
+
+        //         // Générer les lignes du calendrier
+        //         while (currentWeek <= lastDay) {
+        //             const weekRow = document.createElement('tr');
+
+        //             // Numéro de la semaine
+        //             const weekNumberCell = document.createElement('td');
+        //             weekNumberCell.className = 'week-number';
+        //             const weekNumber = getWeekNumber(currentWeek);
+        //             weekNumberCell.textContent = weekNumber;
+        //             weekRow.appendChild(weekNumberCell);
+
+        //             // Jours de la semaine
+        //             for (let day = 0; day < 7; day++) {
+        //                 const dayCell = document.createElement('td');
+        //                 const currentDay = new Date(currentWeek);
+        //                 currentDay.setDate(currentWeek.getDate() + day);
+
+        //                 if (currentDay.getMonth() === month.monthIndex) {
+        //                     dayCell.textContent = currentDay.getDate();
+
+        //                     // Mettre en évidence le week-end
+        //                     if (day === 5 || day === 6) {
+        //                         dayCell.classList.add('weekend');
+        //                     }
+
+        //                     // Mettre en évidence le jour actuel (si applicable)
+        //                     if (currentDay.toDateString() === today.toDateString()) {
+        //                         dayCell.classList.add('today');
+        //                     }
+        //                 }
+
+        //                 weekRow.appendChild(dayCell);
+        //             }
+
+        //             tbody.appendChild(weekRow);
+        //             currentWeek.setDate(currentWeek.getDate() + 7);
+        //         }
+
+        //         table.appendChild(tbody);
+        //         monthCard.appendChild(table);
+        //         calendarContainer.appendChild(monthCard);
+        //     });
+        // });
+
+        // // Fonction pour obtenir le numéro de la semaine (ISO)
+        // function getWeekNumber(date) {
+        //     const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+        //     const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
+        //     return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+        // }
+    </script>
+</body>
+</html>
