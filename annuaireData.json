@@ -58,6 +58,12 @@
         "Nom" : "Neveux",
         "Tel" : "0643268553",
         "Mail" : "nicolas.neveux@u-picardie.fr "
+    },
+    {
+        "Prenom" : "Frédérique",
+        "Nom" : "Poitte",
+        "Tel" : "7989",
+        "Mail" : ""
     }
 
 ]
