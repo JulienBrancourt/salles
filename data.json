@@ -836,9 +836,9 @@
         "Bâtiment": "A"
     },
     {
-        "Code": "SC-Salle 02 - 24 max",
+        "Code": "SC-Salle 02 - 28 max",
         "Nom": "Salle 02",
-        "Capacité": "24",
+        "Capacité": "28",
         "examen": "",
         "catégorie": "salle banalisée",
         "Réservé": "",
