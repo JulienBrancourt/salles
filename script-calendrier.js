@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // Calculer le premier jour du mois
                 const firstDay = new Date(month.year, month.monthIndex, 1);
-                const lastDay = new Date(month.year, month.monthIndex + 1, 0);
+                const lastDay = new Date(month.year, month.monthIndex + 1, 0); //astuce pour dernier jour du mois !
 
                 let currentWeek = new Date(firstDay);
                 currentWeek.setDate(currentWeek.getDate() - currentWeek.getDay() + 1);

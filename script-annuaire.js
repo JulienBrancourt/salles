@@ -27,7 +27,7 @@ fetch("annuaireData.json")
     .then((res) => res.json())
     .then((json) => {
         data = json
-            .slice(1)
+            .slice(1) //penser à ne pas utiliser l'index 0 qui sert de modèle
             .sort((a, b) => a.Prenom.localeCompare(b.Prenom));
         console.table(data)
         renderTable(data)
