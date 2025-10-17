@@ -155,7 +155,10 @@ h1, #siteSelect {
   background-color: transparent;
   padding: 15px 0;
   border: none;
+}
 
+#siteSelect option:hover {
+  color: #000;
 }
 .progress {
   position: fixed;
