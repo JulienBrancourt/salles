@@ -25,6 +25,22 @@ if (savedTheme) {
   themeToggle.checked = savedTheme === 'dark-theme';
 }
 
+// Selection du le site
+const siteSelect = document.getElementById("siteSelect");
+
+// Charge le choix du site depuis le localStorage
+const savedSite = localStorage.getItem('selectedSite');
+if (savedSite) {
+  siteSelect.value = savedSite;
+}
+
+// Écouteur pour sauvegarder le choix du site
+siteSelect.addEventListener("change", function() {
+  localStorage.setItem('selectedSite', this.value);
+  applyFilters();
+});
+
+
 
 // Gestion du thème dark / light
 themeToggle.addEventListener('change', function () {
@@ -81,12 +97,15 @@ function applyFilters() {
   const selectedBuildings = [...buildingCheckboxes.querySelectorAll("input:checked")].map(cb => cb.value);
 
 
+  const selectedSite = siteSelect.value;
   filteredData = data.filter((item) => {
     const matchName = item.Nom.toLowerCase().includes(searchTerm);
     const matchCategory = !selectedCategory || item.catégorie === selectedCategory;
     const matchBuilding = selectedBuildings.length === 0 || selectedBuildings.includes(item.Bâtiment);
-    return matchName && matchCategory && matchBuilding;
+    const matchSite = !selectedSite || item.Code.startsWith(selectedSite);
+    return matchName && matchCategory && matchBuilding && matchSite;
   });
+
 
   renderTable(filteredData);
   updateChart(filteredData);
@@ -130,6 +149,7 @@ resetButton.addEventListener("click", () => {
   categorySelect.value = "";
   buildingCheckboxes.querySelectorAll("input").forEach((cb) => (cb.checked = false));
   applyFilters();
+
 });
 
 // 6. Redimensionnement des colonnes

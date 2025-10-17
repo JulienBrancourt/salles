@@ -143,13 +143,20 @@ header {
   justify-content: space-between;
 }
 
-h1 {
+h1, #siteSelect {
+  font-size: 2rem;
   text-align: center;
   color: var(--primary);
   padding: 15px;
   margin-bottom: 10px;
 }
 
+#siteSelect {
+  background-color: transparent;
+  padding: 15px 0;
+  border: none;
+
+}
 .progress {
   position: fixed;
   width: 0;
