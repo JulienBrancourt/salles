@@ -28,17 +28,19 @@ if (savedTheme) {
 // Selection du le site
 const siteSelect = document.getElementById("siteSelect");
 
-// Charge le choix du site depuis le localStorage
-const savedSite = localStorage.getItem('selectedSite');
-if (savedSite) {
-  siteSelect.value = savedSite;
-}
+// // Charge le choix du site depuis le localStorage
+// const savedSite = localStorage.getItem('selectedSite') || "";
+// populateFilters(data, savedSite);
+// applyFilters();
+
 
 // Écouteur pour sauvegarder le choix du site
 siteSelect.addEventListener("change", function() {
   localStorage.setItem('selectedSite', this.value);
-  applyFilters();
+  populateFilters(data, this.value); // Met à jour les filtres disponibles
+  applyFilters(); // Applique les filtres
 });
+
 
 
 
@@ -59,27 +61,38 @@ fetch("data.json")
   .then((res) => res.json())
   .then((json) => {
     data = json;
-    populateFilters(data);
-    applyFilters(); // affiche les données
+    const savedSite = localStorage.getItem('selectedSite') || "";
+    siteSelect.value = savedSite; // Met à jour la valeur affichée dans la liste déroulante
+    populateFilters(data, savedSite);
+    applyFilters();
     initResizers(); // initialise les redimensionneurs
     
   });
 
 // 2. Remplir les filtres
-function populateFilters(data) {
-  const categories = [...new Set(data.map((item) => item.catégorie).filter(Boolean))].sort();
-  const buildings = [...new Set(data.map((item) => item.Bâtiment).filter(Boolean))].sort();
+function populateFilters(data, selectedSite = "") {
+  // Filtrer les données selon le site sélectionné
+  let filteredBySite = data;
+  if (selectedSite) {
+    filteredBySite = data.filter(item => item.Code.startsWith(selectedSite));
+  }
 
-  // Catégories
-  categories.forEach((cat) => {
+  // Extraire les catégories et bâtiments uniques pour le site sélectionné
+  const categories = [...new Set(filteredBySite.map(item => item.catégorie).filter(Boolean))].sort();
+  const buildings = [...new Set(filteredBySite.map(item => item.Bâtiment).filter(Boolean))].sort();
+
+  // Mettre à jour les options de catégorie
+  categorySelect.innerHTML = '<option value="">Toutes les catégories</option>';
+  categories.forEach(cat => {
     const option = document.createElement("option");
     option.value = cat;
     option.textContent = cat;
     categorySelect.appendChild(option);
   });
 
-  // Bâtiments
-  buildings.forEach((b) => {
+  // Mettre à jour les checkboxes des bâtiments
+  buildingCheckboxes.innerHTML = '';
+  buildings.forEach(b => {
     const label = document.createElement("label");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -89,6 +102,7 @@ function populateFilters(data) {
     buildingCheckboxes.appendChild(label);
   });
 }
+
 
 // 3. Appliquer les filtres
 function applyFilters() {
