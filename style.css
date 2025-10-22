@@ -135,13 +135,108 @@ body {
   color: var(--text);
 }
 
-app-header nav{
-  width: 95%;
-  margin: auto;
-  padding-top: 5px;
+/* ===== Header (app-header) ===== */
+app-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--primary);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+app-header nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+app-header a {
+  color: var(--btn-hover-text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+app-header a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--btn-text);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+app-header a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+app-header a:hover {
+  color: var(--btn-hover-text);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Style pour le switch de thème dans le header */
+app-header .switch {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/* Animation pour le header au scroll */
+@keyframes headerShadow {
+  from { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+  to { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
+}
+
+body:not(.scrolled-down) app-header {
+  animation: headerShadow 0.3s ease forwards;
+}
+
+/* Adaptation pour le thème dark */
+.dark-theme app-header {
+  background-color: var(--primary-dark);
+}
+
+.dark-theme app-header a {
+  color: var(--btn-hover-text);
+}
+
+.dark-theme app-header a:hover {
+  color: var(--btn-hover-text-dark);
+}
+
+/* Responsive : version mobile */
+@media (max-width: 768px) {
+  app-header {
+    padding: 0.8rem 1rem;
+  }
+
+  app-header nav {
+    gap: 1rem;
+  }
+
+  app-header a {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
 
 h1, #siteSelect {
   font-size: 2rem;
