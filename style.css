@@ -140,7 +140,6 @@ app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
   background-color: var(--primary);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -228,7 +227,7 @@ app-header .progress {
   left: 0;
   width: 0;
   height: 4px;
-  background-color: var(--btn-text);
+  background-color: var(--week-end-text-light);
   z-index: 101; /* Au-dessus du header */
   transition: width 0.3s ease;
   animation: grow linear forwards;
@@ -249,11 +248,6 @@ app-header .progress {
   }
 }
 
-/* Espacement pour éviter que le contenu soit caché sous la barre */
-body {
-  margin-top: 4px; /* Hauteur de la barre de progression */
-}
-
 /* Style du header avec la barre de progression */
 app-header nav {
   width: 100%;
@@ -264,8 +258,7 @@ app-header nav {
   background-color: var(--primary);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
-  /* top: 4px; Positionnée sous la barre de progression */
-  z-index: 100;
+  /* z-index: 100; */
 }
 
 
@@ -303,27 +296,6 @@ h1, #siteSelect {
 #siteSelect option:hover {
   color: #000;
 }
-/* .progress {
-  position: fixed;
-  width: 0;
-  height: 8px;
-  animation: grow linear forwards;
-  animation-timeline: scroll();
-  background-color: var(--btn-text);
-} */
-
-/* @keyframes grow {
-  to {
-    width: 100%;
-  }
-} */
-
-/* bloque l'affichage de la barre de progression car animation-timeline non pris en charge sur firefox actuellement  */
-/* @-moz-document url-prefix() {
-  .progress {
-    display: none !important;
-  }
-} */
 
 .filters {
   width: 95%;
@@ -582,7 +554,7 @@ a {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
-    width: 800px;
+    width: 700px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -651,11 +623,11 @@ a {
   }
   table tbody tr {
     position: relative;
-    /* width: calc(50% - 8px); */
+
     width: 90%;
     border: 1px solid #E7E7E7;
     padding: 8px;
-    /* margin: 4px; */
+
     margin: 5px auto;
   }
   tbody tr:hover {
