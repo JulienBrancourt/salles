@@ -135,7 +135,7 @@ body {
   color: var(--text);
 }
 
-header {
+app-header nav{
   width: 95%;
   margin: auto;
   padding-top: 5px;

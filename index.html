@@ -6,23 +6,26 @@
   <title>Liste des Salles</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon-32x32.png">
+  <script src="header-component.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script> <!-- librairie pour le graphique -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script> <!--librairie pour l'export vers Excel -->
   <script src="script.js"defer></script>
   
 </head>
 <body class="light-theme">
-  <div class="progress"></div>
-  <header>
+  <!-- <header>
+    <div class="progress"></div>
     <label class="switch">
       <input type="checkbox" id="themeToggle">
       <span>
         
       </span>
     </label>
+    <a href="index.html">Liste des salles</a>
     <a href="annuaire.html">Annuaire</a>
     <a href="calendrier.html">Calendrier</a>
-  </header>
+  </header> -->
+  <app-header></app-header>
 
   <h1>Liste des Salles :
     <select id="siteSelect">
