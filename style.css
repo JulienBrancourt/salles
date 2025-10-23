@@ -560,15 +560,11 @@ a {
 }
 
 @media (max-width: 768px) {
-  app-header {
+  /* app-header {
     padding: 0.8rem 1rem;
-  }
-  app-header nav {
-    gap: 1rem;
-  }
+  } */
   app-header a {
     font-size: 1rem;
-    padding: 0.4rem 0.8rem;
   }
   app-header .nav-links {
   display: flex;
@@ -618,6 +614,10 @@ a {
   #contact input, #contact textarea, #contact button {
     margin-top: 10px;
     padding: 10px;
+  }
+
+  .calendar-container {
+    width: 90%;
   }
 }
 
