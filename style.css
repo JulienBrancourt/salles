@@ -1,44 +1,4 @@
-
-/* Active la transition automatique lors de la navigation */
-@view-transition {
-  navigation: auto;
-}
-
-/* Élément sortant : fondu + léger zoom arrière */
-::view-transition-old(root) {
-  animation: fade-out-zoom 0.4s ease-in-out both;
-}
-
-/* Élément entrant : fondu + léger zoom avant */
-::view-transition-new(root) {
-  animation: fade-in-zoom 0.4s ease-in-out both;
-}
-
-/* Animation pour l'entrée : fondu + zoom avant */
-@keyframes fade-in-zoom {
-  from {
-    opacity: 0;
-    transform: scale(0.98) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* Animation pour la sortie : fondu + zoom arrière */
-@keyframes fade-out-zoom {
-  from {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.98) translateY(-10px);
-  }
-}
-
-
+/* ===== Variables & Thèmes ===== */
 :root {
   --bg-light: white;
   --text-light: #2c2c2c;
@@ -57,7 +17,6 @@
   --scroll-btn-hover-light: #2c3e50;
   --week-end-text-light: #D32F2F;
   --week-end-bg-light: #FFCDD2;
-
   --bg-dark: #2c2c2c;
   --text-dark: #e4e4e4;
   --primary-dark: #9ec7f7;
@@ -75,12 +34,6 @@
   --scroll-btn-hover-dark: #66aaff;
   --week-end-text-dark: #EF9A9A;
   --week-end-bg-dark: #7F1D1D;
-}
-
-*, ::before, ::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 .light-theme {
@@ -123,6 +76,13 @@
   --week-end-bg: var(--week-end-bg-dark);
 }
 
+/* ===== Reset & Base ===== */
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-scroll-behavior: smooth;
@@ -130,12 +90,64 @@ html {
 
 body {
   font-family: Arial, sans-serif;
-
   background: var(--bg);
   color: var(--text);
 }
 
-/* ===== Header (app-header) ===== */
+/* ===== Animations ===== */
+/* Active la transition automatique lors de la navigation */
+@view-transition {
+  navigation: auto;
+}
+
+/* Élément sortant : fondu + léger zoom arrière */
+::view-transition-old(root) {
+  animation: fade-out-zoom 0.4s ease-in-out both;
+}
+
+/* Élément entrant : fondu + léger zoom avant */
+::view-transition-new(root) {
+  animation: fade-in-zoom 0.4s ease-in-out both;
+}
+
+/* Animation pour l'entrée : fondu + zoom avant */
+@keyframes fade-in-zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Animation pour la sortie : fondu + zoom arrière */
+@keyframes fade-out-zoom {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98) translateY(-10px);
+  }
+}
+
+/* Animation pour le header au scroll */
+@keyframes headerShadow {
+  from { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+  to { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
+}
+
+/* Animation de la barre de progression */
+@keyframes grow {
+  to {
+    width: 100%;
+  }
+}
+
+/* ===== Header ===== */
 app-header {
   display: flex;
   justify-content: space-between;
@@ -154,6 +166,7 @@ app-header nav {
   gap: 2rem;
   width: 100%;
   justify-content: space-between;
+  padding: 1rem 2rem;
 }
 
 app-header a {
@@ -197,30 +210,16 @@ app-header .switch {
   margin-right: 1rem;
 }
 
-/* Animation pour le header au scroll */
-@keyframes headerShadow {
-  from { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-  to { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
-}
-
-body:not(.scrolled-down) app-header {
-  animation: headerShadow 0.3s ease forwards;
-}
-
-/* Adaptation pour le thème dark */
-.dark-theme app-header {
-  background-color: var(--primary-dark);
-}
-
 .dark-theme app-header a {
   color: var(--btn-hover-text);
 }
 
 .dark-theme app-header a:hover {
   color: var(--btn-hover-text-dark);
+  background-color: color-mix(in srgb, #9ec7f7 90%, rgb(51, 18, 70) 10%);
 }
 
-/* Barre de progression (intégrée au header) */
+/* Barre de progression */
 app-header .progress {
   position: fixed;
   top: 0;
@@ -228,57 +227,20 @@ app-header .progress {
   width: 0;
   height: 4px;
   background-color: var(--week-end-text-light);
-  z-index: 101; /* Au-dessus du header */
+  z-index: 101;
   transition: width 0.3s ease;
   animation: grow linear forwards;
   animation-timeline: scroll();
 }
 
-/* Adaptation pour Firefox (masquage si non supporté) */
+/* Adaptation pour Firefox */
 @-moz-document url-prefix() {
   app-header .progress {
     display: none !important;
   }
 }
 
-/* Animation de la barre de progression */
-@keyframes grow {
-  to {
-    width: 100%;
-  }
-}
-
-/* Style du header avec la barre de progression */
-app-header nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: var(--primary);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  /* z-index: 100; */
-}
-
-
-/* Responsive : version mobile */
-@media (max-width: 768px) {
-  app-header {
-    padding: 0.8rem 1rem;
-  }
-
-  app-header nav {
-    gap: 1rem;
-  }
-
-  app-header a {
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
-  }
-}
-
-
+/* ===== Layout & Composants ===== */
 h1, #siteSelect {
   font-size: 2rem;
   text-align: center;
@@ -291,10 +253,6 @@ h1, #siteSelect {
   background-color: transparent;
   padding: 15px 0;
   border: none;
-}
-
-#siteSelect option:hover {
-  color: #000;
 }
 
 .filters {
@@ -319,8 +277,8 @@ h1, #siteSelect {
 }
 
 legend {
-    margin: auto;
-    padding: 0 15px;
+  margin: auto;
+  padding: 0 15px;
 }
 
 #buildingCheckboxes label {
@@ -382,20 +340,21 @@ tbody tr:hover {
 }
 
 footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 15px;
-    font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  font-size: 10px;
 }
 
 input {
   accent-color: var(--secondary);
 }
 
+/* ===== Boutons & Interactions ===== */
 .filters button, #submitButton {
   position: relative;
-  overflow: hidden; /*empêche le after de dépasser visuellement*/
+  overflow: hidden;
   z-index: 0;
   letter-spacing: 1px;
   cursor: pointer;
@@ -410,14 +369,14 @@ input {
   position: absolute;
   left: 0;
   top: 0;
-  transform: translate(-100%,0) rotate(10deg); /*fais démarrer le after hors du bouton avec une petite rotation*/
-  transform-origin: top left; /*la transformation se fait à partir du coin haut gauche*/
+  transform: translate(-100%,0) rotate(10deg);
+  transform-origin: top left;
   transition: 0.2s transform ease-out;
-  z-index: -1; /*after sous le bouton pour ne pas le masquer*/
+  z-index: -1;
 }
 
 .filters button:hover::after, #submitButton:hover::after {
-  transform: translate(0,0); /*after glisse depuis la gauche jusqu'à recouvrir le bouton grâce à transition*/
+  transform: translate(0,0);
 }
 
 .filters button:hover, #submitButton:hover {
@@ -453,40 +412,15 @@ input {
   background-color: var(--scroll-btn-hover);
   color: white;
 }
-#contact {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  width: 400px;
-  margin: auto;
 
-  & h2 {
-    margin-top: 20px;
-  }
-
-  & input, & textarea, & button {
-    margin-top: 15px;
-    padding: 10px;
-
-  }
-}
-
-#capacityChart {
-  max-width: 80%;
-  max-height: 800px;
-  width: 100%;
-  height: auto;
-  margin: 15px auto;
-}
-
+/* ===== Switch Thème ===== */
 .switch {
   display: inline-block;
   position: relative;
   width: 60px;
   height: 34px;
   cursor: pointer;
-  overflow: hidden; /*permet de masquer l'input car on le met hors champs*/
+  overflow: hidden;
 }
 
 .switch input {
@@ -497,7 +431,7 @@ input {
   height: 0;
 }
 
-.switch input + span { /*cible le span qui est le frère immédiat de l'input */
+.switch input + span {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -533,36 +467,27 @@ input {
   content: "🌙";
 }
 
-#dataTableAnnuaire {
-  width: 75%;
-  margin: 0 auto;
-}
-
-a {
-  color: var(--text);
-}
-
-/* calendrier*/
+/* ===== Calendrier ===== */
 .calendar-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
 
 .month-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    width: 700px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  width: 700px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .month-title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.2em;
-    margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
 .calendar-container table {
@@ -581,7 +506,7 @@ a {
 }
 
 .weekend {
-    background-color: var(--week-end-bg);
+  background-color: var(--week-end-bg);
   color: var(--week-end-text);
 }
 
@@ -590,67 +515,98 @@ a {
   font-weight: bold;
 }
 
-
-
-@media ( max-width: 800px ) { 
-  table thead {
-    display: none;
-  }
-  table tbody {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 4px;
-  }
-  table tbody tr, table tbody td {
-    display: block;
-    border: 0;
-  }
-  table tbody td {
-    padding: 4px;
-    font-weight: bold;
-  }
-  table tbody td:before {
-  content: attr(data-name);
-  width: 100px;
-  display: inline-block;
-  text-transform: capitalize;
-  font-weight: normal;
-  }
-  table tbody td.status {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-  }
-  table tbody tr {
-    position: relative;
-
-    width: 90%;
-    border: 1px solid #E7E7E7;
-    padding: 8px;
-
-    margin: 5px auto;
-  }
-  tbody tr:hover {
-  background-color: transparent;
-}
-
-  #contact {
+/* ===== Contact ===== */
+#contact {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  width: 90%;
+  width: 400px;
   margin: auto;
+}
 
-  & h2 {
-    font-size: 18px;
+#contact h2 {
+  margin-top: 20px;
+}
+
+#contact input, #contact textarea, #contact button {
+  margin-top: 15px;
+  padding: 10px;
+}
+
+#dataTableAnnuaire {
+  width: 75%;
+  margin: 0 auto;
+}
+
+a {
+  color: var(--text);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 350px) {
+  app-header {
+    padding: 0;
+    font-size: 0.8rem;
   }
-
-  & input, & textarea, & button {
-    margin-top: 10px;
-    padding: 10px;
-
+    app-header nav {
+    margin: 0;
+    padding: 0;
   }
 }
 
+@media (max-width: 768px) {
+  app-header {
+    padding: 0.8rem 1rem;
+  }
+  app-header nav {
+    gap: 1rem;
+  }
+  app-header a {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 800px) {
+  table thead {
+    display: none;
+  }
+  table tbody {
+    display: block;
+  }
+  table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    padding: 6px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  table tbody td {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    width: clamp(300px, 40%, 700px);
+    text-align: left;
+    font-weight: bold;
+    border: none;
+    margin: 0 auto 4px;
+  }
+  table tbody td::before {
+    content: attr(data-name);
+    font-weight: normal;
+    text-transform: capitalize;
+  }
+  tbody tr:hover {
+    background-color: transparent;
+  }
+  #contact {
+    width: 90%;
+  }
+  #contact h2 {
+    font-size: 18px;
+  }
+  #contact input, #contact textarea, #contact button {
+    margin-top: 10px;
+    padding: 10px;
+  }
 }
