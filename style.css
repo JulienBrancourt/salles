@@ -549,9 +549,13 @@ a {
     padding: 0;
     font-size: 0.8rem;
   }
-    app-header nav {
+  app-header nav {
     margin: 0;
     padding: 0;
+  }
+  app-header .nav-links {
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -566,23 +570,28 @@ a {
     font-size: 1rem;
     padding: 0.4rem 0.8rem;
   }
+  app-header .nav-links {
+  display: flex;
+  flex-direction: column;
+  }
 }
 
 @media (max-width: 800px) {
-  table thead {
+  /* Responsive uniquement pour les tableaux avec la classe .responsive-table */
+  table.responsive-table thead {
     display: none;
   }
-  table tbody {
+  table.responsive-table tbody {
     display: block;
   }
-  table tbody tr {
+  table.responsive-table tbody tr {
     display: grid;
     grid-template-columns: 1fr;
     width: 100%;
     padding: 6px 0;
     border-bottom: 1px solid #ddd;
   }
-  table tbody td {
+  table.responsive-table tbody td {
     display: grid;
     grid-template-columns: 40% 60%;
     width: clamp(300px, 40%, 700px);
@@ -591,14 +600,15 @@ a {
     border: none;
     margin: 0 auto 4px;
   }
-  table tbody td::before {
+  table.responsive-table tbody td::before {
     content: attr(data-name);
     font-weight: normal;
     text-transform: capitalize;
   }
-  tbody tr:hover {
+  table.responsive-table tbody tr:hover {
     background-color: transparent;
   }
+
   #contact {
     width: 90%;
   }
@@ -610,3 +620,4 @@ a {
     padding: 10px;
   }
 }
+
