@@ -564,6 +564,9 @@ a {
   display: flex;
   flex-direction: column;
   }
+  app-header nav {
+    padding: 0;
+  }
   .month-card {
     font-size: 12px;
   }
@@ -594,7 +597,8 @@ a {
     text-align: left;
     font-weight: bold;
     border: none;
-    margin: 0 auto 4px;
+    margin: 0 auto ;
+    padding: 5px;
   }
   table.responsive-table tbody td::before {
     content: attr(data-name);
