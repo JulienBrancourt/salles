@@ -63,6 +63,7 @@ fetch("data.json")
     data = json;
     const savedSite = localStorage.getItem('selectedSite') || "";
     siteSelect.value = savedSite; // Met à jour la valeur affichée dans la liste déroulante
+    
     populateFilters(data, savedSite);
     applyFilters();
     initResizers(); // initialise les redimensionneurs
@@ -120,7 +121,7 @@ function applyFilters() {
     return matchName && matchCategory && matchBuilding && matchSite;
   });
 
-
+  filteredData.sort((a, b) => a.Nom.localeCompare(b.Nom));
   renderTable(filteredData);
   updateChart(filteredData);
   console.log(filteredData.length);
@@ -137,6 +138,7 @@ function applyFilters() {
 
 // 4. Afficher la table
 function renderTable(rows) {
+  
   tableBody.innerHTML = "";
   rows.forEach((row) => {
     const tr = document.createElement("tr");
