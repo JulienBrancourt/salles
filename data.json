@@ -1189,7 +1189,7 @@
     },
     {
         "Code":"CITA-C003 - 480 max",
-        "Nom":"C003 Simone veil",
+        "Nom":"Amphi C003 Simone veil",
         "Capacité":480,
         "examen":"",
         "catégorie":"amphi",
@@ -1200,7 +1200,7 @@
     },
     {
         "Code":"CITA-C002 - 186 max",
-        "Nom":"C002 Henri de Rouvroy",
+        "Nom":"Amphi C002 Henri de Rouvroy",
         "Capacité":186,
         "examen":"",
         "catégorie":"amphi",
@@ -1211,7 +1211,7 @@
     },
     {
         "Code":"CITA-C004 - 281 max",
-        "Nom":"C004 Toni Morrison",
+        "Nom":"Amphi C004 Toni Morrison",
         "Capacité":281,
         "examen":"",
         "catégorie":"amphi",
@@ -1222,7 +1222,7 @@
     },
     {
         "Code":"CITA-C005 - 134 max",
-        "Nom":"C005 Roger Agache",
+        "Nom":"Amphi C005 Roger Agache",
         "Capacité":134,
         "examen":"",
         "catégorie":"amphi",
@@ -1233,7 +1233,7 @@
     },
     {
         "Code":"CITA-C001 - 138 max",
-        "Nom":"C001 Choderlos de Laclos",
+        "Nom":"Amphi C001 Choderlos de Laclos",
         "Capacité":138,
         "examen":"",
         "catégorie":"amphi",
