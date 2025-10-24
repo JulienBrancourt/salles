@@ -66,16 +66,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const tbody = document.createElement('tbody');
     const firstDay = new Date(month.year, month.monthIndex, 1);
     const lastDay = new Date(month.year, month.monthIndex + 1, 0);
-    const firstDayOfWeek = firstDay.getDay();
-    // Calculer le lundi de la semaine du 1er du mois
     let currentWeekStart = new Date(firstDay);
-    currentWeekStart.setDate(firstDay.getDate() - ((firstDayOfWeek + 6) % 7));
+
+    // Trouver le lundi de la première semaine du mois
+    currentWeekStart.setDate(firstDay.getDate() - ((firstDay.getDay() + 6) % 7));
 
     while (currentWeekStart <= lastDay) {
       const weekRow = document.createElement('tr');
       const weekNumberCell = document.createElement('td');
       weekNumberCell.className = 'week-number';
-      weekNumberCell.textContent = getWeekNumber(currentWeekStart);
+      weekNumberCell.textContent = getISOWeekNumber(new Date(currentWeekStart));
       weekRow.appendChild(weekNumberCell);
 
       for (let day = 0; day < 7; day++) {
@@ -101,12 +101,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// Fonction pour obtenir le numéro de la semaine (ISO)
-function getWeekNumber(date) {
-  const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-  const firstThursday = firstDayOfYear.getDay() <= 4
-    ? firstDayOfYear
-    : new Date(firstDayOfYear.setDate(firstDayOfYear.getDate() + (7 - firstDayOfYear.getDay() + 4)));
-  const pastDaysOfYear = (date - firstThursday) / 86400000;
-  return Math.floor(pastDaysOfYear / 7) + 1;
+// Fonction pour obtenir le numéro de semaine ISO 8601
+function getISOWeekNumber(date) {
+  const d = new Date(date);
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+  const yearStart = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
 }
