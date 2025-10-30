@@ -6,7 +6,6 @@ let filteredData = [];
 let mybutton = document.getElementById("scrollToTopButton");
 let chartInstance;
 
-// const themeToggle = document.getElementById('themeToggle');
 const body = document.body
 
 const searchInput = document.getElementById("searchInput");
@@ -17,22 +16,8 @@ const table = document.getElementById("dataTable");
 const tableBody = table.querySelector("tbody");
 
 
-// const savedTheme = localStorage.getItem('theme');
-
-// if (savedTheme) {
-//   body.classList.remove('light-theme', 'dark-theme'); //supprime les  deux classes si un thème est dans le local strorage pour mettre le thème engeregistré
-//   body.classList.add(savedTheme);
-//   themeToggle.checked = savedTheme === 'dark-theme';
-// }
-
 // Selection du le site
 const siteSelect = document.getElementById("siteSelect");
-
-// // Charge le choix du site depuis le localStorage
-// const savedSite = localStorage.getItem('selectedSite') || "";
-// populateFilters(data, savedSite);
-// applyFilters();
-
 
 // Écouteur pour sauvegarder le choix du site
 siteSelect.addEventListener("change", function() {
@@ -40,20 +25,6 @@ siteSelect.addEventListener("change", function() {
   populateFilters(data, this.value); // Met à jour les filtres disponibles
   applyFilters(); // Applique les filtres
 });
-
-
-
-
-// Gestion du thème dark / light
-// themeToggle.addEventListener('change', function () {
-//   if (this.checked) {
-//     body.classList.replace('light-theme', 'dark-theme');
-//     localStorage.setItem('theme', 'dark-theme');
-//   } else {
-//     body.classList.replace('dark-theme', 'light-theme');
-//     localStorage.setItem('theme', 'light-theme');
-//   }
-// });
 
 
 // 1. Récupérer les données

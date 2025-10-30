@@ -2,27 +2,6 @@ let data = [];
 const table = document.getElementById("dataTableAnnuaire");
 const tableBody = table.querySelector("tbody");
 
-// const themeToggle = document.getElementById('themeToggle');
-// const body = document.body
-// const savedTheme = localStorage.getItem('theme');
-
-
-// if (savedTheme) {
-//   body.classList.remove('light-theme', 'dark-theme'); //supprime les  deux classes si un thème est dans le local strorage pour mettre le thème engeregistré
-//   body.classList.add(savedTheme);
-//   themeToggle.checked = savedTheme === 'dark-theme';
-// }
-
-// themeToggle.addEventListener('change', function () {
-//   if (this.checked) {
-//     body.classList.replace('light-theme', 'dark-theme');
-//     localStorage.setItem('theme', 'dark-theme');
-//   } else {
-//     body.classList.replace('dark-theme', 'light-theme');
-//     localStorage.setItem('theme', 'light-theme');
-//   }
-// });
-
 fetch("annuaireData.json")
     .then((res) => res.json())
     .then((json) => {

@@ -1,25 +1,3 @@
-const body = document.body;
-// const themeToggle = document.getElementById('themeToggle');
-// const savedTheme = localStorage.getItem('theme');
-// if (savedTheme) {
-//   body.classList.remove('light-theme', 'dark-theme');
-//   body.classList.add(savedTheme);
-//   themeToggle.checked = savedTheme === 'dark-theme';
-// } else {
-//   body.classList.add('light-theme');
-//   themeToggle.checked = false;
-// }
-
-// themeToggle.addEventListener('change', function () {
-//   if (this.checked) {
-//     body.classList.replace('light-theme', 'dark-theme');
-//     localStorage.setItem('theme', 'dark-theme');
-//   } else {
-//     body.classList.replace('dark-theme', 'light-theme');
-//     localStorage.setItem('theme', 'light-theme');
-//   }
-// });
-
 document.addEventListener('DOMContentLoaded', function () {
   const months = [
     { name: "Septembre", year: 2025, monthIndex: 8 },
