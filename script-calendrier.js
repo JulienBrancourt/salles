@@ -87,3 +87,4 @@ function getISOWeekNumber(date) {
   const yearStart = new Date(d.getFullYear(), 0, 1);
   return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
 }
+
