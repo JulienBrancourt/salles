@@ -171,7 +171,7 @@
         "examen": "44",
         "catégorie": "salle banalisée",
         "Réservé": "",
-        "observation": "",
+        "observation": "vérifiée le 19/10/25",
         "Accessibilité": "",
         "Bâtiment": "BC"
     },
@@ -211,11 +211,11 @@
     {
         "Code": "SC-BC31 - 80 max",
         "Nom": "BC31",
-        "Capacité": "80",
-        "examen": "40",
+        "Capacité": "82",
+        "examen": "41",
         "catégorie": "salle banalisée",
         "Réservé": "",
-        "observation": "",
+        "observation": "vérifiée le 19/10/25",
         "Accessibilité": "",
         "Bâtiment": "BC"
     },
@@ -233,11 +233,11 @@
     {
         "Code": "SC-BC32 - 90 max",
         "Nom": "BC32",
-        "Capacité": "90",
-        "examen": "44",
+        "Capacité": "92",
+        "examen": "46",
         "catégorie": "salle banalisée",
         "Réservé": "",
-        "observation": "",
+        "observation": "vérifiée le 19/10/25",
         "Accessibilité": "",
         "Bâtiment": "BC"
     },
