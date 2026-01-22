@@ -46,6 +46,12 @@
         "Nom" : "Poitte",
         "Tel" : "7989",
         "Mail" : "frederique.poitte@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Sandrine",
+        "Nom" : "Boucher",
+        "Tel" : "7185",
+        "Mail" : "sandrine.boucher@u-picardie.fr"
     }
 
 ]
