@@ -6,12 +6,6 @@
         "Mail" : ""
     },
     {
-        "Prenom" : "Hinda",
-        "Nom" : "N'Siri",
-        "Tel" : "7617",
-        "Mail" : "hinda.nsiri@u-picardie.fr"
-    },
-    {
         "Prenom" : "Marine",
         "Nom" : "Lajara",
         "Tel" : "7551",
@@ -52,6 +46,12 @@
         "Nom" : "Boucher",
         "Tel" : "7185",
         "Mail" : "sandrine.boucher@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Inès",
+        "Nom" : "Rubigny",
+        "Tel" : "7504",
+        "Mail" : "ines.rubigny@u-picardie.fr"
     }
 
 ]
