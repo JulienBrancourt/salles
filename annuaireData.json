@@ -52,6 +52,18 @@
         "Nom" : "Rubigny",
         "Tel" : "7504",
         "Mail" : "ines.rubigny@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Pauline",
+        "Nom" : "Benoist",
+        "Tel" : "7523",
+        "Mail" : "pauline.benoist@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Nadia",
+        "Nom" : "Sghir",
+        "Tel" : "0626059561",
+        "Mail" : "nadia.sghir@u-picardie.fr"
     }
 
 ]
