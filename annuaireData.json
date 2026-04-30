@@ -24,12 +24,6 @@
         "Mail" : ""
     },
     {
-        "Prenom" : "Floriane",
-        "Nom" : "Alavoine (salles PUC Cathédrale)",
-        "Tel" : "",
-        "Mail" : "floriane.alavoine@u-picardie.fr"
-    },
-    {
         "Prenom" : "Nicolas",
         "Nom" : "Neveux",
         "Tel" : "0643268553",
@@ -64,6 +58,18 @@
         "Nom" : "Sghir",
         "Tel" : "0626059561",
         "Mail" : "nadia.sghir@u-picardie.fr"
+    },
+    {
+        "Prenom" : "PC Sécurité Saint-Leu",
+        "Nom" : "",
+        "Tel" : "03 22 82 88 57",
+        "Mail" : ""
+    },
+    {
+        "Prenom" : "Aymeric",
+        "Nom" : "Thiebaut",
+        "Tel" : "06 45 56 02 12",
+        "Mail" : "aymeric.thiebaut@u-picardie.fr"
     }
 
 ]
