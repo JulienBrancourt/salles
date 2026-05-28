@@ -70,6 +70,12 @@
         "Nom" : "Thiebaut",
         "Tel" : "0645560212",
         "Mail" : "aymeric.thiebaut@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Vanessa",
+        "Nom" : "Hue",
+        "Tel" : "7617",
+        "Mail" : "vanessa.hue@u-picardie.fr"
     }
 
 ]
