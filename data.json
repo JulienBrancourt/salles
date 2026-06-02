@@ -61,7 +61,7 @@
         "examen": "41",
         "catégorie": "amphi",
         "Réservé": "",
-        "observation": "",
+        "observation": "1er étage",
         "Accessibilité": "",
         "Bâtiment": "Minimes"
     },
@@ -94,7 +94,7 @@
         "examen": "15",
         "catégorie": "amphi",
         "Réservé": "",
-        "observation": "",
+        "observation": "1er étage",
         "Accessibilité": "non accessible personnes en fauteuil",
         "Bâtiment": "Minimes"
     },
