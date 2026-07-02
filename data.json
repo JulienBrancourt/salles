@@ -145,11 +145,11 @@
     {
         "Code": "SC-B205 - 14 max",
         "Nom": "B205",
-        "Capacité": "14",
+        "Capacité": "16",
         "examen": "",
         "catégorie": "salle banalisée",
         "Réservé": "Départ. physique",
-        "observation": "",
+        "observation": "vérifiée le 02/07/26",
         "Accessibilité": "",
         "Bâtiment": "B"
     },
@@ -160,7 +160,7 @@
         "examen": "",
         "catégorie": "salle banalisée",
         "Réservé": "Départ. physique",
-        "observation": "",
+        "observation": "vérifiée le 02/07/26",
         "Accessibilité": "",
         "Bâtiment": "B"
     },
