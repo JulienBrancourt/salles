@@ -189,11 +189,11 @@
     {
         "Code": "SC-BC21bis - 7 max",
         "Nom": "BC21bis",
-        "Capacité": "7",
+        "Capacité": "12",
         "examen": "4",
         "catégorie": "autre",
         "Réservé": "",
-        "observation": "Interclasse",
+        "observation": "Interclasse, vérifiée le 02/07/27",
         "Accessibilité": "",
         "Bâtiment": "BC"
     },
@@ -255,11 +255,11 @@
     {
         "Code": "SC-BC41bis - 7 max",
         "Nom": "BC41bis",
-        "Capacité": "7",
+        "Capacité": "13",
         "examen": "4",
         "catégorie": "autre",
         "Réservé": "",
-        "observation": "Interclasse",
+        "observation": "Interclasse, vérifiée le 02/07/27",
         "Accessibilité": "",
         "Bâtiment": "BC"
     },
