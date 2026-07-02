@@ -611,18 +611,18 @@
         "examen": "8",
         "catégorie": "salle banalisée",
         "Réservé": "M2 Chimie Gestion et Traitement de l'Eau (M2GTEA)",
-        "observation": "",
+        "observation": "vérifiée le 02/07/26",
         "Accessibilité": "non accessible personnes en fauteuil",
         "Bâtiment": "H"
     },
     {
         "Code": "SC-H28 - 20 max",
         "Nom": "H28",
-        "Capacité": "20",
+        "Capacité": "24",
         "examen": "10",
         "catégorie": "salle banalisée",
         "Réservé": "MASTER 2 CHIMIE - CHIMIE DURABLE ORGANIQUE (M2CDOR)",
-        "observation": "",
+        "observation": "vérifiée le 02/07/26",
         "Accessibilité": "non accessible personnes en fauteuil",
         "Bâtiment": "H"
     },
