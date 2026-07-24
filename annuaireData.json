@@ -76,6 +76,12 @@
         "Nom" : "Hue",
         "Tel" : "7617",
         "Mail" : "vanessa.hue@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Nelly",
+        "Nom" : "Baudry",
+        "Tel" : "8288",
+        "Mail" : "nelly.baudry@u-picardie.fr"
     }
 
 ]
