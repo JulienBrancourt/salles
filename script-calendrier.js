@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
   const months = [
-    { name: "Septembre", year: 2025, monthIndex: 8 },
-    { name: "Octobre", year: 2025, monthIndex: 9 },
-    { name: "Novembre", year: 2025, monthIndex: 10 },
-    { name: "Décembre", year: 2025, monthIndex: 11 },
-    { name: "Janvier", year: 2026, monthIndex: 0 },
-    { name: "Février", year: 2026, monthIndex: 1 },
-    { name: "Mars", year: 2026, monthIndex: 2 },
-    { name: "Avril", year: 2026, monthIndex: 3 },
-    { name: "Mai", year: 2026, monthIndex: 4 },
-    { name: "Juin", year: 2026, monthIndex: 5 },
-    { name: "Juillet", year: 2026, monthIndex: 6 },
-    { name: "Août", year: 2026, monthIndex: 7 }
+    { name: "Septembre", year: 2026, monthIndex: 8 },
+    { name: "Octobre", year: 2026, monthIndex: 9 },
+    { name: "Novembre", year: 2026, monthIndex: 10 },
+    { name: "Décembre", year: 2026, monthIndex: 11 },
+    { name: "Janvier", year: 2027, monthIndex: 0 },
+    { name: "Février", year: 2027, monthIndex: 1 },
+    { name: "Mars", year: 2027, monthIndex: 2 },
+    { name: "Avril", year: 2027, monthIndex: 3 },
+    { name: "Mai", year: 2027, monthIndex: 4 },
+    { name: "Juin", year: 2027, monthIndex: 5 },
+    { name: "Juillet", year: 2027, monthIndex: 6 },
+    { name: "Août", year: 2027, monthIndex: 7 }
   ];
   const calendarContainer = document.getElementById('calendar');
   const today = new Date();
