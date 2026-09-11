@@ -541,14 +541,20 @@ a {
 }
 
 /* ==== Listes ==== */
+section {
+  margin: 1.5rem;
+}
+
 ul {
   list-style-position: inside;
   padding-left: 1.5rem;
+  padding-top: 2px;
 }
 
 ul ul {
   padding-left: 1.5rem;
-  margin-top: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 @media (max-width: 350px) {
