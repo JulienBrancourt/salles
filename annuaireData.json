@@ -82,6 +82,36 @@
         "Nom" : "Baudry",
         "Tel" : "8288",
         "Mail" : "nelly.baudry@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Marie",
+        "Nom" : "Paisley",
+        "Tel" : "7431",
+        "Mail" : "marie.paisley@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Mounira",
+        "Nom" : "Hadri",
+        "Tel" : "7432",
+        "Mail" : "mounira.hadri@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Floriane",
+        "Nom" : "Alavoine",
+        "Tel" : "7433",
+        "Mail" : "floriane.alavoine@u-picardie.fr"
+    },
+    {
+        "Prenom" : "Accueil Citadelle",
+        "Nom" : "",
+        "Tel" : "8280 / 8295 / 8294",
+        "Mail" : ""
+    },
+    {
+        "Prenom" : "PC sécurité Citadelle",
+        "Nom" : "",
+        "Tel" : "8297",
+        "Mail" : ""
     }
 
 ]
