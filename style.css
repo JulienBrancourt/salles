@@ -545,6 +545,14 @@ section {
   margin: 1.5rem;
 }
 
+#colonnes {
+  display: flex;
+}
+
+#colonnes > div {
+  flex: 1; /* chaque colonne prend la même largeur */
+}
+
 ul {
   list-style-position: inside;
   padding-left: 1.5rem;

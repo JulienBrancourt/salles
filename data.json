@@ -1217,7 +1217,7 @@
         "catégorie":"amphi",
         "Réservé":"",
         "observation":"Caméra, Microphone (x3), Ordinateur fixe",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"C"
     },
     {
@@ -1228,7 +1228,7 @@
         "catégorie":"amphi",
         "Réservé":"",
         "observation":"Caméra, Microphone, Ordinateur fixe",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"C"
     },
     {
@@ -1239,7 +1239,7 @@
         "catégorie":"amphi",
         "Réservé":"",
         "observation":"Caméra, Microphone, Ordinateur fixe",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"C"
     },
     {
@@ -1250,7 +1250,7 @@
         "catégorie":"amphi",
         "Réservé":"",
         "observation":"Caméra, Microphone, Ordinateur fixe",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"C"
     },
     {
@@ -1261,7 +1261,7 @@
         "catégorie":"amphi",
         "Réservé":"",
         "observation":"Caméra, Microphone, Ordinateur fixe",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"C"
     },
     {
@@ -1547,7 +1547,7 @@
         "catégorie":"salle de réunion",
         "Réservé":"",
         "observation":"Caméra, Microphone (x2), Prise téléphoniqueTV (x2), Visoconférence - Codec",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"D"
     },
     {
@@ -1558,7 +1558,7 @@
         "catégorie":"salle de réunion",
         "Réservé":"",
         "observation":"Caméra, Ecran LCD",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"D"
     },
     {
@@ -1602,7 +1602,7 @@
         "catégorie":"salle de présentation",
         "Réservé":"",
         "observation":"Caméra, Ecran LCD (x2), Microphone (x2), Ordinateur fixe, TV (x2)",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"F"
     },
     {
@@ -1679,7 +1679,7 @@
         "catégorie":"Gymnase",
         "Réservé":"",
         "observation":"Sonorisation",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par badge",
         "Bâtiment":"J"
     },
     {
@@ -1690,7 +1690,7 @@
         "catégorie":"Gymnase",
         "Réservé":"",
         "observation":"Sonorisation",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par badge",
         "Bâtiment":"J"
     },
     {
@@ -1701,7 +1701,7 @@
         "catégorie":"Gymnase",
         "Réservé":"",
         "observation":"Sonorisation",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par badge",
         "Bâtiment":"J"
     },
     {
@@ -2504,7 +2504,7 @@
         "catégorie":"salle de conférences",
         "Réservé":"",
         "observation":"Caméra, Ecran LCD (x5), Microphone (x2), Ordinateur fixe",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"E"
     },
     {
@@ -2515,7 +2515,7 @@
         "catégorie":"salle de convivialité",
         "Réservé":"",
         "observation":"",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité, à réserver en même temps que la E002 pour les évènements",
         "Bâtiment":"E"
     },
     {
@@ -2559,7 +2559,7 @@
         "catégorie":"salle banalisée",
         "Réservé":"",
         "observation":"Caméra, Ecran LCD (x2), Microphone, Ordinateur fixe",
-        "Accessibilité":"",
+        "Accessibilité":"ouverture par le pc sécurité",
         "Bâtiment":"E"
     },
     {
