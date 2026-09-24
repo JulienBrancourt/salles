@@ -34,7 +34,7 @@ async function fusionner(list, avecPied, progress) {
 // ---------- Interface ----------
 function resetSortie() {
   if (outUrl) URL.revokeObjectURL(outUrl);
-  outUrl = null; $('dl').disabled = $('print').disabled = true;
+  outUrl = null; $('print').disabled = true;
 }
 
 function render() {
@@ -85,13 +85,10 @@ $('go').onclick = async () => {
   try {
     const r = await fusionner(files, $('footer').checked, m => $('msg').textContent = m);
     outUrl = URL.createObjectURL(new Blob([r.bytes], { type: 'application/pdf' }));
-    $('dl').disabled = $('print').disabled = false;
+    $('print').disabled = false;
     $('msg').textContent = `Terminé : ${r.pages} page(s).` +
       (r.erreurs.length ? '\nIgnorés :\n' + r.erreurs.join('\n') : '');
   } catch (e) { $('msg').textContent = 'Erreur : ' + e.message; }
   $('go').disabled = false;
-};
-$('dl').onclick = () => {
-  const a = document.createElement('a'); a.href = outUrl; a.download = 'IMPRESSION_COMPLETE.pdf'; a.click();
 };
 $('print').onclick = () => window.open(outUrl, '_blank');

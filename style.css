@@ -646,3 +646,138 @@ ul ul {
   }
 }
 
+
+/* ===== Page EDT : fusion de PDFs ===== */
+#edt {
+  width: min(760px, calc(100% - 3rem));
+  margin: 1.5rem auto;
+}
+
+#edt .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+/* Zone de dépôt */
+#edt #drop {
+  padding: 2rem 1rem;
+  text-align: center;
+  border: 2px dashed color-mix(in srgb, var(--text) 35%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--primary) 6%, var(--bg));
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+#edt #drop.over {
+  border-color: var(--btn-text);
+  background: color-mix(in srgb, var(--btn-text) 12%, var(--bg));
+}
+
+#edt #drop .row {
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+/* Boutons (même style que le bouton d'export Excel) */
+#edt button {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: var(--btn-text);
+  background-color: var(--btn-bg);
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
+}
+
+#edt button:hover:not(:disabled) {
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+#edt button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#edt button.primary {
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+  border-color: transparent;
+}
+
+#edt button.primary:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+
+/* Liste des fichiers */
+#edt #list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+#edt #list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  background-color: var(--table-bg);
+  border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+#edt #list li:hover {
+  background-color: var(--table-row-hover);
+}
+
+#edt #list li span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#edt #list li button {
+  padding: 2px 10px;
+}
+
+/* Case à cocher et messages */
+#edt label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+#edt input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--btn-text);
+}
+
+#edt #msg {
+  min-height: 1.5em;
+  font-size: 0.95rem;
+  white-space: pre-line;
+}
+
+@media (max-width: 600px) {
+  #edt h1 {
+    font-size: 1.5rem;
+  }
+  #edt #drop {
+    padding: 1.5rem 0.75rem;
+  }
+  #edt .row button {
+    flex: 1 1 100%;
+  }
+}
