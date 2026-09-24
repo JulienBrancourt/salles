@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fusion de PDFs avec nom de fichier</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon-32x32.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="header-component.js" defer></script>
+  <script src="script-pdf.js" defer></script>
+
+</head>
+<body>
+<main>
+<app-header></app-header>
+<section>
+    <h1>Fusion de PDFs avec nom de fichier en pied de page</h1>
+
+  <div id="drop">
+    Glissez vos PDFs ici
+    <div class="row" style="justify-content:center">
+      <button id="pick">Choisir des fichiers…</button>
+      <button id="pickDir" hidden>Choisir un dossier…</button>
+    </div>
+  </div>
+  <input id="file" type="file" accept="application/pdf" multiple hidden>
+
+  <ul id="list"></ul>
+
+  <label><input type="checkbox" id="footer" checked> Ajouter le nom du fichier en pied de page</label>
+  <div class="row">
+    <button class="primary" id="go" disabled>Fusionner</button>
+    <!-- <button id="dl" disabled>Télécharger</button> -->
+    <button id="print" disabled>Ouvrir pour imprimer</button>
+  </div>
+  <p id="msg"></p>
+</section>
+  
+</main>
+
+<script>
+
+</script>
+</body>
+</html>
