@@ -770,6 +770,25 @@ ul ul {
   white-space: pre-line;
 }
 
+/* Encarts d'information */
+#edt .note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0.75rem 0;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-left: 4px solid var(--btn-text);
+  border-radius: 6px;
+  background-color: color-mix(in srgb, var(--btn-text) 10%, var(--bg));
+}
+
+#edt .note-warning {
+  font-weight: bold;
+  border-left-color: var(--week-end-text);
+  background-color: var(--week-end-bg);
+}
+
 @media (max-width: 600px) {
   #edt h1 {
     font-size: 1.5rem;
