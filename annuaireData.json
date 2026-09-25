@@ -112,6 +112,12 @@
         "Nom" : "",
         "Tel" : "8297",
         "Mail" : ""
+    },
+    {
+        "Prenom" : "Émilie",
+        "Nom" : "Pirlet (ARTS)",
+        "Tel" : "4340",
+        "Mail" : "emilie.pirlet@u-picardie.fr"
     }
 
 ]
