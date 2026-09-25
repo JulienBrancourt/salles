@@ -14,28 +14,56 @@
 <body>
 <main>
 <app-header></app-header>
-<section id="edt">
+<section id="edt" class="pdf-fusion">
     <h1>Fusion de PDF avec nom de fichier en pied de page</h1>
 
-  <div id="drop">
+      <p class="note"><span aria-hidden="true">💡</span> Sur Chrome et Edge, il est possible de sélectionner directement tous les PDF d'un dossier.</p>
+
+    <p class="note note-warning"><span aria-hidden="true">⚠️</span> Ne pas imprimer en recto / verso</p>
+  <h2>Saint-Leu</h2>
+
+  <div id="drop" class="drop">
     Glissez vos PDFs ici
     <div class="row" style="justify-content:center">
       <button id="pick">Choisir des fichiers…</button>
       <button id="pickDir" hidden>Choisir un dossier…</button>
     </div>
   </div>
-  <p class="note"><span aria-hidden="true">💡</span> Sur Chrome et Edge, il est possible de sélectionner directement tous les PDF d'un dossier.</p>
   <input id="file" type="file" accept="application/pdf" multiple hidden>
 
-  <ul id="list"></ul>
+  <ul id="list" class="list"></ul>
 
   <label><input type="checkbox" id="footer" checked> Ajouter le nom du fichier en pied de page</label>
   <div class="row">
     <button class="primary" id="go" disabled>Fusionner</button>
     <button id="print" disabled>Ouvrir pour imprimer</button>
   </div>
-  <p class="note note-warning"><span aria-hidden="true">⚠️</span> Ne pas imprimer en recto / verso</p>
-  <p id="msg"></p>
+  <p id="msg" class="msg"></p>
+</section>
+
+<section class="pdf-fusion">
+    <h2>Citadelle</h2>
+
+  <div id="cit-drop" class="drop">
+    Glissez vos PDFs ici
+    <div class="row" style="justify-content:center">
+      <button id="cit-pick">Choisir des fichiers…</button>
+      <button id="cit-pickDir" hidden>Choisir un dossier…</button>
+    </div>
+  </div>
+
+  <p class="note"><span aria-hidden="true">ℹ️</span> L'ordre de fusion est fixe et automatique, quel que soit l'ordre d'ajout : B, C, D, E (×3), F (×3), G (x3), H, J, Citadelle, Véhicules. Nommez vos fichiers en commençant par ce libellé (ex. « E.pdf ».</p>
+  <input id="cit-file" type="file" accept="application/pdf" multiple hidden>
+
+  <ul id="cit-list" class="list"></ul>
+
+  <label><input type="checkbox" id="cit-footer" checked> Ajouter le nom du fichier en pied de page</label>
+  <div class="row">
+    <button class="primary" id="cit-go" disabled>Fusionner</button>
+    <button id="cit-print" disabled>Ouvrir pour imprimer</button>
+  </div>
+  
+  <p id="cit-msg" class="msg"></p>
 </section>
   
 </main>
