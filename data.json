@@ -884,9 +884,9 @@
         "Nom": "salle 1.1",
         "Capacité": "26",
         "examen": "",
-        "catégorie": "salle banalisée",
+        "catégorie": "salle de TP",
         "Réservé": "",
-        "observation": "pas de VP, bientôt salle de TP",
+        "observation": "pas de VP",
         "Accessibilité": "",
         "Bâtiment": "Minimes (école)"
     },
