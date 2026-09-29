@@ -11,6 +11,7 @@ class AppHeader extends HTMLElement { //on définit la classe AppHeader, qui pou
                 <a href="parcours.html">Parcours</a>
                 <a href="todo.html">Mémo Citadelle</a>
                 <a href="edt.html">Emplois du temps</a>
+                <a href="edt_v2.html">edt dev</a>
                 </div>
                 <div class="theme-switch">
                 <label class="switch">

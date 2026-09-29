@@ -789,6 +789,127 @@ ul ul {
   background-color: var(--week-end-bg);
 }
 
+/* ===== Page Planning salles : heures de début d'utilisation ===== */
+.planning-salles {
+  width: min(960px, calc(100% - 3rem));
+  margin: 1.5rem auto;
+}
+
+.planning-salles .lead {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--text) 70%, transparent);
+}
+
+/* Zone de dépôt */
+.planning-salles .drop {
+  display: block;
+  padding: 2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  border: 2px dashed color-mix(in srgb, var(--text) 35%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--primary) 6%, var(--bg));
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.planning-salles .drop.over {
+  border-color: var(--btn-text);
+  background: color-mix(in srgb, var(--btn-text) 12%, var(--bg));
+}
+
+/* Option + statut */
+.planning-salles .opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 1rem 0 0.5rem;
+  cursor: pointer;
+}
+
+.planning-salles .opt input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--btn-text);
+}
+
+.planning-salles .status {
+  min-height: 1.5em;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+/* Bouton de téléchargement (même style que #btnExportExcel) */
+.planning-salles #dl {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: var(--btn-hover-text);
+  background-color: var(--btn-hover-bg);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: filter 0.3s ease;
+}
+
+.planning-salles #dl:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+
+.planning-salles #dl:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Aperçu par bâtiment */
+.planning-salles #preview {
+  margin: 1.5rem 0 0;
+}
+
+.planning-salles .bat {
+  margin-bottom: 1rem;
+  padding: 12px 16px;
+  background-color: var(--table-bg);
+  border: 1px solid var(--table-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.planning-salles .bat h2 {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  font-size: 1.1rem;
+  color: var(--primary);
+  border-bottom: 1px solid var(--table-border);
+}
+
+.planning-salles .grid {
+  columns: 200px auto;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 13px;
+}
+
+.planning-salles .grid div {
+  break-inside: avoid;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.planning-salles .grid div:hover {
+  background-color: var(--table-row-hover);
+}
+
+.planning-salles .none {
+  opacity: 0.6;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .planning-salles .drop { padding: 1.5rem 0.75rem; }
+  .planning-salles #dl { width: 100%; }
+}
+
 @media (max-width: 600px) {
   .pdf-fusion h1 {
     font-size: 1.5rem;

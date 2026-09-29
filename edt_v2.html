@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDT_v2</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon-32x32.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script src="header-component.js" defer></script>
+  <script src="script_edt_v2.js" defer></script>
+
+</head>
+<body>
+    <app-header></app-header>
+    <main class="planning-salles">
+<h1>Heure de début d'utilisation des salles</h1>
+<p class="lead">Chargez le diagramme d'utilisation des salles (PDF CELCAT). Pour chaque salle, la première heure de début est relevée (au quart d'heure), puis un nouveau PDF est généré, page par bâtiment.</p>
+<label class="drop" id="drop"><input type="file" id="file" accept="application/pdf" hidden><span id="dropText">Déposez le PDF ici ou cliquez pour le choisir</span></label>
+<label class="opt"><input type="checkbox" id="skipCancelled" checked> Ignorer les cours « Annulé »</label>
+<p id="status" class="status"></p>
+<button id="dl" disabled>Télécharger le PDF</button>
+<section id="preview"></section>
+</main>
+
+    
+</body>
+</html>
