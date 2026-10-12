@@ -22,27 +22,6 @@
 </div>
 
 <div class="pdf-grid">
-<section id="edt" class="pdf-fusion">
-  <h2>Saint-Leu</h2>
-
-  <div id="drop" class="drop">
-    Glissez vos PDFs ici
-    <div class="row" style="justify-content:center">
-      <button id="pick">Choisir des fichiers…</button>
-      <button id="pickDir" hidden>Choisir un dossier…</button>
-    </div>
-  </div>
-  <input id="file" type="file" accept="application/pdf" multiple hidden>
-
-  <ul id="list" class="list"></ul>
-
-  <label><input type="checkbox" id="footer" checked> Ajouter le nom du fichier en pied de page</label>
-  <div class="row">
-    <button class="primary" id="go" disabled>Fusionner</button>
-    <button id="print" disabled>Ouvrir pour imprimer</button>
-  </div>
-  <p id="msg" class="msg"></p>
-</section>
 
 <section class="pdf-fusion">
     <h2>Citadelle</h2>
@@ -68,6 +47,30 @@
   
   <p id="cit-msg" class="msg"></p>
 </section>
+
+<section id="edt" class="pdf-fusion">
+  <h2>Saint-Leu</h2>
+
+  <div id="drop" class="drop">
+    Glissez vos PDFs ici
+    <div class="row" style="justify-content:center">
+      <button id="pick">Choisir des fichiers…</button>
+      <button id="pickDir" hidden>Choisir un dossier…</button>
+    </div>
+  </div>
+  <input id="file" type="file" accept="application/pdf" multiple hidden>
+
+  <ul id="list" class="list"></ul>
+
+  <label><input type="checkbox" id="footer" checked> Ajouter le nom du fichier en pied de page</label>
+  <div class="row">
+    <button class="primary" id="go" disabled>Fusionner</button>
+    <button id="print" disabled>Ouvrir pour imprimer</button>
+  </div>
+  <p id="msg" class="msg"></p>
+</section>
+
+
 </div>
 </main>
 

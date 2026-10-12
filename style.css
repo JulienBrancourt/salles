@@ -1,38 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap");
 
 :root {
-  --bg-light: white;
-  --text-light: #2c2c2c;
-  --primary-light: #2c3e50;
-  --btn-bg-light: #f0f0f0;
-  --btn-text-light: #217346;
-  --btn-hover-bg-light: #1b5e3c;
-  --btn-hover-text-light: #f0f0f0;
-  --table-bg-light: white;
-  --table-border-light: #ddd;
-  --table-header-bg-light: #2c3e50;
-  --table-header-text-light: white;
-  --table-row-hover-light: #29c056;
-  --hover-row-light: #29c056;
-  --scroll-btn-bg-light: #333333bf;
-  --scroll-btn-hover-light: #2c3e50;
+  --bg-light: #f5f7fa;
+  --text-light: #17222e;
+  --primary-light: #243b53;
+  --btn-bg-light: #ffffff;
+  --btn-text-light: #0b6b52;
+  --btn-hover-bg-light: #0b6b52;
+  --btn-hover-text-light: #ffffff;
+  --table-bg-light: #ffffff;
+  --table-border-light: #dde3ea;
+  --table-header-bg-light: #e9eef4;
+  --table-header-text-light: #243b53;
+  --table-row-hover-light: #e3f1ec;
+  --scroll-btn-bg-light: #243b53;
+  --scroll-btn-hover-light: #0b6b52;
   --week-end-text-light: #D32F2F;
   --week-end-bg-light: #FFCDD2;
-  --bg-dark: #2c2c2c;
-  --text-dark: #e4e4e4;
-  --primary-dark: #9ec7f7;
-  --btn-bg-dark: #1b1b1b;
-  --btn-text-dark: #66ffb2;
-  --btn-hover-bg-dark: #29c056;
-  --btn-hover-text-dark: #000;
-  --table-bg-dark: #1e1e1e;
-  --table-border-dark: #eaeaea;
-  --table-header-bg-dark: #2a2a2a;
-  --table-header-text-dark: #eaeaea;
-  --table-row-hover-dark: #2a754a;
-  --hover-row-dark: #2a754a;
-  --scroll-btn-bg-dark: #666666bf;
-  --scroll-btn-hover-dark: #66aaff;
+  --bg-dark: #0f1720;
+  --text-dark: #e4eaf1;
+  --primary-dark: #9cc3ee;
+  --btn-bg-dark: #17212c;
+  --btn-text-dark: #5fd3a8;
+  --btn-hover-bg-dark: #5fd3a8;
+  --btn-hover-text-dark: #08120e;
+  --table-bg-dark: #141d27;
+  --table-border-dark: #273443;
+  --table-header-bg-dark: #1c2733;
+  --table-header-text-dark: #b9c7d6;
+  --table-row-hover-dark: #1b3a35;
+  --scroll-btn-bg-dark: #2b3b4d;
+  --scroll-btn-hover-dark: #5fd3a8;
   --week-end-text-dark: #EF9A9A;
   --week-end-bg-dark: #7F1D1D;
 }
@@ -50,11 +48,14 @@
   --table-header-bg: var(--table-header-bg-light);
   --table-header-text: var(--table-header-text-light);
   --table-row-hover: var(--table-row-hover-light);
-  --hover-row: var(--hover-row-light);
   --scroll-btn-bg: var(--scroll-btn-bg-light);
   --scroll-btn-hover: var(--scroll-btn-hover-light);
   --week-end-text: var(--week-end-text-light);
   --week-end-bg: var(--week-end-bg-light);
+  --header-bg: #162a3e;
+  --header-text: #f3f6fa;
+  --header-accent: #5fd3a8;
+  --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
 }
 
 .dark-theme {
@@ -70,11 +71,14 @@
   --table-header-bg: var(--table-header-bg-dark);
   --table-header-text: var(--table-header-text-dark);
   --table-row-hover: var(--table-row-hover-dark);
-  --hover-row: var(--hover-row-dark);
   --scroll-btn-bg: var(--scroll-btn-bg-dark);
   --scroll-btn-hover: var(--scroll-btn-hover-dark);
   --week-end-text: var(--week-end-text-dark);
   --week-end-bg: var(--week-end-bg-dark);
+  --header-bg: #0a1119;
+  --header-text: #e4eaf1;
+  --header-accent: #5fd3a8;
+  --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
 }
 
 /* ===== Reset & Base ===== */
@@ -86,7 +90,6 @@
 
 html {
   scroll-behavior: smooth;
-  -webkit-scroll-behavior: smooth;
 }
 
 body {
@@ -101,45 +104,6 @@ body {
   navigation: auto;
 }
 
-/* Élément sortant : fondu + léger zoom arrière */
-::view-transition-old(root) {
-  animation: fade-out-zoom 0.4s ease-in-out both;
-}
-
-/* Élément entrant : fondu + léger zoom avant */
-::view-transition-new(root) {
-  animation: fade-in-zoom 0.4s ease-in-out both;
-}
-
-/* Animation pour l'entrée : fondu + zoom avant */
-@keyframes fade-in-zoom {
-  from {
-    opacity: 0;
-    transform: scale(0.98) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-/* Animation pour la sortie : fondu + zoom arrière */
-@keyframes fade-out-zoom {
-  from {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.98) translateY(-10px);
-  }
-}
-
-
-@keyframes headerShadow {
-  from { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
-  to { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
-}
 
 
 @keyframes grow {
@@ -263,11 +227,6 @@ h1, #siteSelect {
   justify-content: space-evenly;
 }
 
-.filters input, .filters select, .filters button {
-  padding: 8px;
-  font-size: 14px;
-}
-
 #buildingCheckboxes {
   display: flex;
   gap: 10px;
@@ -346,40 +305,9 @@ footer {
   font-size: 10px;
 }
 
-input {
-  accent-color: var(--secondary);
-}
-
 /* ===== Boutons ===== */
 .filters button, #submitButton {
-  position: relative;
-  overflow: hidden;
-  z-index: 0;
-  letter-spacing: 1px;
   cursor: pointer;
-}
-
-.filters button::after, #submitButton::after {
-  background-color: var(--primary);
-  content: '';
-  display: block;
-  height: 110%;
-  width: 110%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  transform: translate(-100%,0) rotate(10deg);
-  transform-origin: top left;
-  transition: 0.2s transform ease-out;
-  z-index: -1;
-}
-
-.filters button:hover::after, #submitButton:hover::after {
-  transform: translate(0,0);
-}
-
-.filters button:hover, #submitButton:hover {
-  color: white;
 }
 
 #scrollToTopButton {
@@ -650,11 +578,6 @@ ul ul {
 
 
 /* ===== Page EDT : fusion de PDFs ===== */
-.pdf-fusion {
-  width: min(760px, calc(100% - 3rem));
-  margin: 1.5rem auto;
-}
-
 .pdf-fusion .row {
   display: flex;
   flex-wrap: wrap;
@@ -928,54 +851,8 @@ ul ul {
    REFONTE VISUELLE : surcharge des styles ci-dessus (même noms de variables)
    ===================================================================== */
 
-/* ----- Palette ----- */
-:root {
-  --bg-light: #f5f7fa;
-  --text-light: #17222e;
-  --primary-light: #243b53;
-  --btn-bg-light: #ffffff;
-  --btn-text-light: #0b6b52;
-  --btn-hover-bg-light: #0b6b52;
-  --btn-hover-text-light: #ffffff;
-  --table-bg-light: #ffffff;
-  --table-border-light: #dde3ea;
-  --table-header-bg-light: #e9eef4;
-  --table-header-text-light: #243b53;
-  --table-row-hover-light: #e3f1ec;
-  --hover-row-light: #e3f1ec;
-  --scroll-btn-bg-light: #243b53;
-  --scroll-btn-hover-light: #0b6b52;
 
-  --bg-dark: #0f1720;
-  --text-dark: #e4eaf1;
-  --primary-dark: #9cc3ee;
-  --btn-bg-dark: #17212c;
-  --btn-text-dark: #5fd3a8;
-  --btn-hover-bg-dark: #5fd3a8;
-  --btn-hover-text-dark: #08120e;
-  --table-bg-dark: #141d27;
-  --table-border-dark: #273443;
-  --table-header-bg-dark: #1c2733;
-  --table-header-text-dark: #b9c7d6;
-  --table-row-hover-dark: #1b3a35;
-  --hover-row-dark: #1b3a35;
-  --scroll-btn-bg-dark: #2b3b4d;
-  --scroll-btn-hover-dark: #5fd3a8;
-}
 
-.light-theme {
-  --header-bg: #162a3e;
-  --header-text: #f3f6fa;
-  --header-accent: #5fd3a8;
-  --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
-}
-
-.dark-theme {
-  --header-bg: #0a1119;
-  --header-text: #e4eaf1;
-  --header-accent: #5fd3a8;
-  --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
-}
 
 /* ----- Base ----- */
 body {
@@ -1205,12 +1082,6 @@ legend {
   color: var(--muted);
 }
 
-.filters button,
-#submitButton { letter-spacing: 0; }
-
-.filters button::after,
-#submitButton::after { display: none; }
-
 .filters button:hover {
   color: var(--text);
   background-color: var(--table-row-hover);
@@ -1256,14 +1127,6 @@ table.data-table th {
   font-size: 0.9rem;
   font-weight: 700;
   white-space: nowrap;
-}
-
-@media (min-width: 801px) {
-  #dataTable tbody td:first-child {
-    font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", sans-serif;
-    font-weight: 700;
-    border-left: 3px solid var(--btn-text);
-  }
 }
 
 @media (max-width: 800px) {
@@ -1528,3 +1391,52 @@ table.data-table td em {
 }
 
 #buildingCheckboxes label { gap: 0.35rem; }
+
+
+/* ----- Planning des salles (edt_v2) ----- */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 0 0 1.5rem;
+  border-bottom: 1px solid var(--table-border);
+}
+
+.bar h1 { flex: 1 1 100%; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  height: 2.5rem;
+  padding: 0 1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--btn-text);
+  background-color: var(--table-bg);
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  color: var(--btn-hover-text);
+  background-color: var(--btn-hover-bg);
+}
+
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn:focus-within { outline: 3px solid var(--btn-text); outline-offset: 2px; }
+
+/* Action principale : charger le PDF */
+.bar label.btn {
+  color: var(--btn-hover-text);
+  background-color: var(--btn-hover-bg);
+  border-color: transparent;
+}
+
+.bar label.btn:hover { filter: brightness(1.12); }
+
+#status { font-size: 0.95rem; color: var(--muted); }
