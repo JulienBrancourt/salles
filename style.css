@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap");
+
 :root {
   --bg-light: white;
   --text-light: #2c2c2c;
@@ -921,3 +923,608 @@ ul ul {
     flex: 1 1 100%;
   }
 }
+
+/* =====================================================================
+   REFONTE VISUELLE : surcharge des styles ci-dessus (même noms de variables)
+   ===================================================================== */
+
+/* ----- Palette ----- */
+:root {
+  --bg-light: #f5f7fa;
+  --text-light: #17222e;
+  --primary-light: #243b53;
+  --btn-bg-light: #ffffff;
+  --btn-text-light: #0b6b52;
+  --btn-hover-bg-light: #0b6b52;
+  --btn-hover-text-light: #ffffff;
+  --table-bg-light: #ffffff;
+  --table-border-light: #dde3ea;
+  --table-header-bg-light: #e9eef4;
+  --table-header-text-light: #243b53;
+  --table-row-hover-light: #e3f1ec;
+  --hover-row-light: #e3f1ec;
+  --scroll-btn-bg-light: #243b53;
+  --scroll-btn-hover-light: #0b6b52;
+
+  --bg-dark: #0f1720;
+  --text-dark: #e4eaf1;
+  --primary-dark: #9cc3ee;
+  --btn-bg-dark: #17212c;
+  --btn-text-dark: #5fd3a8;
+  --btn-hover-bg-dark: #5fd3a8;
+  --btn-hover-text-dark: #08120e;
+  --table-bg-dark: #141d27;
+  --table-border-dark: #273443;
+  --table-header-bg-dark: #1c2733;
+  --table-header-text-dark: #b9c7d6;
+  --table-row-hover-dark: #1b3a35;
+  --hover-row-dark: #1b3a35;
+  --scroll-btn-bg-dark: #2b3b4d;
+  --scroll-btn-hover-dark: #5fd3a8;
+}
+
+.light-theme {
+  --header-bg: #162a3e;
+  --header-text: #f3f6fa;
+  --header-accent: #5fd3a8;
+  --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
+}
+
+.dark-theme {
+  --header-bg: #0a1119;
+  --header-text: #e4eaf1;
+  --header-accent: #5fd3a8;
+  --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
+}
+
+/* ----- Base ----- */
+body {
+  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+h1, h2, legend {
+  font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+
+input { accent-color: var(--btn-text); }
+
+:focus-visible {
+  outline: 3px solid var(--btn-text);
+  outline-offset: 2px;
+}
+
+.page {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+/* ----- Transitions de navigation : simple fondu ----- */
+@keyframes fade-in-zoom { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-out-zoom { from { opacity: 1; } to { opacity: 0; } }
+
+::view-transition-old(root) { animation: fade-out-zoom 0.2s ease both; }
+::view-transition-new(root) { animation: fade-in-zoom 0.2s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* ----- En-tête ----- */
+app-header {
+  background-color: color-mix(in srgb, var(--header-bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: none;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+}
+
+app-header nav {
+  gap: 1rem;
+  padding: 0 1.5rem;
+}
+
+app-header .nav-links {
+  display: flex;
+  align-items: stretch;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+app-header a {
+  padding: 1.15rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border-radius: 0;
+  transition: color 0.2s ease;
+}
+
+.light-theme app-header a,
+.dark-theme app-header a {
+  color: color-mix(in srgb, var(--header-text) 72%, transparent);
+  background-color: transparent;
+}
+
+.light-theme app-header a:hover,
+.dark-theme app-header a:hover,
+.light-theme app-header a[aria-current="page"],
+.dark-theme app-header a[aria-current="page"] {
+  color: var(--header-text);
+  background-color: transparent;
+}
+
+.light-theme app-header a[aria-current="page"],
+.dark-theme app-header a[aria-current="page"] { font-weight: 700; }
+
+/* Filet vert posé sur le bord bas : survol = aperçu, page active = fixe */
+app-header a::after {
+  height: 2px;
+  background-color: var(--header-accent);
+}
+
+app-header a[aria-current="page"]::after { transform: scaleX(1); }
+
+app-header a:focus-visible {
+  outline: 2px solid var(--header-accent);
+  outline-offset: -4px;
+}
+
+/* Progression de lecture : filet fin en haut de l'en-tête */
+app-header .progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background-color: var(--header-accent);
+}
+
+/* Interrupteur de thème */
+app-header .theme-switch {
+  display: flex;
+  align-items: center;
+}
+
+app-header .switch {
+  width: 48px;
+  height: 26px;
+  margin: 0;
+  overflow: visible;
+  border-radius: 26px;
+}
+
+.switch input + span {
+  background: rgb(255 255 255 / 0.12);
+  border: 1px solid rgb(255 255 255 / 0.22);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.switch input:checked + span {
+  background: rgb(95 211 168 / 0.22);
+  border-color: var(--header-accent);
+}
+
+.switch input + span::before,
+.switch input:checked + span::before {
+  content: "";
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #f3f6fa center / 13px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23162a3e' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
+}
+
+.switch input:checked + span::before {
+  left: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23162a3e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/%3E%3C/svg%3E");
+}
+
+app-header .switch:focus-within {
+  outline: 2px solid var(--header-accent);
+  outline-offset: 3px;
+}
+
+/* Mobile : les liens défilent horizontalement au lieu de s'empiler */
+@media (max-width: 768px) {
+  app-header nav { padding: 0 0.75rem; gap: 0.5rem; }
+
+  app-header .nav-links {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  app-header .nav-links::-webkit-scrollbar { display: none; }
+  app-header a { padding: 1rem 0.7rem; font-size: 0.9rem; }
+}
+
+/* ----- Titre : le choix du site fait partie de la phrase ----- */
+h1 {
+  margin: 2.5rem 0 1.5rem;
+  padding: 0;
+  text-align: left;
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+#siteSelect {
+  margin: 0;
+  padding: 0 0.15em;
+  font: inherit;
+  text-align: left;
+  color: var(--btn-text);
+  background-color: transparent;
+  border: 0;
+  border-bottom: 3px solid currentColor;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+/* ----- Filtres ----- */
+.filters {
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem 1rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem 0;
+  border-block: 1px solid var(--table-border);
+}
+
+.filters input[type="text"],
+.filters select,
+.filters button {
+  height: 2.75rem;
+  padding: 0 0.85rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background-color: var(--table-bg);
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+}
+
+.filters input[type="text"] { min-width: min(16rem, 100%); }
+
+.filters fieldset {
+  padding: 0.1rem 0.85rem 0.45rem;
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+}
+
+legend {
+  margin: 0;
+  padding: 0 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.filters button,
+#submitButton { letter-spacing: 0; }
+
+.filters button::after,
+#submitButton::after { display: none; }
+
+.filters button:hover {
+  color: var(--text);
+  background-color: var(--table-row-hover);
+}
+
+/* ----- Export Excel ----- */
+#btnExportExcel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.75rem auto;
+  padding: 0.5rem 0.9rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--btn-text);
+  background-color: transparent;
+  border: 1px solid var(--btn-text);
+  border-radius: 6px;
+}
+
+/* ----- Tableau ----- */
+.table-container { width: 100%; }
+
+table.responsive-table,
+table.data-table {
+  box-shadow: none;
+  border-top: 2px solid var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+
+table.responsive-table th,
+table.responsive-table td,
+table.data-table th,
+table.data-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--table-border);
+}
+
+table.responsive-table th,
+table.data-table th {
+  font-size: 0.9rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (min-width: 801px) {
+  #dataTable tbody td:first-child {
+    font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", sans-serif;
+    font-weight: 700;
+    border-left: 3px solid var(--btn-text);
+  }
+}
+
+@media (max-width: 800px) {
+  table.responsive-table tbody tr { border-bottom: 1px solid var(--table-border); }
+  table.responsive-table tbody td { font-weight: 700; }
+  table.responsive-table tbody td::before { color: var(--muted); }
+}
+
+/* ----- Graphique ----- */
+.chart-card {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--table-border);
+}
+
+#capacityChart { max-width: 100%; }
+
+/* ----- Formulaire de suggestion ----- */
+#contact {
+  width: 100%;
+  max-width: 34rem;
+  margin: 3rem 0;
+  text-align: left;
+}
+
+#contact h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+#contact input,
+#contact textarea {
+  padding: 0.75rem 0.85rem;
+  font: inherit;
+  color: var(--text);
+  background-color: var(--table-bg);
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+}
+
+#contact textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+#contact ::placeholder { color: var(--muted); opacity: 1; }
+
+#contact #submitButton {
+  align-self: flex-start;
+  padding: 0.7rem 1.5rem;
+  font: inherit;
+  font-weight: 700;
+  color: var(--btn-hover-text);
+  background-color: var(--btn-hover-bg);
+  border: 0;
+  border-radius: 6px;
+}
+
+#contact #submitButton:hover {
+  color: var(--btn-hover-text);
+  filter: brightness(1.12);
+}
+
+/* ----- Bouton retour en haut ----- */
+#scrollToTopButton {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0 0 4px;
+  border-radius: 50%;
+  color: #fff;
+  background-color: var(--scroll-btn-bg);
+}
+
+#scrollToTopButton:focus-visible {
+  outline: 3px solid var(--btn-text);
+  outline-offset: 2px;
+}
+
+/* ----- Pied de page ----- */
+footer {
+  justify-content: flex-start;
+  margin: 0 auto;
+  padding: 1.5rem 0 2rem;
+  width: min(1200px, calc(100% - 2rem));
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px solid var(--table-border);
+}
+
+
+/* =====================================================================
+   PAGES SECONDAIRES : annuaire, calendrier, parcours, mémo, emplois du temps
+   ===================================================================== */
+
+h2 { margin: 0 0 0.75rem; font-size: 1.4rem; line-height: 1.2; }
+main section { margin: 0; }
+.page { padding-bottom: 3rem; }
+#contact { margin-bottom: 0; }
+
+/* ----- Tableaux (annuaire, parcours) ----- */
+#dataTableAnnuaire,
+#dataTableParcours { width: 100%; margin: 0; }
+
+table.responsive-table a,
+table.data-table a {
+  color: var(--btn-text);
+  text-underline-offset: 0.2em;
+}
+
+table.data-table td[rowspan] { vertical-align: top; }
+
+table.data-table td em {
+  display: inline-block;
+  margin-top: 0.15rem;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* ----- Calendrier ----- */
+.calendar-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  margin: 0;
+}
+
+.month-card {
+  width: auto;
+  padding: 1rem;
+  background-color: var(--table-bg);
+  border: 1px solid var(--table-border);
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.month-title {
+  margin-bottom: 0.5rem;
+  text-align: left;
+  font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", sans-serif;
+  font-size: 1.15rem;
+}
+
+.calendar-container table {
+  background: transparent;
+  box-shadow: none;
+}
+
+.month-card table :is(th, td) {
+  padding: 0.45rem 0.25rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  border: 0;
+  border-bottom: 1px solid var(--table-border);
+}
+
+.month-card th { font-size: 0.8rem; }
+.week-number { color: var(--muted); font-weight: 700; }
+
+.weekend {
+  color: var(--week-end-text);
+  background-color: color-mix(in srgb, var(--week-end-text) 10%, var(--table-bg));
+}
+
+/* Aujourd'hui se distingue enfin du week-end */
+.today {
+  color: var(--btn-hover-text);
+  background-color: var(--btn-text);
+  font-weight: 700;
+}
+
+/* ----- Mémo : listes ----- */
+#colonnes {
+  flex-wrap: wrap;
+  gap: 2rem 4rem;
+}
+
+#colonnes > div { flex: 1 1 22rem; }
+#colonnes h2 { font-size: 1.25rem; }
+
+#colonnes ul {
+  list-style-position: outside;
+  padding: 0 0 0 1.25rem;
+}
+
+#colonnes li { padding: 0.2rem 0; }
+
+#colonnes ul ul {
+  margin: 0.25rem 0 0.25rem 0.1rem;
+  padding: 0 0 0 1rem;
+  border-left: 1px solid var(--table-border);
+}
+
+/* ----- Emplois du temps (fusion de PDF) ----- */
+.pdf-fusion { width: 100%; margin: 0 0 2rem; }
+.pdf-intro { max-width: 44rem; }
+
+.pdf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  gap: 1rem 3rem;
+  align-items: start;
+}
+
+.pdf-fusion button {
+  height: 2.5rem;
+  padding: 0 1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: var(--btn-text);
+  background-color: var(--table-bg);
+  border: 1px solid var(--table-border);
+  border-radius: 6px;
+}
+
+.pdf-fusion button.primary {
+  color: var(--btn-hover-text);
+  background-color: var(--btn-hover-bg);
+  border-color: transparent;
+}
+
+.pdf-fusion .list li button { height: auto; }
+
+
+/* ----- Filtre Bâtiments : même hauteur que les autres champs ----- */
+.filters fieldset {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
+}
+
+/* La légende reste lue par les lecteurs d'écran mais n'est plus affichée sur la bordure */
+.filters legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#buildingCheckboxes {
+  align-items: center;
+  gap: 0.35rem 1rem;
+  padding: 0;
+}
+
+#buildingCheckboxes::before {
+  content: "Bâtiments";
+  margin-right: 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+#buildingCheckboxes label { gap: 0.35rem; }

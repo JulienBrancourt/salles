@@ -3,7 +3,7 @@ class AppHeader extends HTMLElement { //on définit la classe AppHeader, qui pou
       this.innerHTML = //this fait référence au composant
         `
             <div class="progress"></div>
-            <nav>
+            <nav aria-label="Navigation principale">
                 <div class="nav-links">
                 <a href="index.html">Liste des salles</a>
                 <a href="annuaire.html">Annuaire</a>
@@ -15,7 +15,7 @@ class AppHeader extends HTMLElement { //on définit la classe AppHeader, qui pou
                 </div>
                 <div class="theme-switch">
                 <label class="switch">
-                    <input type="checkbox" id="themeToggle">
+                    <input type="checkbox" id="themeToggle" aria-label="Activer le thème sombre">
                     <span></span>
                 </label>
                 </div>
@@ -23,6 +23,12 @@ class AppHeader extends HTMLElement { //on définit la classe AppHeader, qui pou
         `;
     
     
+    // Marque le lien de la page en cours (utilisé par le CSS et les lecteurs d'écran)
+    const current = location.pathname.split('/').pop() || 'index.html';
+    this.querySelectorAll('.nav-links a').forEach(link => {
+      if (link.getAttribute('href') === current) link.setAttribute('aria-current', 'page');
+    });
+
     // Récupère le body du document
     const body = document.body;
     // Récupère le bouton de toggle dans le shadow DOM ou directement dans this
@@ -53,4 +59,3 @@ class AppHeader extends HTMLElement { //on définit la classe AppHeader, qui pou
 }
 
 customElements.define('app-header', AppHeader); //méthode pour enregistrer un nouveau web component, le composant étant une instance de la classe
-

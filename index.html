@@ -9,15 +9,17 @@
   <script src="header-component.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script> <!-- librairie pour le graphique -->
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js" defer></script> <!--librairie pour l'export vers Excel -->
-  <script src="script.js"defer></script>
+  <script src="script.js" defer></script>
   
 </head>
 <body class="light-theme">
 
   <app-header></app-header>
 
+  <main class="page">
+
   <h1>Liste des Salles :
-    <select id="siteSelect">
+    <select id="siteSelect" aria-label="Site">
       <option value="">Tous les sites</option>
       <option value="CITA">Citadelle</option>
       <option value="SC">Saint Leu</option>
@@ -25,9 +27,9 @@
   </h1>
 
   <div class="filters">
-    <input type="text" id="searchInput" placeholder="Nom de la salle">
+    <input type="text" id="searchInput" aria-label="Rechercher une salle" placeholder="Nom de la salle">
 
-    <select id="categorySelect">
+    <select id="categorySelect" aria-label="Catégorie">
       <option value="">Toutes les catégories</option>
     </select>
 
@@ -65,7 +67,9 @@
   </div>
   
 
-  <canvas id="capacityChart"></canvas>
+  <div class="chart-card">
+    <canvas id="capacityChart"></canvas>
+  </div>
 
 
   <form id="contact" action="https://api.web3forms.com/submit" method="POST">
@@ -74,8 +78,8 @@
     <input type="hidden" name="access_key" value="f6513fdb-6e04-4af5-81ac-f73fda3b9201">
 
     <!-- Form Inputs. Each input must have a name="" attribute -->
-    <input type="text" name="name"  placeholder="Nom" autocomplete="off" required>
-    <textarea name="message" placeholder="Message..." autocomplete="off" required></textarea>
+    <input type="text" name="name" aria-label="Nom" placeholder="Nom" autocomplete="off" required>
+    <textarea name="message" aria-label="Message" placeholder="Message..." autocomplete="off" required></textarea>
 
     <!-- Honeypot Spam Protection -->
     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
@@ -83,9 +87,11 @@
     <!-- Custom Confirmation / Success Page -->
     <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
 
-    <button type="submit" id="submitButton">Envoyer</button>
+    <button type="submit" id="submitButton">Envoyer la suggestion</button>
 
-</form>
+  </form>
+
+  </main>
 
   <button onclick="topFunction()" id="scrollToTopButton">↑</button>
 
