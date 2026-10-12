@@ -1,35 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap");
 
 :root {
-  --bg-light: #f5f7fa;
-  --text-light: #17222e;
-  --primary-light: #243b53;
-  --btn-bg-light: #ffffff;
   --btn-text-light: #0b6b52;
   --btn-hover-bg-light: #0b6b52;
   --btn-hover-text-light: #ffffff;
-  --table-bg-light: #ffffff;
-  --table-border-light: #dde3ea;
-  --table-header-bg-light: #e9eef4;
-  --table-header-text-light: #243b53;
-  --table-row-hover-light: #e3f1ec;
-  --scroll-btn-bg-light: #243b53;
   --scroll-btn-hover-light: #0b6b52;
   --week-end-text-light: #D32F2F;
   --week-end-bg-light: #FFCDD2;
-  --bg-dark: #0f1720;
-  --text-dark: #e4eaf1;
-  --primary-dark: #9cc3ee;
-  --btn-bg-dark: #17212c;
   --btn-text-dark: #5fd3a8;
   --btn-hover-bg-dark: #5fd3a8;
   --btn-hover-text-dark: #08120e;
-  --table-bg-dark: #141d27;
-  --table-border-dark: #273443;
-  --table-header-bg-dark: #1c2733;
-  --table-header-text-dark: #b9c7d6;
-  --table-row-hover-dark: #1b3a35;
-  --scroll-btn-bg-dark: #2b3b4d;
   --scroll-btn-hover-dark: #5fd3a8;
   --week-end-text-dark: #EF9A9A;
   --week-end-bg-dark: #7F1D1D;
@@ -52,9 +32,6 @@
   --scroll-btn-hover: var(--scroll-btn-hover-light);
   --week-end-text: var(--week-end-text-light);
   --week-end-bg: var(--week-end-bg-light);
-  --header-bg: #162a3e;
-  --header-text: #f3f6fa;
-  --header-accent: #5fd3a8;
   --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
 }
 
@@ -75,14 +52,14 @@
   --scroll-btn-hover: var(--scroll-btn-hover-dark);
   --week-end-text: var(--week-end-text-dark);
   --week-end-bg: var(--week-end-bg-dark);
-  --header-bg: #0a1119;
-  --header-text: #e4eaf1;
-  --header-accent: #5fd3a8;
   --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
 }
 
 /* ===== Reset & Base ===== */
-*, ::before, ::after {
+
+*,
+::before,
+::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -93,32 +70,30 @@ html {
 }
 
 body {
-  font-family: Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
 
 /* ===== Animations ===== */
+
 /* Active la transition automatique lors de la navigation */
+
 @view-transition {
   navigation: auto;
 }
 
-
-
 @keyframes grow {
   to {
-    width: 100%;
-  }
+      width: 100%;
+    }
 }
 
 /* ===== Header ===== */
+
 app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--primary);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -128,69 +103,20 @@ app-header {
 app-header nav {
   display: flex;
   align-items: center;
-  gap: 2rem;
   width: 100%;
   justify-content: space-between;
-  padding: 1rem 2rem;
 }
 
 app-header a {
-  color: var(--btn-hover-text);
   text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
-app-header a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--btn-text);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.3s ease;
-}
-
-app-header a:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-app-header a:hover {
-  color: var(--btn-hover-text);
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-app-header .switch {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-.dark-theme app-header a {
-  color: var(--btn-hover-text);
-}
-
-.dark-theme app-header a:hover {
-  color: var(--btn-hover-text-dark);
-  background-color: color-mix(in srgb, #9ec7f7 90%, rgb(51, 18, 70) 10%);
-}
-
 /* Barre de progression */
+
 app-header .progress {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 0;
-  height: 4px;
-  background-color: var(--week-end-text-light);
   z-index: 101;
   transition: width 0.3s ease;
   animation: grow linear forwards;
@@ -198,81 +124,39 @@ app-header .progress {
 }
 
 /* Adaptation pour Firefox */
+
 @-moz-document url-prefix() {
   app-header .progress {
     display: none !important;
   }
 }
 
-h1, #siteSelect {
-  font-size: 2rem;
-  text-align: center;
-  color: var(--primary);
-  padding: 15px;
-  margin-bottom: 10px;
-}
-
-#siteSelect {
-  background-color: transparent;
-  padding: 15px 0;
-  border: none;
-}
-
 .filters {
-  width: 95%;
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-  margin: 0 auto 20px;
-  justify-content: space-evenly;
 }
 
 #buildingCheckboxes {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
-  padding: 1px 15px;
-}
-
-legend {
-  margin: auto;
-  padding: 0 15px;
 }
 
 #buildingCheckboxes label {
   display: flex;
   align-items: center;
-  gap: 3px;
 }
 
 .table-container {
-  width: 95%;
   margin: auto;
 }
 
 #btnExportExcel {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 5px;
-  padding: 7px;
-  font-size: 1rem;
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
-  border: 1px solid #ccc;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
 }
 
 #btnExportExcel img {
   height: 24px;
   width: 24px;
-}
-
-#btnExportExcel:hover {
-  background-color: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
 }
 
 table {
@@ -287,7 +171,8 @@ thead {
   color: var(--table-header-text);
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   border: 1px solid var(--table-border);
   text-align: center;
@@ -299,14 +184,13 @@ tbody tr:hover {
 
 footer {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 15px;
-  font-size: 10px;
 }
 
 /* ===== Boutons ===== */
-.filters button, #submitButton {
+
+.filters button,
+#submitButton {
   cursor: pointer;
 }
 
@@ -322,32 +206,18 @@ footer {
   bottom: 20px;
   right: 30px;
   border: none;
-  border-radius: 25px;
   outline: none;
-  width: 50px;
-  height: 50px;
-  padding-bottom: 5px;
-  background-color: var(--scroll-btn-bg);
   font-size: 24px;
   text-align: center;
-}
-
-#scrollToTopButton:hover,
-#scrollToTopButton:focus,
-#scrollToTopButton:focus-within {
   cursor: pointer;
-  background-color: var(--scroll-btn-hover);
-  color: white;
 }
 
 /* ===== Switch dark / light ===== */
+
 .switch {
   display: inline-block;
   position: relative;
-  width: 60px;
-  height: 34px;
   cursor: pointer;
-  overflow: hidden;
 }
 
 .switch input {
@@ -364,57 +234,19 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #fcd34d;
   border-radius: 34px;
 }
 
-.switch input:checked + span {
-  background: #4b5563;
-}
-
 .switch input + span::before {
-  content: "🌞";
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: absolute;
-  top: 4px;
-  background: white;
-  left: 4px;
-  width: 26px;
-  height: 26px;
-  font-size: 16px;
   border-radius: 50%;
   transition: all .4s;
-  line-height: 1;
-}
-
-.switch input:checked + span::before {
-  left: 30px;
-  content: "🌙";
 }
 
 /* ===== Calendrier ===== */
-.calendar-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.month-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  width: 650px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
 
 .month-title {
-  text-align: center;
   font-weight: bold;
-  font-size: 1.2em;
-  margin-bottom: 10px;
 }
 
 .calendar-container table {
@@ -422,48 +254,17 @@ footer {
   border-collapse: collapse;
 }
 
-.calendar-container table th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-.week-number {
-  font-weight: bold;
-}
-
-.weekend {
-  background-color: var(--week-end-bg);
-  color: var(--week-end-text);
-}
-
-.today {
-  background-color: var(--week-end-bg);
-  font-weight: bold;
-}
-
 /* ===== Contact ===== */
+
 #contact {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  width: 400px;
-  margin: auto;
 }
 
-#contact h2 {
-  margin-top: 20px;
-}
-
-#contact input, #contact textarea, #contact button {
+#contact input,
+#contact textarea,
+#contact button {
   margin-top: 15px;
-  padding: 10px;
-}
-
-#dataTableAnnuaire, #dataTableParcours {
-  width: 75%;
-  margin: 0 auto;
 }
 
 a {
@@ -471,63 +272,14 @@ a {
 }
 
 /* ==== Listes ==== */
-section {
-  margin: 1.5rem;
-}
 
 #colonnes {
   display: flex;
 }
 
-#colonnes > div {
-  flex: 1; /* chaque colonne prend la même largeur */
-}
-
-ul {
-  list-style-position: inside;
-  padding-left: 1.5rem;
-  padding-top: 2px;
-}
-
-ul ul {
-  padding-left: 1.5rem;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-@media (max-width: 350px) {
-  app-header {
-    padding: 0;
-    font-size: 0.8rem;
-  }
-  app-header nav {
-    margin: 0;
-    padding: 0;
-  }
-  app-header .nav-links {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 @media (max-width: 768px) {
-
-  app-header a {
-    font-size: 1rem;
-  }
-  app-header .nav-links {
-  display: flex;
-  flex-direction: column;
-  }
-  app-header nav {
-    padding: 0;
-  }
   .month-card {
     font-size: 12px;
-  }
-  .calendar-container {
-    width: 95%;
-    margin: auto;
   }
 }
 
@@ -535,49 +287,47 @@ ul ul {
   table.responsive-table thead {
     display: none;
   }
+
   table.responsive-table tbody {
     display: block;
   }
+
   table.responsive-table tbody tr {
     display: grid;
     grid-template-columns: 1fr;
     width: 100%;
     padding: 6px 0;
-    border-bottom: 1px solid #ddd;
   }
+
   table.responsive-table tbody td {
     display: grid;
     grid-template-columns: 40% 60%;
     width: clamp(300px, 40%, 700px);
     text-align: left;
-    font-weight: bold;
     border: none;
-    margin: 0 auto ;
+    margin: 0 auto;
     padding: 5px;
   }
+
   table.responsive-table tbody td::before {
     content: attr(data-name);
     font-weight: normal;
     text-transform: capitalize;
   }
+
   table.responsive-table tbody tr:hover {
     background-color: transparent;
   }
 
-  #contact {
-    width: 90%;
-  }
-  #contact h2 {
-    font-size: 18px;
-  }
-  #contact input, #contact textarea, #contact button {
+  #contact input,
+  #contact textarea,
+  #contact button {
     margin-top: 10px;
-    padding: 10px;
   }
 }
 
-
 /* ===== Page EDT : fusion de PDFs ===== */
+
 .pdf-fusion .row {
   display: flex;
   flex-wrap: wrap;
@@ -587,18 +337,11 @@ ul ul {
 }
 
 /* Zone de dépôt */
+
 .pdf-fusion .drop {
   padding: 2rem 1rem;
   text-align: center;
-  border: 2px dashed color-mix(in srgb, var(--text) 35%, transparent);
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--primary) 6%, var(--bg));
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.pdf-fusion .drop.over {
-  border-color: var(--btn-text);
-  background: color-mix(in srgb, var(--btn-text) 12%, var(--bg));
+  transition: box-shadow 0.2s ease;
 }
 
 .pdf-fusion .drop .row {
@@ -606,23 +349,8 @@ ul ul {
   margin-bottom: 0;
 }
 
-/* Boutons (même style que le bouton d'export Excel) */
 .pdf-fusion button {
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  color: var(--btn-text);
-  background-color: var(--btn-bg);
-  border: 1px solid #ccc;
-  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
-}
-
-.pdf-fusion button:hover:not(:disabled) {
-  background-color: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
 }
 
 .pdf-fusion button:disabled {
@@ -630,17 +358,8 @@ ul ul {
   cursor: not-allowed;
 }
 
-.pdf-fusion button.primary {
-  background-color: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
-  border-color: transparent;
-}
-
-.pdf-fusion button.primary:hover:not(:disabled) {
-  filter: brightness(1.15);
-}
-
 /* Liste des fichiers */
+
 .pdf-fusion .list {
   list-style: none;
   padding: 0;
@@ -653,9 +372,6 @@ ul ul {
   gap: 6px;
   padding: 6px 10px;
   margin-bottom: 6px;
-  background-color: var(--table-bg);
-  border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
-  border-radius: 6px;
   transition: background-color 0.2s ease;
 }
 
@@ -676,17 +392,12 @@ ul ul {
 }
 
 /* Case à cocher et messages */
+
 .pdf-fusion label {
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
-}
-
-.pdf-fusion input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--btn-text);
 }
 
 .pdf-fusion .msg {
@@ -696,6 +407,7 @@ ul ul {
 }
 
 /* Encarts d'information */
+
 .pdf-fusion .note {
   display: flex;
   align-items: flex-start;
@@ -704,47 +416,43 @@ ul ul {
   padding: 8px 12px;
   font-size: 0.9rem;
   border-left: 4px solid var(--btn-text);
-  border-radius: 6px;
-  background-color: color-mix(in srgb, var(--btn-text) 10%, var(--bg));
 }
 
 .pdf-fusion .note-warning {
   font-weight: bold;
   border-left-color: var(--week-end-text);
-  background-color: var(--week-end-bg);
 }
 
 @media (max-width: 600px) {
   .pdf-fusion h1 {
     font-size: 1.5rem;
   }
+
   .pdf-fusion .drop {
     padding: 1.5rem 0.75rem;
   }
+
   .pdf-fusion .row button {
     flex: 1 1 100%;
   }
 }
 
 /* =====================================================================
-   REFONTE VISUELLE : surcharge des styles ci-dessus (même noms de variables)
+   COUCHE 2 : mise en page, typographie et en-tête
    ===================================================================== */
 
-
-
-
 /* ----- Base ----- */
+
 body {
   font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 1rem;
   line-height: 1.5;
 }
 
-h1, h2, legend {
+h1,
+h2 {
   font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", system-ui, sans-serif;
 }
-
-input { accent-color: var(--btn-text); }
 
 :focus-visible {
   outline: 3px solid var(--btn-text);
@@ -757,29 +465,38 @@ input { accent-color: var(--btn-text); }
 }
 
 /* ----- Transitions de navigation : simple fondu ----- */
-@keyframes fade-in-zoom { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fade-out-zoom { from { opacity: 1; } to { opacity: 0; } }
 
-::view-transition-old(root) { animation: fade-out-zoom 0.2s ease both; }
-::view-transition-new(root) { animation: fade-in-zoom 0.2s ease both; }
+@keyframes fade-in-zoom {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+@keyframes fade-out-zoom {
+  from { opacity: 1; } to { opacity: 0; }
+}
+
+::view-transition-old(root) {
+  animation: fade-out-zoom 0.2s ease both;
+}
+
+::view-transition-new(root) {
+  animation: fade-in-zoom 0.2s ease both;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  html {
+    scroll-behavior: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
 
 /* ----- En-tête ----- */
-app-header {
-  background-color: color-mix(in srgb, var(--header-bg) 92%, transparent);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: none;
-  border-bottom: 1px solid rgb(255 255 255 / 0.08);
-}
 
 app-header nav {
   gap: 1rem;
-  padding: 0 1.5rem;
 }
 
 app-header .nav-links {
@@ -790,45 +507,32 @@ app-header .nav-links {
 }
 
 app-header a {
-  padding: 1.15rem 0.9rem;
   font-size: 0.95rem;
   font-weight: 500;
   white-space: nowrap;
-  border-radius: 0;
-  transition: color 0.2s ease;
 }
 
 .light-theme app-header a,
 .dark-theme app-header a {
   color: color-mix(in srgb, var(--header-text) 72%, transparent);
-  background-color: transparent;
 }
 
 .light-theme app-header a:hover,
-.dark-theme app-header a:hover,
+.dark-theme app-header a:hover {
+  color: var(--header-text);
+}
+
 .light-theme app-header a[aria-current="page"],
 .dark-theme app-header a[aria-current="page"] {
-  color: var(--header-text);
-  background-color: transparent;
+  font-weight: 700;
 }
-
-.light-theme app-header a[aria-current="page"],
-.dark-theme app-header a[aria-current="page"] { font-weight: 700; }
-
-/* Filet vert posé sur le bord bas : survol = aperçu, page active = fixe */
-app-header a::after {
-  height: 2px;
-  background-color: var(--header-accent);
-}
-
-app-header a[aria-current="page"]::after { transform: scaleX(1); }
 
 app-header a:focus-visible {
   outline: 2px solid var(--header-accent);
-  outline-offset: -4px;
 }
 
 /* Progression de lecture : filet fin en haut de l'en-tête */
+
 app-header .progress {
   position: absolute;
   top: 0;
@@ -838,43 +542,14 @@ app-header .progress {
 }
 
 /* Interrupteur de thème */
+
 app-header .theme-switch {
   display: flex;
   align-items: center;
 }
 
 app-header .switch {
-  width: 48px;
-  height: 26px;
-  margin: 0;
-  overflow: visible;
   border-radius: 26px;
-}
-
-.switch input + span {
-  background: rgb(255 255 255 / 0.12);
-  border: 1px solid rgb(255 255 255 / 0.22);
-  transition: background-color 0.25s ease, border-color 0.25s ease;
-}
-
-.switch input:checked + span {
-  background: rgb(95 211 168 / 0.22);
-  border-color: var(--header-accent);
-}
-
-.switch input + span::before,
-.switch input:checked + span::before {
-  content: "";
-  top: 2px;
-  left: 2px;
-  width: 20px;
-  height: 20px;
-  background: #f3f6fa center / 13px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23162a3e' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
-}
-
-.switch input:checked + span::before {
-  left: 24px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23162a3e' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/%3E%3C/svg%3E");
 }
 
 app-header .switch:focus-within {
@@ -883,8 +558,11 @@ app-header .switch:focus-within {
 }
 
 /* Mobile : les liens défilent horizontalement au lieu de s'empiler */
+
 @media (max-width: 768px) {
-  app-header nav { padding: 0 0.75rem; gap: 0.5rem; }
+  app-header nav {
+    gap: 0.5rem;
+  }
 
   app-header .nav-links {
     flex-direction: row;
@@ -892,11 +570,17 @@ app-header .switch:focus-within {
     scrollbar-width: none;
   }
 
-  app-header .nav-links::-webkit-scrollbar { display: none; }
-  app-header a { padding: 1rem 0.7rem; font-size: 0.9rem; }
+  app-header .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  app-header a {
+    font-size: 0.9rem;
+  }
 }
 
 /* ----- Titre : le choix du site fait partie de la phrase ----- */
+
 h1 {
   margin: 2.5rem 0 1.5rem;
   padding: 0;
@@ -922,6 +606,7 @@ h1 {
 }
 
 /* ----- Filtres ----- */
+
 .filters {
   width: 100%;
   align-items: center;
@@ -929,7 +614,6 @@ h1 {
   gap: 0.75rem 1rem;
   margin: 0 0 1.5rem;
   padding: 1rem 0;
-  border-block: 1px solid var(--table-border);
 }
 
 .filters input[type="text"],
@@ -940,33 +624,14 @@ h1 {
   font: inherit;
   font-size: 1rem;
   color: var(--text);
-  background-color: var(--table-bg);
-  border: 1px solid var(--table-border);
-  border-radius: 6px;
 }
 
-.filters input[type="text"] { min-width: min(16rem, 100%); }
-
-.filters fieldset {
-  padding: 0.1rem 0.85rem 0.45rem;
-  border: 1px solid var(--table-border);
-  border-radius: 6px;
-}
-
-legend {
-  margin: 0;
-  padding: 0 0.35rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-.filters button:hover {
-  color: var(--text);
-  background-color: var(--table-row-hover);
+.filters input[type="text"] {
+  min-width: min(16rem, 100%);
 }
 
 /* ----- Export Excel ----- */
+
 #btnExportExcel {
   display: flex;
   align-items: center;
@@ -975,19 +640,16 @@ legend {
   padding: 0.5rem 0.9rem;
   font: inherit;
   font-weight: 700;
-  color: var(--btn-text);
-  background-color: transparent;
-  border: 1px solid var(--btn-text);
-  border-radius: 6px;
 }
 
 /* ----- Tableau ----- */
-.table-container { width: 100%; }
+
+.table-container {
+  width: 100%;
+}
 
 table.responsive-table,
 table.data-table {
-  box-shadow: none;
-  border-top: 2px solid var(--primary);
   font-variant-numeric: tabular-nums;
 }
 
@@ -998,7 +660,7 @@ table.data-table td {
   padding: 0.75rem 1rem;
   text-align: left;
   border: 0;
-  border-bottom: 1px solid var(--table-border);
+  border-bottom: 1px solid var(--groove);
 }
 
 table.responsive-table th,
@@ -1009,25 +671,37 @@ table.data-table th {
 }
 
 @media (max-width: 800px) {
-  table.responsive-table tbody tr { border-bottom: 1px solid var(--table-border); }
-  table.responsive-table tbody td { font-weight: 700; }
-  table.responsive-table tbody td::before { color: var(--muted); }
+  table.responsive-table tbody tr {
+    border-bottom: 1px solid var(--groove);
+  }
+
+  table.responsive-table tbody td {
+    font-weight: 700;
+  }
+
+  table.responsive-table tbody td::before {
+    color: var(--muted);
+  }
 }
 
 /* ----- Graphique ----- */
+
 .chart-card {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--table-border);
+  border-top: 1px solid var(--groove);
 }
 
-#capacityChart { max-width: 100%; }
+#capacityChart {
+  max-width: 100%;
+}
 
 /* ----- Formulaire de suggestion ----- */
+
 #contact {
   width: 100%;
   max-width: 34rem;
-  margin: 3rem 0;
+  margin: 3rem 0 0;
   text-align: left;
 }
 
@@ -1042,9 +716,6 @@ table.data-table th {
   padding: 0.75rem 0.85rem;
   font: inherit;
   color: var(--text);
-  background-color: var(--table-bg);
-  border: 1px solid var(--table-border);
-  border-radius: 6px;
 }
 
 #contact textarea {
@@ -1052,32 +723,27 @@ table.data-table th {
   resize: vertical;
 }
 
-#contact ::placeholder { color: var(--muted); opacity: 1; }
+#contact ::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
 
 #contact #submitButton {
   align-self: flex-start;
   padding: 0.7rem 1.5rem;
   font: inherit;
   font-weight: 700;
-  color: var(--btn-hover-text);
-  background-color: var(--btn-hover-bg);
   border: 0;
-  border-radius: 6px;
-}
-
-#contact #submitButton:hover {
-  color: var(--btn-hover-text);
-  filter: brightness(1.12);
+  border-radius: 12px;
 }
 
 /* ----- Bouton retour en haut ----- */
+
 #scrollToTopButton {
   width: 2.75rem;
   height: 2.75rem;
   padding: 0 0 4px;
   border-radius: 50%;
-  color: #fff;
-  background-color: var(--scroll-btn-bg);
 }
 
 #scrollToTopButton:focus-visible {
@@ -1086,6 +752,7 @@ table.data-table th {
 }
 
 /* ----- Pied de page ----- */
+
 footer {
   justify-content: flex-start;
   margin: 0 auto;
@@ -1093,22 +760,30 @@ footer {
   width: min(1200px, calc(100% - 2rem));
   font-size: 0.85rem;
   color: var(--muted);
-  border-top: 1px solid var(--table-border);
+  border-top: 1px solid var(--groove);
 }
 
-
 /* =====================================================================
-   PAGES SECONDAIRES : annuaire, calendrier, parcours, mémo, emplois du temps
+   COUCHE 3 : pages secondaires (annuaire, calendrier, parcours, mémo, emplois du temps)
    ===================================================================== */
 
-h2 { margin: 0 0 0.75rem; font-size: 1.4rem; line-height: 1.2; }
-main section { margin: 0; }
-.page { padding-bottom: 3rem; }
-#contact { margin-bottom: 0; }
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+.page {
+  padding-bottom: 3rem;
+}
 
 /* ----- Tableaux (annuaire, parcours) ----- */
+
 #dataTableAnnuaire,
-#dataTableParcours { width: 100%; margin: 0; }
+#dataTableParcours {
+  width: 100%;
+  margin: 0;
+}
 
 table.responsive-table a,
 table.data-table a {
@@ -1116,7 +791,9 @@ table.data-table a {
   text-underline-offset: 0.2em;
 }
 
-table.data-table td[rowspan] { vertical-align: top; }
+table.data-table td[rowspan] {
+  vertical-align: top;
+}
 
 table.data-table td em {
   display: inline-block;
@@ -1127,10 +804,10 @@ table.data-table td em {
 }
 
 /* ----- Calendrier ----- */
+
 .calendar-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
-  gap: 1.5rem;
   width: 100%;
   margin: 0;
 }
@@ -1138,10 +815,6 @@ table.data-table td em {
 .month-card {
   width: auto;
   padding: 1rem;
-  background-color: var(--table-bg);
-  border: 1px solid var(--table-border);
-  border-radius: 8px;
-  box-shadow: none;
 }
 
 .month-title {
@@ -1161,18 +834,23 @@ table.data-table td em {
   text-align: center;
   font-variant-numeric: tabular-nums;
   border: 0;
-  border-bottom: 1px solid var(--table-border);
+  border-bottom: 1px solid var(--groove);
 }
 
-.month-card th { font-size: 0.8rem; }
-.week-number { color: var(--muted); font-weight: 700; }
+.month-card th {
+  font-size: 0.8rem;
+}
+
+.week-number {
+  color: var(--muted);
+  font-weight: 700;
+}
 
 .weekend {
   color: var(--week-end-text);
   background-color: color-mix(in srgb, var(--week-end-text) 10%, var(--table-bg));
 }
 
-/* Aujourd'hui se distingue enfin du week-end */
 .today {
   color: var(--btn-hover-text);
   background-color: var(--btn-text);
@@ -1180,30 +858,43 @@ table.data-table td em {
 }
 
 /* ----- Mémo : listes ----- */
+
 #colonnes {
   flex-wrap: wrap;
-  gap: 2rem 4rem;
 }
 
-#colonnes > div { flex: 1 1 22rem; }
-#colonnes h2 { font-size: 1.25rem; }
+#colonnes > div {
+  flex: 1 1 22rem;
+}
+
+#colonnes h2 {
+  font-size: 1.25rem;
+}
 
 #colonnes ul {
-  list-style-position: outside;
   padding: 0 0 0 1.25rem;
 }
 
-#colonnes li { padding: 0.2rem 0; }
+#colonnes li {
+  padding: 0.2rem 0;
+}
 
 #colonnes ul ul {
   margin: 0.25rem 0 0.25rem 0.1rem;
   padding: 0 0 0 1rem;
-  border-left: 1px solid var(--table-border);
+  border-left: 1px solid var(--groove);
 }
 
 /* ----- Emplois du temps (fusion de PDF) ----- */
-.pdf-fusion { width: 100%; margin: 0 0 2rem; }
-.pdf-intro { max-width: 44rem; }
+
+.pdf-fusion {
+  width: 100%;
+  margin: 0 0 2rem;
+}
+
+.pdf-intro {
+  max-width: 44rem;
+}
 
 .pdf-grid {
   display: grid;
@@ -1219,27 +910,24 @@ table.data-table td em {
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0;
-  color: var(--btn-text);
-  background-color: var(--table-bg);
-  border: 1px solid var(--table-border);
-  border-radius: 6px;
 }
 
 .pdf-fusion button.primary {
-  color: var(--btn-hover-text);
-  background-color: var(--btn-hover-bg);
   border-color: transparent;
 }
 
-.pdf-fusion .list li button { height: auto; }
-
+.pdf-fusion .list li button {
+  height: auto;
+}
 
 /* ----- Filtre Bâtiments : même hauteur que les autres champs ----- */
+
 .filters fieldset {
   padding: 0 0.85rem;
 }
 
 /* La légende reste lue par les lecteurs d'écran mais n'est plus affichée sur la bordure */
+
 .filters legend {
   position: absolute;
   width: 1px;
@@ -1253,6 +941,7 @@ table.data-table td em {
 }
 
 /* La hauteur est portée par le conteneur interne : Chrome ne centre pas le contenu d'un fieldset flex */
+
 #buildingCheckboxes {
   align-items: center;
   gap: 0.35rem 1rem;
@@ -1268,10 +957,12 @@ table.data-table td em {
   color: var(--muted);
 }
 
-#buildingCheckboxes label { gap: 0.35rem; }
-
+#buildingCheckboxes label {
+  gap: 0.35rem;
+}
 
 /* ----- Planning des salles (edt_v2) ----- */
+
 .bar {
   display: flex;
   flex-wrap: wrap;
@@ -1280,10 +971,12 @@ table.data-table td em {
   width: min(1200px, calc(100% - 2rem));
   margin: 0 auto;
   padding: 0 0 1.5rem;
-  border-bottom: 1px solid var(--table-border);
+  border-bottom: 1px solid var(--groove);
 }
 
-.bar h1 { flex: 1 1 100%; }
+.bar h1 {
+  flex: 1 1 100%;
+}
 
 .btn {
   display: inline-flex;
@@ -1293,39 +986,36 @@ table.data-table td em {
   font: inherit;
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--btn-text);
-  background-color: var(--table-bg);
-  border: 1px solid var(--table-border);
-  border-radius: 6px;
   cursor: pointer;
 }
 
-.btn:hover:not(:disabled) {
-  color: var(--btn-hover-text);
-  background-color: var(--btn-hover-bg);
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
-.btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn:focus-within { outline: 3px solid var(--btn-text); outline-offset: 2px; }
+.btn:focus-within {
+  outline: 3px solid var(--btn-text);
+  outline-offset: 2px;
+}
 
 /* Action principale : charger le PDF */
+
 .bar label.btn {
-  color: var(--btn-hover-text);
-  background-color: var(--btn-hover-bg);
   border-color: transparent;
 }
 
-.bar label.btn:hover { filter: brightness(1.12); }
-
-#status { font-size: 0.95rem; color: var(--muted); }
-
+#status {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
 
 /* =====================================================================
-   THÈME NEUMORPHIQUE (dernière couche)
-   Pour revenir au style précédent, supprimer tout ce bloc.
+   COUCHE 4 : thème neumorphique (palette, ombres, composants en relief ou en creux)
    ===================================================================== */
 
 /* ----- Palette : les surfaces ont la même couleur que le fond ----- */
+
 :root {
   --bg-light: #e0e5ec;
   --text-light: #2b3645;
@@ -1337,7 +1027,6 @@ table.data-table td em {
   --table-header-text-light: #3b4a5f;
   --table-row-hover-light: #d3e4de;
   --scroll-btn-bg-light: #e0e5ec;
-
   --bg-dark: #272b33;
   --text-dark: #e4eaf1;
   --primary-dark: #9cc3ee;
@@ -1351,12 +1040,21 @@ table.data-table td em {
 }
 
 /* Ombres : une claire (haut gauche) et une sombre (bas droite) */
-.light-theme { color-scheme: light; --nm-light: #ffffff; --nm-dark: #a3b1c6; }
-.dark-theme  { color-scheme: dark;  --nm-light: #333945; --nm-dark: #1a1d23; }
+
+.light-theme {
+  color-scheme: light;
+  --nm-light: #ffffff;
+  --nm-dark: #a3b1c6;
+}
+
+.dark-theme {
+  color-scheme: dark;
+  --nm-light: #333945;
+  --nm-dark: #1a1d23;
+}
 
 .light-theme,
 .dark-theme {
-  --header-bg: var(--bg);
   --header-text: var(--text);
   --header-accent: var(--btn-text);
   --groove: color-mix(in srgb, var(--nm-dark) 38%, transparent);
@@ -1366,9 +1064,13 @@ table.data-table td em {
   --inset-sm: inset 2px 2px 5px var(--nm-dark), inset -2px -2px 5px var(--nm-light);
 }
 
-option { background-color: var(--bg); color: var(--text); }
+option {
+  background-color: var(--bg);
+  color: var(--text);
+}
 
 /* ----- En-tête ----- */
+
 app-header {
   background-color: var(--bg);
   -webkit-backdrop-filter: none;
@@ -1377,7 +1079,9 @@ app-header {
   box-shadow: 0 6px 14px -6px var(--nm-dark);
 }
 
-app-header nav { padding: 0.35rem 1.25rem; }
+app-header nav {
+  padding: 0.35rem 1.25rem;
+}
 
 app-header a {
   margin: 0.4rem 0;
@@ -1386,14 +1090,13 @@ app-header a {
   transition: box-shadow 0.2s ease, color 0.2s ease;
 }
 
-app-header a::after { display: none; }
-
 .light-theme app-header a:hover,
 .dark-theme app-header a:hover {
   background-color: color-mix(in srgb, var(--nm-dark) 14%, transparent);
 }
 
 /* Page active : bouton enfoncé */
+
 .light-theme app-header a[aria-current="page"],
 .dark-theme app-header a[aria-current="page"] {
   color: var(--btn-text);
@@ -1401,15 +1104,27 @@ app-header a::after { display: none; }
   box-shadow: var(--inset-sm);
 }
 
-app-header a:focus-visible { outline-offset: 2px; }
+app-header a:focus-visible {
+  outline-offset: 2px;
+}
 
 @media (max-width: 768px) {
-  app-header .nav-links { padding: 0.2rem; }
-  app-header a { margin: 0.3rem 0; padding: 0.5rem 0.8rem; }
+  app-header .nav-links {
+    padding: 0.2rem;
+  }
+
+  app-header a {
+    margin: 0.3rem 0;
+    padding: 0.5rem 0.8rem;
+  }
 }
 
 /* ----- Interrupteur de thème : piste en creux, curseur en relief ----- */
-app-header .switch { width: 56px; height: 30px; }
+
+app-header .switch {
+  width: 56px;
+  height: 30px;
+}
 
 .switch input + span,
 .switch input:checked + span {
@@ -1430,9 +1145,12 @@ app-header .switch { width: 56px; height: 30px; }
   box-shadow: 3px 3px 6px var(--nm-dark), -2px -2px 5px var(--nm-light);
 }
 
-.switch input:checked + span::before { left: 29px; }
+.switch input:checked + span::before {
+  left: 29px;
+}
 
 /* Icône soleil / lune, colorée par le thème */
+
 .switch input + span::after {
   content: "";
   position: absolute;
@@ -1453,6 +1171,7 @@ app-header .switch { width: 56px; height: 30px; }
 }
 
 /* ----- Champs : en creux ----- */
+
 .filters input[type="text"],
 .filters select,
 #contact input,
@@ -1469,9 +1188,8 @@ app-header .switch { width: 56px; height: 30px; }
   box-shadow: var(--inset-sm);
 }
 
-.filters { border-block: 0; }
-
 /* Cases à cocher redessinées (identiques sur Firefox et Chrome) */
+
 input[type="checkbox"]:not(#themeToggle) {
   -webkit-appearance: none;
   appearance: none;
@@ -1495,6 +1213,7 @@ input[type="checkbox"]:not(#themeToggle):checked {
 }
 
 /* ----- Boutons : en relief, enfoncés au clic ----- */
+
 .filters button,
 #btnExportExcel,
 .pdf-fusion button,
@@ -1524,6 +1243,7 @@ input[type="checkbox"]:not(#themeToggle):checked {
 }
 
 /* Actions principales : remplies en vert, avec relief */
+
 .pdf-fusion button.primary,
 .pdf-fusion button.primary:hover:not(:disabled),
 .bar label.btn,
@@ -1537,7 +1257,9 @@ input[type="checkbox"]:not(#themeToggle):checked {
 }
 
 .pdf-fusion button.primary:active:not(:disabled),
-#contact #submitButton:active { box-shadow: var(--inset-sm); }
+#contact #submitButton:active {
+  box-shadow: var(--inset-sm);
+}
 
 #scrollToTopButton {
   color: var(--text);
@@ -1552,6 +1274,7 @@ input[type="checkbox"]:not(#themeToggle):checked {
 }
 
 /* ----- Tableaux : un bloc en relief, lignes séparées par de fines rainures ----- */
+
 table.responsive-table,
 table.data-table {
   border-collapse: separate;
@@ -1563,15 +1286,15 @@ table.data-table {
   box-shadow: var(--raised);
 }
 
-table.responsive-table th,
-table.responsive-table td,
-table.data-table th,
-table.data-table td { border-bottom-color: var(--groove); }
-
-.table-container { padding-bottom: 0.5rem; }
+.table-container {
+  padding-bottom: 0.5rem;
+}
 
 /* ----- Calendrier ----- */
-.calendar-container { gap: 2rem; }
+
+.calendar-container {
+  gap: 2rem;
+}
 
 .month-card {
   background-color: var(--bg);
@@ -1580,9 +1303,8 @@ table.data-table td { border-bottom-color: var(--groove); }
   box-shadow: var(--raised);
 }
 
-.month-card table :is(th, td) { border-bottom-color: var(--groove); }
-
 /* ----- Emplois du temps ----- */
+
 .pdf-fusion .drop {
   background: var(--bg);
   border: 0;
@@ -1612,12 +1334,11 @@ table.data-table td { border-bottom-color: var(--groove); }
   background-color: color-mix(in srgb, var(--week-end-text) 12%, var(--bg));
 }
 
-/* ----- Séparateurs en rainure ----- */
-footer, .chart-card, .bar { border-color: var(--groove); }
-
-
 /* ----- Mémo Citadelle : colonnes en relief, ensembles de valeurs en pastilles ----- */
-#colonnes { gap: 2rem; }
+
+#colonnes {
+  gap: 2rem;
+}
 
 #colonnes > div {
   padding: 1.5rem 1.75rem;
@@ -1626,9 +1347,8 @@ footer, .chart-card, .bar { border-color: var(--groove); }
   box-shadow: var(--raised);
 }
 
-#colonnes ul ul { border-left-color: var(--groove); }
-
 /* Troisième niveau (B, C, D… / Global) : une pastille par élément */
+
 #colonnes ul ul ul {
   display: flex;
   flex-wrap: wrap;
