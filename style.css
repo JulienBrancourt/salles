@@ -1357,9 +1357,6 @@ table.data-table td em {
 
 /* ----- Filtre Bâtiments : même hauteur que les autres champs ----- */
 .filters fieldset {
-  display: flex;
-  align-items: center;
-  min-height: 2.75rem;
   padding: 0 0.85rem;
 }
 
@@ -1376,10 +1373,12 @@ table.data-table td em {
   border: 0;
 }
 
+/* La hauteur est portée par le conteneur interne : Chrome ne centre pas le contenu d'un fieldset flex */
 #buildingCheckboxes {
   align-items: center;
   gap: 0.35rem 1rem;
-  padding: 0;
+  min-height: calc(2.75rem - 2px);
+  padding: 0.25rem 0;
 }
 
 #buildingCheckboxes::before {
