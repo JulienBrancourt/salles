@@ -6,18 +6,6 @@
         "Mail" : ""
     },
     {
-        "Prenom" : "Marine",
-        "Nom" : "Lajara",
-        "Tel" : "7551",
-        "Mail" : "marine.lajara@u-picardie.fr"
-    },
-    {
-        "Prenom" : "Véronique",
-        "Nom" : "Fetre",
-        "Tel" : "7518",
-        "Mail" : "veronique.fetre@u-picardie.fr"
-    },
-    {
         "Prenom" : "Centre d'assistance",
         "Nom" : "",
         "Tel" : "5929",
@@ -30,36 +18,6 @@
         "Mail" : "nicolas.neveux@u-picardie.fr "
     },
     {
-        "Prenom" : "Frédérique",
-        "Nom" : "Poitte",
-        "Tel" : "7989",
-        "Mail" : "frederique.poitte@u-picardie.fr"
-    },
-    {
-        "Prenom" : "Sandrine",
-        "Nom" : "Boucher",
-        "Tel" : "7185",
-        "Mail" : "sandrine.boucher@u-picardie.fr"
-    },
-    {
-        "Prenom" : "Inès",
-        "Nom" : "Rubigny",
-        "Tel" : "7504",
-        "Mail" : "ines.rubigny@u-picardie.fr"
-    },
-    {
-        "Prenom" : "Pauline",
-        "Nom" : "Benoist",
-        "Tel" : "7523",
-        "Mail" : "pauline.benoist@u-picardie.fr"
-    },
-    {
-        "Prenom" : "Nadia",
-        "Nom" : "Sghir",
-        "Tel" : "0626059561",
-        "Mail" : "nadia.sghir@u-picardie.fr"
-    },
-    {
         "Prenom" : "PC Sécurité Saint-Leu",
         "Nom" : "",
         "Tel" : "0322828857",
@@ -70,12 +28,6 @@
         "Nom" : "Thiebaut",
         "Tel" : "0645560212",
         "Mail" : "aymeric.thiebaut@u-picardie.fr"
-    },
-    {
-        "Prenom" : "Vanessa",
-        "Nom" : "Hue",
-        "Tel" : "7617",
-        "Mail" : "vanessa.hue@u-picardie.fr"
     },
     {
         "Prenom" : "Nelly",
