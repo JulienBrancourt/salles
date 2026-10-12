@@ -714,127 +714,6 @@ ul ul {
   background-color: var(--week-end-bg);
 }
 
-/* ===== Page Planning salles : heures de début d'utilisation ===== */
-.planning-salles {
-  width: min(960px, calc(100% - 3rem));
-  margin: 1.5rem auto;
-}
-
-.planning-salles .lead {
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  color: color-mix(in srgb, var(--text) 70%, transparent);
-}
-
-/* Zone de dépôt */
-.planning-salles .drop {
-  display: block;
-  padding: 2rem 1rem;
-  text-align: center;
-  cursor: pointer;
-  border: 2px dashed color-mix(in srgb, var(--text) 35%, transparent);
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--primary) 6%, var(--bg));
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.planning-salles .drop.over {
-  border-color: var(--btn-text);
-  background: color-mix(in srgb, var(--btn-text) 12%, var(--bg));
-}
-
-/* Option + statut */
-.planning-salles .opt {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 1rem 0 0.5rem;
-  cursor: pointer;
-}
-
-.planning-salles .opt input {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--btn-text);
-}
-
-.planning-salles .status {
-  min-height: 1.5em;
-  margin-bottom: 0.75rem;
-  font-size: 0.95rem;
-}
-
-/* Bouton de téléchargement (même style que #btnExportExcel) */
-.planning-salles #dl {
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  color: var(--btn-hover-text);
-  background-color: var(--btn-hover-bg);
-  border: 1px solid transparent;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: filter 0.3s ease;
-}
-
-.planning-salles #dl:hover:not(:disabled) {
-  filter: brightness(1.15);
-}
-
-.planning-salles #dl:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-/* Aperçu par bâtiment */
-.planning-salles #preview {
-  margin: 1.5rem 0 0;
-}
-
-.planning-salles .bat {
-  margin-bottom: 1rem;
-  padding: 12px 16px;
-  background-color: var(--table-bg);
-  border: 1px solid var(--table-border);
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.planning-salles .bat h2 {
-  margin-bottom: 8px;
-  padding-bottom: 6px;
-  font-size: 1.1rem;
-  color: var(--primary);
-  border-bottom: 1px solid var(--table-border);
-}
-
-.planning-salles .grid {
-  columns: 200px auto;
-  font-family: ui-monospace, Consolas, monospace;
-  font-size: 13px;
-}
-
-.planning-salles .grid div {
-  break-inside: avoid;
-  padding: 1px 4px;
-  border-radius: 3px;
-}
-
-.planning-salles .grid div:hover {
-  background-color: var(--table-row-hover);
-}
-
-.planning-salles .none {
-  opacity: 0.6;
-  font-style: italic;
-}
-
-@media (max-width: 600px) {
-  .planning-salles .drop { padding: 1.5rem 0.75rem; }
-  .planning-salles #dl { width: 100%; }
-}
-
 @media (max-width: 600px) {
   .pdf-fusion h1 {
     font-size: 1.5rem;
@@ -1439,3 +1318,330 @@ table.data-table td em {
 .bar label.btn:hover { filter: brightness(1.12); }
 
 #status { font-size: 0.95rem; color: var(--muted); }
+
+
+/* =====================================================================
+   THÈME NEUMORPHIQUE (dernière couche)
+   Pour revenir au style précédent, supprimer tout ce bloc.
+   ===================================================================== */
+
+/* ----- Palette : les surfaces ont la même couleur que le fond ----- */
+:root {
+  --bg-light: #e0e5ec;
+  --text-light: #2b3645;
+  --primary-light: #3b4a5f;
+  --btn-bg-light: #e0e5ec;
+  --table-bg-light: #e0e5ec;
+  --table-border-light: #c3cad6;
+  --table-header-bg-light: #e0e5ec;
+  --table-header-text-light: #3b4a5f;
+  --table-row-hover-light: #d3e4de;
+  --scroll-btn-bg-light: #e0e5ec;
+
+  --bg-dark: #272b33;
+  --text-dark: #e4eaf1;
+  --primary-dark: #9cc3ee;
+  --btn-bg-dark: #272b33;
+  --table-bg-dark: #272b33;
+  --table-border-dark: #373d47;
+  --table-header-bg-dark: #272b33;
+  --table-header-text-dark: #b9c7d6;
+  --table-row-hover-dark: #2c3b3c;
+  --scroll-btn-bg-dark: #272b33;
+}
+
+/* Ombres : une claire (haut gauche) et une sombre (bas droite) */
+.light-theme { color-scheme: light; --nm-light: #ffffff; --nm-dark: #a3b1c6; }
+.dark-theme  { color-scheme: dark;  --nm-light: #333945; --nm-dark: #1a1d23; }
+
+.light-theme,
+.dark-theme {
+  --header-bg: var(--bg);
+  --header-text: var(--text);
+  --header-accent: var(--btn-text);
+  --groove: color-mix(in srgb, var(--nm-dark) 38%, transparent);
+  --raised: 6px 6px 14px var(--nm-dark), -6px -6px 14px var(--nm-light);
+  --raised-sm: 3px 3px 7px var(--nm-dark), -3px -3px 7px var(--nm-light);
+  --inset: inset 4px 4px 9px var(--nm-dark), inset -4px -4px 9px var(--nm-light);
+  --inset-sm: inset 2px 2px 5px var(--nm-dark), inset -2px -2px 5px var(--nm-light);
+}
+
+option { background-color: var(--bg); color: var(--text); }
+
+/* ----- En-tête ----- */
+app-header {
+  background-color: var(--bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom: 0;
+  box-shadow: 0 6px 14px -6px var(--nm-dark);
+}
+
+app-header nav { padding: 0.35rem 1.25rem; }
+
+app-header a {
+  margin: 0.4rem 0;
+  padding: 0.55rem 1rem;
+  border-radius: 12px;
+  transition: box-shadow 0.2s ease, color 0.2s ease;
+}
+
+app-header a::after { display: none; }
+
+.light-theme app-header a:hover,
+.dark-theme app-header a:hover {
+  background-color: color-mix(in srgb, var(--nm-dark) 14%, transparent);
+}
+
+/* Page active : bouton enfoncé */
+.light-theme app-header a[aria-current="page"],
+.dark-theme app-header a[aria-current="page"] {
+  color: var(--btn-text);
+  background-color: transparent;
+  box-shadow: var(--inset-sm);
+}
+
+app-header a:focus-visible { outline-offset: 2px; }
+
+@media (max-width: 768px) {
+  app-header .nav-links { padding: 0.2rem; }
+  app-header a { margin: 0.3rem 0; padding: 0.5rem 0.8rem; }
+}
+
+/* ----- Interrupteur de thème : piste en creux, curseur en relief ----- */
+app-header .switch { width: 56px; height: 30px; }
+
+.switch input + span,
+.switch input:checked + span {
+  background: var(--bg);
+  border: 0;
+  box-shadow: var(--inset-sm);
+}
+
+.switch input + span::before,
+.switch input:checked + span::before {
+  content: "";
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background: var(--bg);
+  background-image: none;
+  box-shadow: 3px 3px 6px var(--nm-dark), -2px -2px 5px var(--nm-light);
+}
+
+.switch input:checked + span::before { left: 29px; }
+
+/* Icône soleil / lune, colorée par le thème */
+.switch input + span::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--btn-text);
+  -webkit-mask: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
+  mask: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
+  transition: left 0.4s;
+}
+
+.switch input:checked + span::after {
+  left: 34px;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/%3E%3C/svg%3E");
+}
+
+/* ----- Champs : en creux ----- */
+.filters input[type="text"],
+.filters select,
+#contact input,
+#contact textarea {
+  background-color: var(--bg);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: var(--inset-sm);
+}
+
+.filters fieldset {
+  border: 0;
+  border-radius: 12px;
+  box-shadow: var(--inset-sm);
+}
+
+.filters { border-block: 0; }
+
+/* Cases à cocher redessinées (identiques sur Firefox et Chrome) */
+input[type="checkbox"]:not(#themeToggle) {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 6px;
+  background-color: var(--bg);
+  box-shadow: var(--inset-sm);
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+input[type="checkbox"]:not(#themeToggle):checked {
+  background: var(--btn-text) center / 75% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
+  box-shadow: 2px 2px 5px var(--nm-dark);
+}
+
+.dark-theme input[type="checkbox"]:not(#themeToggle):checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2308120e' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
+}
+
+/* ----- Boutons : en relief, enfoncés au clic ----- */
+.filters button,
+#btnExportExcel,
+.pdf-fusion button,
+.btn {
+  color: var(--btn-text);
+  background-color: var(--bg);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: var(--raised-sm);
+  transition: box-shadow 0.15s ease;
+}
+
+.filters button:hover:not(:disabled),
+#btnExportExcel:hover:not(:disabled),
+.pdf-fusion button:hover:not(:disabled),
+.btn:hover:not(:disabled) {
+  color: var(--btn-text);
+  background-color: var(--bg);
+  box-shadow: var(--raised);
+}
+
+.filters button:active:not(:disabled),
+#btnExportExcel:active:not(:disabled),
+.pdf-fusion button:active:not(:disabled),
+.btn:active:not(:disabled) {
+  box-shadow: var(--inset-sm);
+}
+
+/* Actions principales : remplies en vert, avec relief */
+.pdf-fusion button.primary,
+.pdf-fusion button.primary:hover:not(:disabled),
+.bar label.btn,
+.bar label.btn:hover,
+#contact #submitButton,
+#contact #submitButton:hover {
+  color: var(--btn-hover-text);
+  background-color: var(--btn-hover-bg);
+  filter: none;
+  box-shadow: var(--raised-sm);
+}
+
+.pdf-fusion button.primary:active:not(:disabled),
+#contact #submitButton:active { box-shadow: var(--inset-sm); }
+
+#scrollToTopButton {
+  color: var(--text);
+  background-color: var(--bg);
+  box-shadow: var(--raised-sm);
+}
+
+#scrollToTopButton:hover,
+#scrollToTopButton:focus {
+  color: var(--btn-hover-text);
+  background-color: var(--btn-hover-bg);
+}
+
+/* ----- Tableaux : un bloc en relief, lignes séparées par de fines rainures ----- */
+table.responsive-table,
+table.data-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--bg);
+  box-shadow: var(--raised);
+}
+
+table.responsive-table th,
+table.responsive-table td,
+table.data-table th,
+table.data-table td { border-bottom-color: var(--groove); }
+
+.table-container { padding-bottom: 0.5rem; }
+
+/* ----- Calendrier ----- */
+.calendar-container { gap: 2rem; }
+
+.month-card {
+  background-color: var(--bg);
+  border: 0;
+  border-radius: 18px;
+  box-shadow: var(--raised);
+}
+
+.month-card table :is(th, td) { border-bottom-color: var(--groove); }
+
+/* ----- Emplois du temps ----- */
+.pdf-fusion .drop {
+  background: var(--bg);
+  border: 0;
+  border-radius: 18px;
+  box-shadow: var(--inset);
+}
+
+.pdf-fusion .drop.over {
+  background: var(--bg);
+  box-shadow: var(--inset), 0 0 0 2px var(--btn-text);
+}
+
+.pdf-fusion .list li {
+  background-color: var(--bg);
+  border: 0;
+  border-radius: 12px;
+  box-shadow: var(--raised-sm);
+}
+
+.pdf-fusion .note {
+  background-color: var(--bg);
+  border-radius: 12px;
+  box-shadow: var(--inset-sm);
+}
+
+.pdf-fusion .note-warning {
+  background-color: color-mix(in srgb, var(--week-end-text) 12%, var(--bg));
+}
+
+/* ----- Séparateurs en rainure ----- */
+footer, .chart-card, .bar { border-color: var(--groove); }
+
+
+/* ----- Mémo Citadelle : colonnes en relief, ensembles de valeurs en pastilles ----- */
+#colonnes { gap: 2rem; }
+
+#colonnes > div {
+  padding: 1.5rem 1.75rem;
+  background-color: var(--bg);
+  border-radius: 18px;
+  box-shadow: var(--raised);
+}
+
+#colonnes ul ul { border-left-color: var(--groove); }
+
+/* Troisième niveau (B, C, D… / Global) : une pastille par élément */
+#colonnes ul ul ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.6rem 0 0.4rem;
+  padding: 0;
+  list-style: none;
+  border-left: 0;
+}
+
+#colonnes ul ul ul li {
+  padding: 0.25rem 0.8rem;
+  background-color: var(--bg);
+  border-radius: 10px;
+  box-shadow: var(--raised-sm);
+}
