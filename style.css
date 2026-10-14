@@ -627,7 +627,9 @@ h1 {
 }
 
 .filters input[type="text"] {
-  min-width: min(16rem, 100%);
+  width: min(10rem, 50%);
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 /* ----- Export Excel ----- */
