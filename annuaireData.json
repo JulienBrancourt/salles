@@ -1,75 +1,68 @@
 [
     {
-        "Prenom" : "",
-        "Nom" : "",
-        "Tel" : "",
-        "Mail" : ""
+        "prenom": "Centre d'assistance",
+        "nom": "",
+        "tel": "5929",
+        "mail": ""
     },
     {
-        "Prenom" : "Centre d'assistance",
-        "Nom" : "",
-        "Tel" : "5929",
-        "Mail" : ""
+        "prenom": "Nicolas",
+        "nom": "Neveux",
+        "tel": "0643268553",
+        "mail": "nicolas.neveux@u-picardie.fr"
     },
     {
-        "Prenom" : "Nicolas",
-        "Nom" : "Neveux",
-        "Tel" : "0643268553",
-        "Mail" : "nicolas.neveux@u-picardie.fr"
+        "prenom": "PC Sécurité Saint-Leu",
+        "nom": "",
+        "tel": "0322828857",
+        "mail": ""
     },
     {
-        "Prenom" : "PC Sécurité Saint-Leu",
-        "Nom" : "",
-        "Tel" : "0322828857",
-        "Mail" : ""
+        "prenom": "Aymeric",
+        "nom": "Thiebaut",
+        "tel": "0645560212",
+        "mail": "aymeric.thiebaut@u-picardie.fr"
     },
     {
-        "Prenom" : "Aymeric",
-        "Nom" : "Thiebaut",
-        "Tel" : "0645560212",
-        "Mail" : "aymeric.thiebaut@u-picardie.fr"
+        "prenom": "Nelly",
+        "nom": "Baudry",
+        "tel": "8288",
+        "mail": "nelly.baudry@u-picardie.fr"
     },
     {
-        "Prenom" : "Nelly",
-        "Nom" : "Baudry",
-        "Tel" : "8288",
-        "Mail" : "nelly.baudry@u-picardie.fr"
+        "prenom": "Marie",
+        "nom": "Paisley",
+        "tel": "7431",
+        "mail": "marie.paisley@u-picardie.fr"
     },
     {
-        "Prenom" : "Marie",
-        "Nom" : "Paisley",
-        "Tel" : "7431",
-        "Mail" : "marie.paisley@u-picardie.fr"
+        "prenom": "Mounira",
+        "nom": "Hadri",
+        "tel": "7432",
+        "mail": "mounira.hadri@u-picardie.fr"
     },
     {
-        "Prenom" : "Mounira",
-        "Nom" : "Hadri",
-        "Tel" : "7432",
-        "Mail" : "mounira.hadri@u-picardie.fr"
+        "prenom": "Floriane",
+        "nom": "Alavoine",
+        "tel": "7433",
+        "mail": "floriane.alavoine@u-picardie.fr"
     },
     {
-        "Prenom" : "Floriane",
-        "Nom" : "Alavoine",
-        "Tel" : "7433",
-        "Mail" : "floriane.alavoine@u-picardie.fr"
+        "prenom": "Accueil Citadelle",
+        "nom": "",
+        "tel": "8280 / 8295 / 8294",
+        "mail": ""
     },
     {
-        "Prenom" : "Accueil Citadelle",
-        "Nom" : "",
-        "Tel" : "8280 / 8295 / 8294",
-        "Mail" : ""
+        "prenom": "PC sécurité Citadelle",
+        "nom": "",
+        "tel": "8297",
+        "mail": ""
     },
     {
-        "Prenom" : "PC sécurité Citadelle",
-        "Nom" : "",
-        "Tel" : "8297",
-        "Mail" : ""
-    },
-    {
-        "Prenom" : "Émilie",
-        "Nom" : "Pirlet (ARTS)",
-        "Tel" : "4340",
-        "Mail" : "emilie.pirlet@u-picardie.fr"
+        "prenom": "Émilie",
+        "nom": "Pirlet (ARTS)",
+        "tel": "4340",
+        "mail": "emilie.pirlet@u-picardie.fr"
     }
-
 ]

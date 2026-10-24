@@ -14,6 +14,35 @@ const buildingCheckboxes = document.getElementById("buildingCheckboxes");
 const resetButton = document.getElementById("resetButton");
 const table = document.getElementById("dataTable");
 const tableBody = table.querySelector("tbody");
+const btnExport = document.getElementById("btnExportExcel");
+const errorBox = document.getElementById("dataError");
+
+// Colonnes du tableau : [libellé affiché (data-name), clé dans data.json]
+const COLUMNS = [
+  ["Nom", "nom"],
+  ["Capacité", "capacite"],
+  ["Examen", "examen"],
+  ["Catégorie", "categorie"],
+  ["Réservé", "reserve"],
+  ["Bâtiment", "batiment"],
+  ["Accessibilité", "accessibilite"],
+  ["Observation", "observation"],
+];
+
+// Affiche un message d'erreur visible (lecteurs d'écran inclus : role="alert")
+function showError(message) {
+  errorBox.textContent = message;
+  errorBox.hidden = false;
+}
+
+// Le stockage local peut être indisponible (navigation privée stricte) : ne jamais planter pour ça
+function loadSite() {
+  try { return localStorage.getItem("selectedSite") || ""; } catch (e) { return ""; }
+}
+
+function saveSite(value) {
+  try { localStorage.setItem("selectedSite", value); } catch (e) { /* stockage indisponible */ }
+}
 
 
 // Selection du le site
@@ -21,7 +50,7 @@ const siteSelect = document.getElementById("siteSelect");
 
 // Écouteur pour sauvegarder le choix du site
 siteSelect.addEventListener("change", function() {
-  localStorage.setItem('selectedSite', this.value);
+  saveSite(this.value);
   populateFilters(data, this.value); // Met à jour les filtres disponibles
   applyFilters(); // Applique les filtres
 });
@@ -29,16 +58,24 @@ siteSelect.addEventListener("change", function() {
 
 // 1. Récupérer les données
 fetch("data.json")
-  .then((res) => res.json())
+  .then((res) => {
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return res.json();
+  })
   .then((json) => {
+    if (!Array.isArray(json)) throw new Error("format inattendu : un tableau est attendu");
     data = json;
-    const savedSite = localStorage.getItem('selectedSite') || "";
+    const savedSite = loadSite();
     siteSelect.value = savedSite; // Met à jour la valeur affichée dans la liste déroulante
-    
+
     populateFilters(data, savedSite);
     applyFilters();
     initResizers(); // initialise les redimensionneurs
-    
+  })
+  .catch((err) => {
+    console.error("Chargement de data.json impossible :", err);
+    btnExport.disabled = true;
+    showError("Impossible d'afficher la liste des salles. Vérifiez votre connexion, puis rechargez la page.");
   });
 
 // 2. Remplir les filtres
@@ -46,12 +83,12 @@ function populateFilters(data, selectedSite = "") {
   // Filtrer les données selon le site sélectionné
   let filteredBySite = data;
   if (selectedSite) {
-    filteredBySite = data.filter(item => item.Code.startsWith(selectedSite));
+    filteredBySite = data.filter(item => item.code.startsWith(selectedSite));
   }
 
   // Extraire les catégories et bâtiments uniques pour le site sélectionné
-  const categories = [...new Set(filteredBySite.map(item => item.catégorie).filter(Boolean))].sort();
-  const buildings = [...new Set(filteredBySite.map(item => item.Bâtiment).filter(Boolean))].sort();
+  const categories = [...new Set(filteredBySite.map(item => item.categorie).filter(Boolean))].sort();
+  const buildings = [...new Set(filteredBySite.map(item => item.batiment).filter(Boolean))].sort();
 
   // Mettre à jour les options de catégorie
   categorySelect.innerHTML = '<option value="">Toutes les catégories</option>';
@@ -85,46 +122,48 @@ function applyFilters() {
 
   const selectedSite = siteSelect.value;
   filteredData = data.filter((item) => {
-    const matchName = item.Nom.toLowerCase().includes(searchTerm);
-    const matchCategory = !selectedCategory || item.catégorie === selectedCategory;
-    const matchBuilding = selectedBuildings.length === 0 || selectedBuildings.includes(item.Bâtiment);
-    const matchSite = !selectedSite || item.Code.startsWith(selectedSite);
+    const matchName = item.nom.toLowerCase().includes(searchTerm);
+    const matchCategory = !selectedCategory || item.categorie === selectedCategory;
+    const matchBuilding = selectedBuildings.length === 0 || selectedBuildings.includes(item.batiment);
+    const matchSite = !selectedSite || item.code.startsWith(selectedSite);
     return matchName && matchCategory && matchBuilding && matchSite;
   });
 
-  filteredData.sort((a, b) => a.Nom.localeCompare(b.Nom));
+  filteredData.sort((a, b) => a.nom.localeCompare(b.nom));
   renderTable(filteredData);
   updateChart(filteredData);
-  console.log(filteredData.length);
-  if (filteredData.length > 1) {
-    document.querySelector('#btnExportExcel span').textContent = `Exporter les ${filteredData.length} salles vers Excel`;
-  }
-  else {
-    document.querySelector('#btnExportExcel span').textContent = `Exporter vers Excel`;
-  }
-  console.log(filteredData.length);
-  
-  
+
+  const n = filteredData.length;
+  btnExport.querySelector("span").textContent = n > 1 ? `Exporter les ${n} salles vers Excel` : "Exporter vers Excel";
+  btnExport.disabled = n === 0;
 }
 
-// 4. Afficher la table
+// 4. Afficher la table (textContent : les données ne sont jamais interprétées comme du HTML)
 function renderTable(rows) {
-  
-  tableBody.innerHTML = "";
+  const fragment = document.createDocumentFragment();
+
+  if (rows.length === 0) {
+    const tr = document.createElement("tr");
+    const td = document.createElement("td");
+    td.className = "empty";
+    td.colSpan = COLUMNS.length;
+    td.textContent = "Aucune salle ne correspond à ces filtres.";
+    tr.appendChild(td);
+    fragment.appendChild(tr);
+  }
+
   rows.forEach((row) => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td data-name="Nom">${row.Nom}</td>
-      <td data-name="Capacité">${row.Capacité}</td>
-      <td data-name="Examen">${row.examen}</td>
-      <td data-name="Catégorie">${row.catégorie}</td>
-      <td data-name="Réservé">${row.Réservé}</td>
-      <td data-name="Bâtiment">${row.Bâtiment}</td>
-      <td data-name="Accessibilité">${row.Accessibilité || ""}</td>
-      <td data-name="Observation">${row.observation || ""}</td>
-    `;
-    tableBody.appendChild(tr);
+    COLUMNS.forEach(([label, key]) => {
+      const td = document.createElement("td");
+      td.dataset.name = label;
+      td.textContent = row[key] ?? "";
+      tr.appendChild(td);
+    });
+    fragment.appendChild(tr);
   });
+
+  tableBody.replaceChildren(fragment);
 }
 
 // 5. Écouteurs sur les filtres
@@ -252,10 +291,19 @@ form.addEventListener("submit", function (e) {
 
 //--graphique
 
+// Valeur tracée sur le graphique : le premier nombre du texte
+// ("27 / 14" -> 27, "⚠ 34" -> 34, "24 / 25 ?" -> 24) ; 0 si la case est vide.
+function premierNombre(valeur) {
+  const m = String(valeur ?? "").match(/\d+/);
+  return m ? Number(m[0]) : 0;
+}
+
 function updateChart(data) {
-  const labels = data.map(item => item.Nom);
-  const capacities = data.map(item => Number(item.Capacité));
-  const exams = data.map(item => Number(item.examen));
+  if (typeof Chart === "undefined") return; // bibliothèque non chargée (CDN indisponible)
+
+  const labels = data.map(item => item.nom);
+  const capacities = data.map(item => premierNombre(item.capacite));
+  const exams = data.map(item => premierNombre(item.examen));
 
   const ctx = document.getElementById('capacityChart').getContext('2d');
 
@@ -310,6 +358,10 @@ function updateChart(data) {
 //--- exporter vers excel
 
 function exporterEnExcel(tableId) {
+  if (typeof XLSX === "undefined") {
+    showError("L'export Excel est indisponible : la bibliothèque n'a pas pu être chargée.");
+    return;
+  }
   const table = document.getElementById(tableId);
   const wb = XLSX.utils.book_new(); // créé un nouveau classeur excel
   const ws = XLSX.utils.table_to_sheet(table); //convertit table en worksheet

@@ -1,0 +1,6 @@
+{
+  "json.schemas": [
+    { "fileMatch": ["/data.json"], "url": "./schemas/salles.schema.json" },
+    { "fileMatch": ["/annuaireData.json"], "url": "./schemas/annuaire.schema.json" }
+  ]
+}

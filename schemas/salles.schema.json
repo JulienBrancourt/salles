@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Liste des salles (data.json)",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["code", "nom", "capacite", "examen", "categorie", "reserve", "observation", "accessibilite", "batiment"],
+    "properties": {
+      "code": {
+        "$ref": "#/definitions/texteNonVide",
+        "description": "Identifiant unique. Le filtre de site repose sur son début : « CITA » (Citadelle) ou « SC » (Saint-Leu)."
+      },
+      "nom": { "$ref": "#/definitions/texteNonVide", "description": "Nom affiché dans le tableau." },
+      "capacite": {
+        "type": ["integer", "string"],
+        "minimum": 0,
+        "pattern": "^(\\d+( / \\d+)?( \\?)?)?$",
+        "description": "Nombre de places en cours : entier, « 27 / 14 » (deux configurations), avec « ? » en fin si la valeur est incertaine, ou vide."
+      },
+      "examen": {
+        "type": "string",
+        "pattern": "^(⚠ )?\\d*$",
+        "description": "Nombre de places en examen : « 28 », « ⚠ 34 » (à vérifier) ou vide."
+      },
+      "categorie": { "$ref": "#/definitions/texte", "description": "Type de salle (texte libre, vide à éviter)." },
+      "reserve": { "$ref": "#/definitions/texte", "description": "Composante ou formation à qui la salle est réservée." },
+      "observation": { "$ref": "#/definitions/texte" },
+      "accessibilite": { "$ref": "#/definitions/texte" },
+      "batiment": { "$ref": "#/definitions/texte", "description": "Bâtiment (G, E, Minimes…), vide à éviter." }
+    }
+  },
+  "definitions": {
+    "texte": { "type": "string", "pattern": "^(\\S([\\s\\S]*\\S)?)?$", "description": "Texte sans espace au début ni à la fin." },
+    "texteNonVide": { "type": "string", "minLength": 1, "pattern": "^\\S([\\s\\S]*\\S)?$" }
+  }
+}
