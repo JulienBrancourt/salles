@@ -1,485 +1,122 @@
-@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap");
+/* =====================================================================
+   Polices hébergées en local (sous-ensemble latin, woff2)
+   ===================================================================== */
 
-:root {
-  --btn-text-light: #0b6b52;
-  --btn-hover-bg-light: #0b6b52;
-  --btn-hover-text-light: #ffffff;
-  --scroll-btn-hover-light: #0b6b52;
-  --week-end-text-light: #D32F2F;
-  --week-end-bg-light: #FFCDD2;
-  --btn-text-dark: #5fd3a8;
-  --btn-hover-bg-dark: #5fd3a8;
-  --btn-hover-text-dark: #08120e;
-  --scroll-btn-hover-dark: #5fd3a8;
-  --week-end-text-dark: #EF9A9A;
-  --week-end-bg-dark: #7F1D1D;
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/atkinson-hyperlegible-400.woff2") format("woff2");
 }
 
-.light-theme {
-  --bg: var(--bg-light);
-  --text: var(--text-light);
-  --primary: var(--primary-light);
-  --btn-bg: var(--btn-bg-light);
-  --btn-text: var(--btn-text-light);
-  --btn-hover-bg: var(--btn-hover-bg-light);
-  --btn-hover-text: var(--btn-hover-text-light);
-  --table-bg: var(--table-bg-light);
-  --table-border: var(--table-border-light);
-  --table-header-bg: var(--table-header-bg-light);
-  --table-header-text: var(--table-header-text-light);
-  --table-row-hover: var(--table-row-hover-light);
-  --scroll-btn-bg: var(--scroll-btn-bg-light);
-  --scroll-btn-hover: var(--scroll-btn-hover-light);
-  --week-end-text: var(--week-end-text-light);
-  --week-end-bg: var(--week-end-bg-light);
-  --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/atkinson-hyperlegible-700.woff2") format("woff2");
 }
 
-.dark-theme {
-  --bg: var(--bg-dark);
-  --text: var(--text-dark);
-  --primary: var(--primary-dark);
-  --btn-bg: var(--btn-bg-dark);
-  --btn-text: var(--btn-text-dark);
-  --btn-hover-bg: var(--btn-hover-bg-dark);
-  --btn-hover-text: var(--btn-hover-text-dark);
-  --table-bg: var(--table-bg-dark);
-  --table-border: var(--table-border-dark);
-  --table-header-bg: var(--table-header-bg-dark);
-  --table-header-text: var(--table-header-text-dark);
-  --table-row-hover: var(--table-row-hover-dark);
-  --scroll-btn-bg: var(--scroll-btn-bg-dark);
-  --scroll-btn-hover: var(--scroll-btn-hover-dark);
-  --week-end-text: var(--week-end-text-dark);
-  --week-end-bg: var(--week-end-bg-dark);
-  --muted: color-mix(in srgb, var(--text) 68%, var(--bg));
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-weight: 500 800;
+  font-display: swap;
+  src: url("fonts/bricolage-grotesque-wght.woff2") format("woff2");
 }
 
-/* ===== Reset & Base ===== */
+/* Ordre de priorité : le dernier calque l'emporte, sans dépendre de l'ordre des règles */
+@layer reset, tokens, base, components, pages;
 
-*,
-::before,
-::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* =====================================================================
+   RESET
+   ===================================================================== */
+@layer reset {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-}
-
-/* ===== Animations ===== */
-
-/* Active la transition automatique lors de la navigation */
-
-@view-transition {
-  navigation: auto;
-}
-
-@keyframes grow {
-  to {
-      width: 100%;
-    }
-}
-
-/* ===== Header ===== */
-
-app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-app-header nav {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-
-app-header a {
-  text-decoration: none;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Barre de progression */
-
-app-header .progress {
-  width: 0;
-  z-index: 101;
-  transition: width 0.3s ease;
-  animation: grow linear forwards;
-  animation-timeline: scroll();
-}
-
-/* Adaptation pour Firefox */
-
-@-moz-document url-prefix() {
-  app-header .progress {
+  [hidden] {
     display: none !important;
   }
-}
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#buildingCheckboxes {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#buildingCheckboxes label {
-  display: flex;
-  align-items: center;
-}
-
-.table-container {
-  margin: auto;
-}
-
-#btnExportExcel {
-  cursor: pointer;
-}
-
-#btnExportExcel img {
-  height: 24px;
-  width: 24px;
-}
-
-table {
-  border-collapse: collapse;
-  background: var(--table-bg);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  width: 100%;
-}
-
-thead {
-  background: var(--table-header-bg);
-  color: var(--table-header-text);
-}
-
-th,
-td {
-  padding: 10px;
-  border: 1px solid var(--table-border);
-  text-align: center;
-}
-
-tbody tr:hover {
-  background-color: var(--table-row-hover);
-}
-
-footer {
-  display: flex;
-  align-items: center;
-}
-
-/* ===== Boutons ===== */
-
-.filters button,
-#submitButton {
-  cursor: pointer;
-}
-
-#scrollToTopButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  transition: background-color 0.3s, opacity 0.5s, visibility 0.5s, color 0.3s;
-  opacity: 0;
-  visibility: hidden;
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
-  border: none;
-  outline: none;
-  font-size: 24px;
-  text-align: center;
-  cursor: pointer;
-}
-
-/* ===== Switch dark / light ===== */
-
-.switch {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-}
-
-.switch input {
-  position: absolute;
-  top: -30px;
-  left: -30px;
-  width: 0;
-  height: 0;
-}
-
-.switch input + span {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 34px;
-}
-
-.switch input + span::before {
-  position: absolute;
-  border-radius: 50%;
-  transition: all .4s;
-}
-
-/* ===== Calendrier ===== */
-
-.month-title {
-  font-weight: bold;
-}
-
-.calendar-container table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-/* ===== Contact ===== */
-
-#contact {
-  display: flex;
-  flex-direction: column;
-}
-
-#contact input,
-#contact textarea,
-#contact button {
-  margin-top: 15px;
-}
-
-a {
-  color: var(--text);
-}
-
-/* ==== Listes ==== */
-
-#colonnes {
-  display: flex;
-}
-
-@media (max-width: 768px) {
-  .month-card {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 800px) {
-  table.responsive-table thead {
-    display: none;
-  }
-
-  table.responsive-table tbody {
-    display: block;
-  }
-
-  table.responsive-table tbody tr {
-    display: grid;
-    grid-template-columns: 1fr;
-    width: 100%;
-    padding: 6px 0;
-  }
-
-  table.responsive-table tbody td {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    width: clamp(300px, 40%, 700px);
-    text-align: left;
-    border: none;
-    margin: 0 auto;
-    padding: 5px;
-  }
-
-  table.responsive-table tbody td::before {
-    content: attr(data-name);
-    font-weight: normal;
-    text-transform: capitalize;
-  }
-
-  table.responsive-table tbody tr:hover {
-    background-color: transparent;
-  }
-
-  #contact input,
-  #contact textarea,
-  #contact button {
-    margin-top: 10px;
-  }
-}
-
-/* ===== Page EDT : fusion de PDFs ===== */
-
-.pdf-fusion .row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin: 1rem 0;
-}
-
-/* Zone de dépôt */
-
-.pdf-fusion .drop {
-  padding: 2rem 1rem;
-  text-align: center;
-  transition: box-shadow 0.2s ease;
-}
-
-.pdf-fusion .drop .row {
-  justify-content: center;
-  margin-bottom: 0;
-}
-
-.pdf-fusion button {
-  cursor: pointer;
-}
-
-.pdf-fusion button:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-/* Liste des fichiers */
-
-.pdf-fusion .list {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0;
-}
-
-.pdf-fusion .list li {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  margin-bottom: 6px;
-  transition: background-color 0.2s ease;
-}
-
-.pdf-fusion .list li:hover {
-  background-color: var(--table-row-hover);
-}
-
-.pdf-fusion .list li span {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.pdf-fusion .list li button {
-  padding: 2px 10px;
-}
-
-/* Case à cocher et messages */
-
-.pdf-fusion label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.pdf-fusion .msg {
-  min-height: 1.5em;
-  font-size: 0.95rem;
-  white-space: pre-line;
-}
-
-/* Encarts d'information */
-
-.pdf-fusion .note {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin: 0.75rem 0;
-  padding: 8px 12px;
-  font-size: 0.9rem;
-  border-left: 4px solid var(--btn-text);
-}
-
-.pdf-fusion .note-warning {
-  font-weight: bold;
-  border-left-color: var(--week-end-text);
-}
-
-@media (max-width: 600px) {
-  .pdf-fusion h1 {
-    font-size: 1.5rem;
-  }
-
-  .pdf-fusion .drop {
-    padding: 1.5rem 0.75rem;
-  }
-
-  .pdf-fusion .row button {
-    flex: 1 1 100%;
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 /* =====================================================================
-   COUCHE 2 : mise en page, typographie et en-tête
+   TOKENS : une seule déclaration par couleur (clair, sombre)
+   Le thème suit le système, sauf choix explicite posé sur <html data-theme>
    ===================================================================== */
+@layer tokens {
+  :root {
+    color-scheme: light dark;
 
-/* ----- Base ----- */
+    --bg: light-dark(#e0e5ec, #272b33);
+    --text: light-dark(#2b3645, #e4eaf1);
+    --th-text: light-dark(#3b4a5f, #b9c7d6);
+    --accent: light-dark(#0b6b52, #5fd3a8);
+    --on-accent: light-dark(#ffffff, #08120e);
+    --row-hover: light-dark(#d3e4de, #2c3b3c);
+    --alert: light-dark(#a82019, #ef9a9a);
 
-body {
-  font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
+    /* Bordure des champs (contraste 3:1 minimum avec le fond) */
+    --edge: light-dark(#6f7c92, #78828f);
+
+    /* Ombres du relief : une claire (haut gauche), une sombre (bas droite) */
+    --nm-light: light-dark(#ffffff, #333945);
+    --nm-dark: light-dark(#a3b1c6, #1a1d23);
+
+    --muted: color-mix(in srgb, var(--text) 80%, var(--bg));
+    --groove: color-mix(in srgb, var(--nm-dark) 38%, transparent);
+
+    --raised: 6px 6px 14px var(--nm-dark), -6px -6px 14px var(--nm-light);
+    --raised-sm: 3px 3px 7px var(--nm-dark), -3px -3px 7px var(--nm-light);
+    --inset: inset 4px 4px 9px var(--nm-dark), inset -4px -4px 9px var(--nm-light);
+    --inset-sm: inset 2px 2px 5px var(--nm-dark), inset -2px -2px 5px var(--nm-light);
+
+    --radius: 12px;
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
 }
 
-h1,
-h2 {
-  font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", system-ui, sans-serif;
+/* =====================================================================
+   TRANSITIONS DE NAVIGATION (hors calque : pseudo-éléments de document)
+   ===================================================================== */
+@view-transition {
+  navigation: auto;
 }
 
-:focus-visible {
-  outline: 3px solid var(--btn-text);
-  outline-offset: 2px;
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.page {
-  width: min(1200px, calc(100% - 2rem));
-  margin: 0 auto;
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
-/* ----- Transitions de navigation : simple fondu ----- */
-
-@keyframes fade-in-zoom {
-  from { opacity: 0; } to { opacity: 1; }
-}
-
-@keyframes fade-out-zoom {
-  from { opacity: 1; } to { opacity: 0; }
+@keyframes grow {
+  to { width: 100%; }
 }
 
 ::view-transition-old(root) {
-  animation: fade-out-zoom 0.2s ease both;
+  animation: fade-out 0.2s ease both;
 }
 
 ::view-transition-new(root) {
-  animation: fade-in-zoom 0.2s ease both;
+  animation: fade-in 0.2s ease both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -491,879 +128,828 @@ h2 {
   ::view-transition-new(root) {
     animation: none;
   }
-}
 
-/* ----- En-tête ----- */
-
-app-header nav {
-  gap: 1rem;
-}
-
-app-header .nav-links {
-  display: flex;
-  align-items: stretch;
-  gap: 0.25rem;
-  min-width: 0;
-}
-
-app-header a {
-  font-size: 0.95rem;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.light-theme app-header a,
-.dark-theme app-header a {
-  color: color-mix(in srgb, var(--header-text) 72%, transparent);
-}
-
-.light-theme app-header a:hover,
-.dark-theme app-header a:hover {
-  color: var(--header-text);
-}
-
-.light-theme app-header a[aria-current="page"],
-.dark-theme app-header a[aria-current="page"] {
-  font-weight: 700;
-}
-
-app-header a:focus-visible {
-  outline: 2px solid var(--header-accent);
-}
-
-/* Progression de lecture : filet fin en haut de l'en-tête */
-
-app-header .progress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 2px;
-  background-color: var(--header-accent);
-}
-
-/* Interrupteur de thème */
-
-app-header .theme-switch {
-  display: flex;
-  align-items: center;
-}
-
-app-header .switch {
-  border-radius: 26px;
-}
-
-app-header .switch:focus-within {
-  outline: 2px solid var(--header-accent);
-  outline-offset: 3px;
-}
-
-/* Mobile : les liens défilent horizontalement au lieu de s'empiler */
-
-@media (max-width: 768px) {
-  app-header nav {
-    gap: 0.5rem;
-  }
-
-  app-header .nav-links {
-    flex-direction: row;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  app-header .nav-links::-webkit-scrollbar {
+  app-header .progress {
     display: none;
   }
+}
 
-  app-header a {
-    font-size: 0.9rem;
+/* =====================================================================
+   BASE : éléments HTML nus
+   ===================================================================== */
+@layer base {
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2 {
+    font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", system-ui, sans-serif;
+  }
+
+  h1 {
+    margin: 2.5rem 0 1.5rem;
+    font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+
+  a {
+    color: var(--text);
+  }
+
+  option {
+    background-color: var(--bg);
+    color: var(--text);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .page {
+    width: min(1200px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding-bottom: 3rem;
+  }
+
+  footer {
+    width: min(1200px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 1.5rem 0 2rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-top: 1px solid var(--groove);
   }
 }
 
-/* ----- Titre : le choix du site fait partie de la phrase ----- */
+/* =====================================================================
+   COMPOSANTS réutilisables
+   ===================================================================== */
+@layer components {
 
-h1 {
-  margin: 2.5rem 0 1.5rem;
-  padding: 0;
-  text-align: left;
-  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--text);
-}
+  /* ----- Bouton : en relief, enfoncé au clic ----- */
 
-#siteSelect {
-  margin: 0;
-  padding: 0 0.15em;
-  font: inherit;
-  text-align: left;
-  color: var(--btn-text);
-  background-color: transparent;
-  border: 0;
-  border-bottom: 3px solid currentColor;
-  border-radius: 0;
-  cursor: pointer;
-}
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 2.5rem;
+    padding: 0 1rem;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent);
+    background-color: var(--bg);
+    border: 0;
+    border-radius: var(--radius);
+    box-shadow: var(--raised-sm);
+    cursor: pointer;
+    transition: box-shadow 0.15s ease, background-color 0.3s, color 0.3s;
+  }
 
-/* ----- Filtres ----- */
+  .btn:hover:not(:disabled) {
+    box-shadow: var(--raised);
+  }
 
-.filters {
-  width: 100%;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.75rem 1rem;
-  margin: 0 0 1.5rem;
-  padding: 1rem 0;
-}
+  .btn:active:not(:disabled) {
+    box-shadow: var(--inset-sm);
+  }
 
-.filters input[type="text"],
-.filters select,
-.filters button {
-  height: 2.75rem;
-  padding: 0 0.85rem;
-  font: inherit;
-  font-size: 1rem;
-  color: var(--text);
-}
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
 
-.filters input[type="text"] {
-  width: min(10rem, 50%);
-  min-width: 0;
-  box-sizing: border-box;
-}
+  .btn img {
+    width: 24px;
+    height: 24px;
+  }
 
-/* ----- Export Excel ----- */
+  .btn--primary {
+    color: var(--on-accent);
+    background-color: var(--accent);
+  }
 
-#btnExportExcel {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0 0 0.75rem auto;
-  padding: 0.5rem 0.9rem;
-  font: inherit;
-  font-weight: 700;
-}
+  .btn--sm {
+    height: auto;
+    padding: 2px 10px;
+  }
 
-/* ----- Tableau ----- */
+  .btn--icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0 0 4px;
+    font-size: 24px;
+    color: var(--text);
+    border-radius: 50%;
+  }
 
-.table-container {
-  width: 100%;
-}
+  .btn--icon:hover,
+  .btn--icon:focus-visible {
+    color: var(--on-accent);
+    background-color: var(--accent);
+  }
 
-table.responsive-table,
-table.data-table {
-  font-variant-numeric: tabular-nums;
-}
+  /* ----- Champ : en creux, avec une bordure visible ----- */
 
-table.responsive-table th,
-table.responsive-table td,
-table.data-table th,
-table.data-table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border: 0;
-  border-bottom: 1px solid var(--groove);
-}
+  .field,
+  .field-group {
+    font: inherit;
+    color: var(--text);
+    background-color: var(--bg);
+    border: 1px solid var(--edge);
+    border-radius: var(--radius);
+    box-shadow: var(--inset-sm);
+  }
 
-table.responsive-table th,
-table.data-table th {
-  font-size: 0.9rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
+  .field {
+    height: 2.75rem;
+    padding: 0 0.85rem;
+  }
 
-@media (max-width: 800px) {
-  table.responsive-table tbody tr {
+  textarea.field {
+    height: auto;
+    min-height: 7rem;
+    padding: 0.75rem 0.85rem;
+    resize: vertical;
+  }
+
+  .field::placeholder {
+    color: var(--muted);
+    opacity: 1;
+  }
+
+  .field-group {
+    padding: 0 0.85rem;
+  }
+
+  /* Légende lue par les lecteurs d'écran mais non affichée */
+  .field-group legend {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* ----- Cases à cocher redessinées (identiques sur tous les navigateurs) ----- */
+
+  :where(.check-group, .pdf-fusion) input[type="checkbox"] {
+    appearance: none;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: var(--bg);
+    border: 1px solid var(--edge);
+    border-radius: 6px;
+    box-shadow: var(--inset-sm);
+    cursor: pointer;
+  }
+
+  :where(.check-group, .pdf-fusion) input[type="checkbox"]:checked {
+    background-color: var(--accent);
+    box-shadow: 2px 2px 5px var(--nm-dark);
+  }
+
+  :where(.check-group, .pdf-fusion) input[type="checkbox"]:checked::before {
+    content: "";
+    width: 75%;
+    height: 75%;
+    background-color: var(--on-accent);
+    mask: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
+  }
+
+  /* Groupe de cases : même hauteur que les autres champs */
+  .check-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 1rem;
+    min-height: calc(2.75rem - 2px);
+    padding: 0.25rem 0;
+  }
+
+  .check-group::before {
+    content: "Bâtiments";
+    margin-right: 0.25rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .check-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  /* ----- Tableaux : un bloc en relief, lignes séparées par de fines rainures ----- */
+
+  .responsive-table,
+  .data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    background-color: var(--bg);
+    border-radius: 16px;
+    box-shadow: var(--raised);
+    font-variant-numeric: tabular-nums;
+  }
+
+  :is(.responsive-table, .data-table) :is(th, td) {
+    padding: 0.75rem 1rem;
+    text-align: left;
     border-bottom: 1px solid var(--groove);
   }
 
-  table.responsive-table tbody td {
+  :is(.responsive-table, .data-table) th {
+    font-size: 0.9rem;
     font-weight: 700;
+    white-space: nowrap;
+    color: var(--th-text);
   }
 
-  table.responsive-table tbody td::before {
+  :is(.responsive-table, .data-table) tbody tr:hover {
+    background-color: var(--row-hover);
+  }
+
+  :is(.responsive-table, .data-table) a {
+    color: var(--accent);
+    text-underline-offset: 0.2em;
+  }
+
+  .data-table td[rowspan] {
+    vertical-align: top;
+  }
+
+  .data-table td em {
+    display: inline-block;
+    margin-top: 0.15rem;
+    font-style: normal;
+    font-weight: 400;
     color: var(--muted);
   }
-}
 
-/* ----- Graphique ----- */
+  /* Tableau en cartes sur mobile : le libellé vient de l'attribut data-name */
+  @media (max-width: 800px) {
+    .responsive-table thead {
+      display: none;
+    }
+
+    .responsive-table tbody {
+      display: block;
+    }
+
+    .responsive-table tbody tr {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: 100%;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--groove);
+    }
+
+    .responsive-table tbody tr:hover {
+      background-color: transparent;
+    }
+
+    .responsive-table tbody td {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      width: clamp(300px, 40%, 700px);
+      margin: 0 auto;
+      padding: 5px;
+      font-weight: 700;
+      border: 0;
+    }
+
+    .responsive-table tbody td::before {
+      content: attr(data-name);
+      font-weight: 400;
+      color: var(--muted);
+      text-transform: capitalize;
+    }
+  }
+
+  /* ----- En-tête de navigation ----- */
+
+  app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--bg);
+    box-shadow: 0 6px 14px -6px var(--nm-dark);
+  }
+
+  app-header nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.35rem 1.25rem;
+  }
 
-.chart-card {
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--groove);
-}
-
-#capacityChart {
-  max-width: 100%;
-}
-
-/* ----- Formulaire de suggestion ----- */
-
-#contact {
-  width: 100%;
-  max-width: 34rem;
-  margin: 3rem 0 0;
-  text-align: left;
-}
-
-#contact h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  line-height: 1.2;
-}
-
-#contact input,
-#contact textarea {
-  padding: 0.75rem 0.85rem;
-  font: inherit;
-  color: var(--text);
-}
-
-#contact textarea {
-  min-height: 7rem;
-  resize: vertical;
-}
-
-#contact ::placeholder {
-  color: var(--muted);
-  opacity: 1;
-}
-
-#contact #submitButton {
-  align-self: flex-start;
-  padding: 0.7rem 1.5rem;
-  font: inherit;
-  font-weight: 700;
-  border: 0;
-  border-radius: 12px;
-}
-
-/* ----- Bouton retour en haut ----- */
-
-#scrollToTopButton {
-  width: 2.75rem;
-  height: 2.75rem;
-  padding: 0 0 4px;
-  border-radius: 50%;
-}
-
-#scrollToTopButton:focus-visible {
-  outline: 3px solid var(--btn-text);
-  outline-offset: 2px;
-}
-
-/* ----- Pied de page ----- */
-
-footer {
-  justify-content: flex-start;
-  margin: 0 auto;
-  padding: 1.5rem 0 2rem;
-  width: min(1200px, calc(100% - 2rem));
-  font-size: 0.85rem;
-  color: var(--muted);
-  border-top: 1px solid var(--groove);
-}
-
-/* =====================================================================
-   COUCHE 3 : pages secondaires (annuaire, calendrier, parcours, mémo, emplois du temps)
-   ===================================================================== */
-
-h2 {
-  margin: 0 0 0.75rem;
-  font-size: 1.4rem;
-  line-height: 1.2;
-}
-
-.page {
-  padding-bottom: 3rem;
-}
-
-/* ----- Tableaux (annuaire, parcours) ----- */
-
-#dataTableAnnuaire,
-#dataTableParcours {
-  width: 100%;
-  margin: 0;
-}
-
-table.responsive-table a,
-table.data-table a {
-  color: var(--btn-text);
-  text-underline-offset: 0.2em;
-}
-
-table.data-table td[rowspan] {
-  vertical-align: top;
-}
-
-table.data-table td em {
-  display: inline-block;
-  margin-top: 0.15rem;
-  font-style: normal;
-  font-weight: 400;
-  color: var(--muted);
-}
-
-/* ----- Calendrier ----- */
-
-.calendar-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
-  width: 100%;
-  margin: 0;
-}
-
-.month-card {
-  width: auto;
-  padding: 1rem;
-}
-
-.month-title {
-  margin-bottom: 0.5rem;
-  text-align: left;
-  font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", sans-serif;
-  font-size: 1.15rem;
-}
-
-.calendar-container table {
-  background: transparent;
-  box-shadow: none;
-}
-
-.month-card table :is(th, td) {
-  padding: 0.45rem 0.25rem;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-  border: 0;
-  border-bottom: 1px solid var(--groove);
-}
-
-.month-card th {
-  font-size: 0.8rem;
-}
-
-.week-number {
-  color: var(--muted);
-  font-weight: 700;
-}
-
-.weekend {
-  color: var(--week-end-text);
-  background-color: color-mix(in srgb, var(--week-end-text) 10%, var(--table-bg));
-}
-
-.today {
-  color: var(--btn-hover-text);
-  background-color: var(--btn-text);
-  font-weight: 700;
-}
-
-/* ----- Mémo : listes ----- */
-
-#colonnes {
-  flex-wrap: wrap;
-}
-
-#colonnes > div {
-  flex: 1 1 22rem;
-}
-
-#colonnes h2 {
-  font-size: 1.25rem;
-}
-
-#colonnes ul {
-  padding: 0 0 0 1.25rem;
-}
-
-#colonnes li {
-  padding: 0.2rem 0;
-}
-
-#colonnes ul ul {
-  margin: 0.25rem 0 0.25rem 0.1rem;
-  padding: 0 0 0 1rem;
-  border-left: 1px solid var(--groove);
-}
-
-/* ----- Emplois du temps (fusion de PDF) ----- */
-
-.pdf-fusion {
-  width: 100%;
-  margin: 0 0 2rem;
-}
-
-.pdf-intro {
-  max-width: 44rem;
-}
-
-.pdf-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
-  gap: 1rem 3rem;
-  align-items: start;
-}
-
-.pdf-fusion button {
-  height: 2.5rem;
-  padding: 0 1rem;
-  font: inherit;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0;
-}
-
-.pdf-fusion button.primary {
-  border-color: transparent;
-}
-
-.pdf-fusion .list li button {
-  height: auto;
-}
-
-/* ----- Filtre Bâtiments : même hauteur que les autres champs ----- */
-
-.filters fieldset {
-  padding: 0 0.85rem;
-}
-
-/* La légende reste lue par les lecteurs d'écran mais n'est plus affichée sur la bordure */
-
-.filters legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-/* La hauteur est portée par le conteneur interne : Chrome ne centre pas le contenu d'un fieldset flex */
-
-#buildingCheckboxes {
-  align-items: center;
-  gap: 0.35rem 1rem;
-  min-height: calc(2.75rem - 2px);
-  padding: 0.25rem 0;
-}
-
-#buildingCheckboxes::before {
-  content: "Bâtiments";
-  margin-right: 0.25rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--muted);
-}
-
-#buildingCheckboxes label {
-  gap: 0.35rem;
-}
-
-/* ----- Planning des salles (edt_v2) ----- */
-
-.bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem 1rem;
-  width: min(1200px, calc(100% - 2rem));
-  margin: 0 auto;
-  padding: 0 0 1.5rem;
-  border-bottom: 1px solid var(--groove);
-}
-
-.bar h1 {
-  flex: 1 1 100%;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  height: 2.5rem;
-  padding: 0 1rem;
-  font: inherit;
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.btn:focus-within {
-  outline: 3px solid var(--btn-text);
-  outline-offset: 2px;
-}
-
-/* Action principale : charger le PDF */
-
-.bar label.btn {
-  border-color: transparent;
-}
-
-#status {
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-/* =====================================================================
-   COUCHE 4 : thème neumorphique (palette, ombres, composants en relief ou en creux)
-   ===================================================================== */
-
-/* ----- Palette : les surfaces ont la même couleur que le fond ----- */
-
-:root {
-  --bg-light: #e0e5ec;
-  --text-light: #2b3645;
-  --primary-light: #3b4a5f;
-  --btn-bg-light: #e0e5ec;
-  --table-bg-light: #e0e5ec;
-  --table-border-light: #c3cad6;
-  --table-header-bg-light: #e0e5ec;
-  --table-header-text-light: #3b4a5f;
-  --table-row-hover-light: #d3e4de;
-  --scroll-btn-bg-light: #e0e5ec;
-  --bg-dark: #272b33;
-  --text-dark: #e4eaf1;
-  --primary-dark: #9cc3ee;
-  --btn-bg-dark: #272b33;
-  --table-bg-dark: #272b33;
-  --table-border-dark: #373d47;
-  --table-header-bg-dark: #272b33;
-  --table-header-text-dark: #b9c7d6;
-  --table-row-hover-dark: #2c3b3c;
-  --scroll-btn-bg-dark: #272b33;
-}
-
-/* Ombres : une claire (haut gauche) et une sombre (bas droite) */
-
-.light-theme {
-  color-scheme: light;
-  --nm-light: #ffffff;
-  --nm-dark: #a3b1c6;
-}
-
-.dark-theme {
-  color-scheme: dark;
-  --nm-light: #333945;
-  --nm-dark: #1a1d23;
-}
-
-.light-theme,
-.dark-theme {
-  --header-text: var(--text);
-  --header-accent: var(--btn-text);
-  --groove: color-mix(in srgb, var(--nm-dark) 38%, transparent);
-  --raised: 6px 6px 14px var(--nm-dark), -6px -6px 14px var(--nm-light);
-  --raised-sm: 3px 3px 7px var(--nm-dark), -3px -3px 7px var(--nm-light);
-  --inset: inset 4px 4px 9px var(--nm-dark), inset -4px -4px 9px var(--nm-light);
-  --inset-sm: inset 2px 2px 5px var(--nm-dark), inset -2px -2px 5px var(--nm-light);
-}
-
-option {
-  background-color: var(--bg);
-  color: var(--text);
-}
-
-/* ----- En-tête ----- */
-
-app-header {
-  background-color: var(--bg);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  border-bottom: 0;
-  box-shadow: 0 6px 14px -6px var(--nm-dark);
-}
-
-app-header nav {
-  padding: 0.35rem 1.25rem;
-}
-
-app-header a {
-  margin: 0.4rem 0;
-  padding: 0.55rem 1rem;
-  border-radius: 12px;
-  transition: box-shadow 0.2s ease, color 0.2s ease;
-}
-
-.light-theme app-header a:hover,
-.dark-theme app-header a:hover {
-  background-color: color-mix(in srgb, var(--nm-dark) 14%, transparent);
-}
-
-/* Page active : bouton enfoncé */
-
-.light-theme app-header a[aria-current="page"],
-.dark-theme app-header a[aria-current="page"] {
-  color: var(--btn-text);
-  background-color: transparent;
-  box-shadow: var(--inset-sm);
-}
-
-app-header a:focus-visible {
-  outline-offset: 2px;
-}
-
-@media (max-width: 768px) {
   app-header .nav-links {
-    padding: 0.2rem;
+    display: flex;
+    align-items: stretch;
+    gap: 0.25rem;
+    min-width: 0;
   }
 
   app-header a {
-    margin: 0.3rem 0;
-    padding: 0.5rem 0.8rem;
+    margin: 0.4rem 0;
+    padding: 0.55rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--muted);
+    border-radius: var(--radius);
+    transition: color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  app-header a:hover {
+    color: var(--text);
+    background-color: color-mix(in srgb, var(--nm-dark) 14%, transparent);
+  }
+
+  /* Page active : bouton enfoncé */
+  app-header a[aria-current="page"] {
+    color: var(--accent);
+    font-weight: 700;
+    background-color: transparent;
+    box-shadow: var(--inset-sm);
+  }
+
+  /* Progression de lecture : filet fin en haut de l'en-tête */
+  app-header .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 101;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    animation: grow linear forwards;
+    animation-timeline: scroll();
+  }
+
+  @supports not (animation-timeline: scroll()) {
+    app-header .progress {
+      display: none;
+    }
+  }
+
+  @media (max-width: 800px) {
+    app-header nav {
+      gap: 0.5rem;
+    }
+
+    /* Les liens défilent horizontalement au lieu de s'empiler */
+    app-header .nav-links {
+      overflow-x: auto;
+      padding: 0.2rem;
+      scrollbar-width: none;
+    }
+
+    app-header .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    app-header a {
+      margin: 0.3rem 0;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  /* ----- Interrupteur de thème : piste en creux, curseur en relief ----- */
+
+  app-header .theme-switch {
+    display: flex;
+    align-items: center;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 30px;
+    border-radius: 26px;
+    cursor: pointer;
+  }
+
+  .switch:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* La case reste focalisable et cliquable, mais invisible */
+  .switch input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .switch input + span {
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    border-radius: 34px;
+    box-shadow: var(--inset-sm);
+    pointer-events: none;
+  }
+
+  .switch input + span::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background: var(--bg);
+    border-radius: 50%;
+    box-shadow: 3px 3px 6px var(--nm-dark), -2px -2px 5px var(--nm-light);
+    transition: left 0.4s;
+  }
+
+  .switch input:checked + span::before {
+    left: 29px;
+  }
+
+  /* Icône soleil / lune */
+  .switch input + span::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 14px;
+    height: 14px;
+    background-color: var(--accent);
+    mask: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
+    transition: left 0.4s;
+  }
+
+  .switch input:checked + span::after {
+    left: 34px;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/%3E%3C/svg%3E");
+  }
+
+  /* ----- Bouton retour en haut de page (affiché par le JS au défilement) ----- */
+
+  .scroll-top {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s, background-color 0.3s, color 0.3s;
   }
 }
 
-/* ----- Interrupteur de thème : piste en creux, curseur en relief ----- */
+/* =====================================================================
+   PAGES : mises en page propres à chaque page
+   ===================================================================== */
+@layer pages {
 
-app-header .switch {
-  width: 56px;
-  height: 30px;
-}
+  /* ----- Liste des salles ----- */
 
-.switch input + span,
-.switch input:checked + span {
-  background: var(--bg);
-  border: 0;
-  box-shadow: var(--inset-sm);
-}
+  /* Le choix du site fait partie de la phrase du titre */
+  .title-select {
+    margin: 0;
+    padding: 0 0.15em;
+    font: inherit;
+    color: var(--accent);
+    background-color: transparent;
+    border: 0;
+    border-bottom: 3px solid currentColor;
+    border-radius: 0;
+    cursor: pointer;
+  }
 
-.switch input + span::before,
-.switch input:checked + span::before {
-  content: "";
-  top: 3px;
-  left: 3px;
-  width: 24px;
-  height: 24px;
-  background: var(--bg);
-  background-image: none;
-  box-shadow: 3px 3px 6px var(--nm-dark), -2px -2px 5px var(--nm-light);
-}
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    width: 100%;
+    margin: 0 0 1.5rem;
+    padding: 1rem 0;
+  }
 
-.switch input:checked + span::before {
-  left: 29px;
-}
+  .filters input.field {
+    width: min(10rem, 50%);
+    min-width: 0;
+  }
 
-/* Icône soleil / lune, colorée par le thème */
+  .filters .btn {
+    height: 2.75rem;
+  }
 
-.switch input + span::after {
-  content: "";
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 14px;
-  height: 14px;
-  background-color: var(--btn-text);
-  -webkit-mask: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
-  mask: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3Cpath d='M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'/%3E%3C/svg%3E");
-  transition: left 0.4s;
-}
+  .table-container {
+    width: 100%;
+    padding-bottom: 0.5rem;
+  }
 
-.switch input:checked + span::after {
-  left: 34px;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'/%3E%3C/svg%3E");
-}
+  .table-container > .btn {
+    display: flex;
+    margin: 0 0 0.75rem auto;
+  }
 
-/* ----- Champs : en creux ----- */
+  .chart-card {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--groove);
+  }
 
-.filters input[type="text"],
-.filters select,
-#contact input,
-#contact textarea {
-  background-color: var(--bg);
-  border: 0;
-  border-radius: 12px;
-  box-shadow: var(--inset-sm);
-}
+  .chart-card canvas {
+    max-width: 100%;
+  }
 
-.filters fieldset {
-  border: 0;
-  border-radius: 12px;
-  box-shadow: var(--inset-sm);
-}
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 34rem;
+    margin-top: 3rem;
+  }
 
-/* Cases à cocher redessinées (identiques sur Firefox et Chrome) */
+  .contact-form h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
 
-input[type="checkbox"]:not(#themeToggle) {
-  -webkit-appearance: none;
-  appearance: none;
-  flex: none;
-  width: 1.2rem;
-  height: 1.2rem;
-  border-radius: 6px;
-  background-color: var(--bg);
-  box-shadow: var(--inset-sm);
-  cursor: pointer;
-  vertical-align: middle;
-}
+  .contact-form .btn {
+    align-self: flex-start;
+    height: auto;
+    padding: 0.7rem 1.5rem;
+  }
 
-input[type="checkbox"]:not(#themeToggle):checked {
-  background: var(--btn-text) center / 75% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
-  box-shadow: 2px 2px 5px var(--nm-dark);
-}
+  /* ----- Calendrier ----- */
 
-.dark-theme input[type="checkbox"]:not(#themeToggle):checked {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2308120e' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
-}
+  .calendar-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+    gap: 2rem;
+    width: 100%;
+  }
 
-/* ----- Boutons : en relief, enfoncés au clic ----- */
+  .month-card {
+    padding: 1rem;
+    background-color: var(--bg);
+    border-radius: 18px;
+    box-shadow: var(--raised);
+  }
 
-.filters button,
-#btnExportExcel,
-.pdf-fusion button,
-.btn {
-  color: var(--btn-text);
-  background-color: var(--bg);
-  border: 0;
-  border-radius: 12px;
-  box-shadow: var(--raised-sm);
-  transition: box-shadow 0.15s ease;
-}
+  .month-title {
+    margin-bottom: 0.5rem;
+    font-family: "Bricolage Grotesque", "Atkinson Hyperlegible", sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
 
-.filters button:hover:not(:disabled),
-#btnExportExcel:hover:not(:disabled),
-.pdf-fusion button:hover:not(:disabled),
-.btn:hover:not(:disabled) {
-  color: var(--btn-text);
-  background-color: var(--bg);
-  box-shadow: var(--raised);
-}
+  .month-card table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
 
-.filters button:active:not(:disabled),
-#btnExportExcel:active:not(:disabled),
-.pdf-fusion button:active:not(:disabled),
-.btn:active:not(:disabled) {
-  box-shadow: var(--inset-sm);
-}
+  .month-card thead {
+    color: var(--th-text);
+  }
 
-/* Actions principales : remplies en vert, avec relief */
+  .month-card :is(th, td) {
+    padding: 0.45rem 0.25rem;
+    text-align: center;
+    border-bottom: 1px solid var(--groove);
+  }
 
-.pdf-fusion button.primary,
-.pdf-fusion button.primary:hover:not(:disabled),
-.bar label.btn,
-.bar label.btn:hover,
-#contact #submitButton,
-#contact #submitButton:hover {
-  color: var(--btn-hover-text);
-  background-color: var(--btn-hover-bg);
-  filter: none;
-  box-shadow: var(--raised-sm);
-}
+  .month-card th {
+    font-size: 0.8rem;
+  }
 
-.pdf-fusion button.primary:active:not(:disabled),
-#contact #submitButton:active {
-  box-shadow: var(--inset-sm);
-}
+  .week-number {
+    color: var(--muted);
+    font-weight: 700;
+  }
 
-#scrollToTopButton {
-  color: var(--text);
-  background-color: var(--bg);
-  box-shadow: var(--raised-sm);
-}
+  .weekend {
+    color: var(--alert);
+    background-color: color-mix(in srgb, var(--alert) 10%, var(--bg));
+  }
 
-#scrollToTopButton:hover,
-#scrollToTopButton:focus {
-  color: var(--btn-hover-text);
-  background-color: var(--btn-hover-bg);
-}
+  .today {
+    color: var(--on-accent);
+    background-color: var(--accent);
+    font-weight: 700;
+  }
 
-/* ----- Tableaux : un bloc en relief, lignes séparées par de fines rainures ----- */
+  @media (max-width: 800px) {
+    .month-card {
+      font-size: 12px;
+    }
+  }
 
-table.responsive-table,
-table.data-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 0;
-  border-radius: 16px;
-  overflow: hidden;
-  background-color: var(--bg);
-  box-shadow: var(--raised);
-}
+  /* ----- Mémo Citadelle ----- */
 
-.table-container {
-  padding-bottom: 0.5rem;
-}
+  .memo-cols {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
 
-/* ----- Calendrier ----- */
+  .memo-cols > div {
+    flex: 1 1 22rem;
+    padding: 1.5rem 1.75rem;
+    background-color: var(--bg);
+    border-radius: 18px;
+    box-shadow: var(--raised);
+  }
 
-.calendar-container {
-  gap: 2rem;
-}
+  .memo-cols h2 {
+    font-size: 1.25rem;
+  }
 
-.month-card {
-  background-color: var(--bg);
-  border: 0;
-  border-radius: 18px;
-  box-shadow: var(--raised);
-}
+  .memo-cols ul {
+    padding: 0 0 0 1.25rem;
+  }
 
-/* ----- Emplois du temps ----- */
+  .memo-cols li {
+    padding: 0.2rem 0;
+  }
 
-.pdf-fusion .drop {
-  background: var(--bg);
-  border: 0;
-  border-radius: 18px;
-  box-shadow: var(--inset);
-}
+  .memo-cols ul ul {
+    margin: 0.25rem 0 0.25rem 0.1rem;
+    padding: 0 0 0 1rem;
+    border-left: 1px solid var(--groove);
+  }
 
-.pdf-fusion .drop.over {
-  background: var(--bg);
-  box-shadow: var(--inset), 0 0 0 2px var(--btn-text);
-}
+  /* Troisième niveau (B, C, D… / Global) : une pastille par élément */
+  .memo-cols ul ul ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.6rem 0 0.4rem;
+    padding: 0;
+    list-style: none;
+    border-left: 0;
+  }
 
-.pdf-fusion .list li {
-  background-color: var(--bg);
-  border: 0;
-  border-radius: 12px;
-  box-shadow: var(--raised-sm);
-}
+  .memo-cols ul ul ul li {
+    padding: 0.25rem 0.8rem;
+    background-color: var(--bg);
+    border-radius: 10px;
+    box-shadow: var(--raised-sm);
+  }
 
-.pdf-fusion .note {
-  background-color: var(--bg);
-  border-radius: 12px;
-  box-shadow: var(--inset-sm);
-}
+  /* ----- Emplois du temps : fusion de PDF ----- */
 
-.pdf-fusion .note-warning {
-  background-color: color-mix(in srgb, var(--week-end-text) 12%, var(--bg));
-}
+  .pdf-intro {
+    max-width: 44rem;
+  }
 
-/* ----- Mémo Citadelle : colonnes en relief, ensembles de valeurs en pastilles ----- */
+  .pdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: 1rem 3rem;
+    align-items: start;
+  }
 
-#colonnes {
-  gap: 2rem;
-}
+  .pdf-fusion {
+    width: 100%;
+    margin: 0 0 2rem;
+  }
 
-#colonnes > div {
-  padding: 1.5rem 1.75rem;
-  background-color: var(--bg);
-  border-radius: 18px;
-  box-shadow: var(--raised);
-}
+  .pdf-fusion .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 1rem 0;
+  }
 
-/* Troisième niveau (B, C, D… / Global) : une pastille par élément */
+  .pdf-fusion label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
 
-#colonnes ul ul ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin: 0.6rem 0 0.4rem;
-  padding: 0;
-  list-style: none;
-  border-left: 0;
-}
+  /* Zone de dépôt : en creux */
+  .pdf-fusion .drop {
+    padding: 2rem 1rem;
+    text-align: center;
+    background: var(--bg);
+    border-radius: 18px;
+    box-shadow: var(--inset);
+    transition: box-shadow 0.2s ease;
+  }
 
-#colonnes ul ul ul li {
-  padding: 0.25rem 0.8rem;
-  background-color: var(--bg);
-  border-radius: 10px;
-  box-shadow: var(--raised-sm);
+  .pdf-fusion .drop.over {
+    box-shadow: var(--inset), 0 0 0 2px var(--accent);
+  }
+
+  .pdf-fusion .drop .row {
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  /* Liste des fichiers */
+  .pdf-fusion .list {
+    margin: 1rem 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .pdf-fusion .list li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    padding: 6px 10px;
+    background-color: var(--bg);
+    border-radius: var(--radius);
+    box-shadow: var(--raised-sm);
+    transition: background-color 0.2s ease;
+  }
+
+  .pdf-fusion .list li:hover {
+    background-color: var(--row-hover);
+  }
+
+  .pdf-fusion .list li span {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .pdf-fusion .msg {
+    min-height: 1.5em;
+    font-size: 0.95rem;
+    white-space: pre-line;
+  }
+
+  /* Encarts d'information */
+  .pdf-fusion .note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0.75rem 0;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    background-color: var(--bg);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+    box-shadow: var(--inset-sm);
+  }
+
+  .pdf-fusion .note-warning {
+    font-weight: 700;
+    border-left-color: var(--alert);
+    background-color: color-mix(in srgb, var(--alert) 12%, var(--bg));
+  }
+
+  @media (max-width: 600px) {
+    .pdf-fusion h1 {
+      font-size: 1.5rem;
+    }
+
+    .pdf-fusion .drop {
+      padding: 1.5rem 0.75rem;
+    }
+
+    .pdf-fusion .row .btn {
+      flex: 1 1 100%;
+    }
+  }
 }

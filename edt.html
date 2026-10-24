@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fusion de PDF avec nom de fichier</title>
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t.replace('-theme','')}catch(e){}</script>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bricolage-grotesque-wght.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon-32x32.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
@@ -28,9 +31,9 @@
 
   <div id="cit-drop" class="drop">
     Glissez vos PDFs ici
-    <div class="row" style="justify-content:center">
-      <button id="cit-pick">Choisir des fichiers…</button>
-      <button id="cit-pickDir" hidden>Choisir un dossier…</button>
+    <div class="row">
+      <button class="btn" id="cit-pick">Choisir des fichiers…</button>
+      <button class="btn" id="cit-pickDir" hidden>Choisir un dossier…</button>
     </div>
   </div>
 
@@ -41,8 +44,8 @@
 
   <label><input type="checkbox" id="cit-footer" checked> Ajouter le nom du fichier en pied de page</label>
   <div class="row">
-    <button class="primary" id="cit-go" disabled>Fusionner</button>
-    <button id="cit-print" disabled>Ouvrir pour imprimer</button>
+    <button class="btn btn--primary" id="cit-go" disabled>Fusionner</button>
+    <button class="btn" id="cit-print" disabled>Ouvrir pour imprimer</button>
   </div>
   
   <p id="cit-msg" class="msg"></p>
@@ -53,9 +56,9 @@
 
   <div id="drop" class="drop">
     Glissez vos PDFs ici
-    <div class="row" style="justify-content:center">
-      <button id="pick">Choisir des fichiers…</button>
-      <button id="pickDir" hidden>Choisir un dossier…</button>
+    <div class="row">
+      <button class="btn" id="pick">Choisir des fichiers…</button>
+      <button class="btn" id="pickDir" hidden>Choisir un dossier…</button>
     </div>
   </div>
   <input id="file" type="file" accept="application/pdf" multiple hidden>
@@ -64,8 +67,8 @@
 
   <label><input type="checkbox" id="footer" checked> Ajouter le nom du fichier en pied de page</label>
   <div class="row">
-    <button class="primary" id="go" disabled>Fusionner</button>
-    <button id="print" disabled>Ouvrir pour imprimer</button>
+    <button class="btn btn--primary" id="go" disabled>Fusionner</button>
+    <button class="btn" id="print" disabled>Ouvrir pour imprimer</button>
   </div>
   <p id="msg" class="msg"></p>
 </section>

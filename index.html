@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Liste des Salles</title>
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t.replace('-theme','')}catch(e){}</script>
+  <link rel="preload" href="fonts/atkinson-hyperlegible-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bricolage-grotesque-wght.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon-32x32.png">
   <script src="header-component.js" defer></script>
@@ -12,14 +15,14 @@
   <script src="script.js" defer></script>
   
 </head>
-<body class="light-theme">
+<body>
 
   <app-header></app-header>
 
   <main class="page">
 
   <h1>Liste des Salles :
-    <select id="siteSelect" aria-label="Site">
+    <select id="siteSelect" class="title-select" aria-label="Site">
       <option value="">Tous les sites</option>
       <option value="CITA">Citadelle</option>
       <option value="SC">Saint Leu</option>
@@ -27,24 +30,24 @@
   </h1>
 
   <div class="filters">
-    <input type="text" id="searchInput" aria-label="Rechercher une salle" placeholder="Nom de la salle">
+    <input type="text" id="searchInput" class="field" aria-label="Rechercher une salle" placeholder="Nom de la salle">
 
-    <select id="categorySelect" aria-label="Catégorie">
+    <select id="categorySelect" class="field" aria-label="Catégorie">
       <option value="">Toutes les catégories</option>
     </select>
 
     <form>
-        <fieldset>
+        <fieldset class="field-group">
             <legend>Bâtiments</legend>
-            <div id="buildingCheckboxes"></div>
+            <div id="buildingCheckboxes" class="check-group"></div>
         </fieldset>
     </form>
 
-    <button id="resetButton">Réinitialiser les filtres</button>
+    <button id="resetButton" class="btn">Réinitialiser les filtres</button>
   </div>
 
   <div class="table-container">
-    <button onclick="exporterEnExcel('dataTable')" id="btnExportExcel">
+    <button onclick="exporterEnExcel('dataTable')" id="btnExportExcel" class="btn">
       <img src="https://img.icons8.com/color/24/000000/microsoft-excel-2019--v1.png" alt="Excel Icon">
       <span>Exporter vers Excel</span>
     </button>
@@ -72,14 +75,14 @@
   </div>
 
 
-  <form id="contact" action="https://api.web3forms.com/submit" method="POST">
+  <form id="contact" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
     <h2>Une suggestion ?</h2>
   
     <input type="hidden" name="access_key" value="f6513fdb-6e04-4af5-81ac-f73fda3b9201">
 
     <!-- Form Inputs. Each input must have a name="" attribute -->
-    <input type="text" name="name" aria-label="Nom" placeholder="Nom" autocomplete="off" required>
-    <textarea name="message" aria-label="Message" placeholder="Message..." autocomplete="off" required></textarea>
+    <input type="text" name="name" class="field" aria-label="Nom" placeholder="Nom" autocomplete="off" required>
+    <textarea name="message" class="field" aria-label="Message" placeholder="Message..." autocomplete="off" required></textarea>
 
     <!-- Honeypot Spam Protection -->
     <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
@@ -87,13 +90,13 @@
     <!-- Custom Confirmation / Success Page -->
     <!-- <input type="hidden" name="redirect" value="https://mywebsite.com/thanks.html"> -->
 
-    <button type="submit" id="submitButton">Envoyer la suggestion</button>
+    <button type="submit" id="submitButton" class="btn btn--primary">Envoyer la suggestion</button>
 
   </form>
 
   </main>
 
-  <button onclick="topFunction()" id="scrollToTopButton">↑</button>
+  <button onclick="topFunction()" id="scrollToTopButton" class="btn btn--icon scroll-top" aria-label="Retour en haut de la page">↑</button>
 
   <footer>
     <p>Julien Brancourt - 16/04/2025</p>
