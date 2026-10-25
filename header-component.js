@@ -15,6 +15,7 @@ class AppHeader extends HTMLElement {
           <a href="edt_v2.html">edt dev</a>
         </div>
         <div class="theme-switch">
+          <button type="button" class="btn btn--sm" id="styleToggle" aria-pressed="false" aria-label="Style alternatif" title="Basculer vers le style alternatif">Style</button>
           <label class="switch">
             <input type="checkbox" id="themeToggle" aria-label="Activer le thème sombre">
             <span></span>
@@ -56,6 +57,60 @@ class AppHeader extends HTMLElement {
 			root.dataset.theme = theme;
 			try {
 				localStorage.setItem("theme", theme);
+			} catch (e) {
+				/* stockage indisponible */
+			}
+		});
+
+		// Style : style.css (par défaut) ou style_alternatif.css.
+		// Le choix est lu avant le premier rendu par un script inline dans chaque
+		// <head> (qui écrit <link id="siteStyle">) : même clé "style", mêmes fichiers.
+		const STYLE_DEFAULT = "style.css";
+		const STYLE_ALT = "style_alternatif.css";
+		const styleBtn = this.querySelector("#styleToggle");
+		const styleLink = () => document.getElementById("siteStyle");
+		const isAlt = () => styleLink()?.getAttribute("href") === STYLE_ALT;
+
+		const syncStyleButton = () => {
+			styleBtn.setAttribute("aria-pressed", String(isAlt()));
+			styleBtn.title = isAlt()
+				? "Revenir au style d'origine"
+				: "Basculer vers le style alternatif";
+		};
+		syncStyleButton();
+
+		// Charge la nouvelle feuille AVANT de retirer l'ancienne : pas de page sans style
+		const swapStylesheet = (href) =>
+			new Promise((resolve) => {
+				const old = styleLink();
+				if (!old) return resolve();
+				const next = document.createElement("link");
+				next.rel = "stylesheet";
+				next.href = href;
+				old.removeAttribute("id");
+				next.id = "siteStyle";
+				next.addEventListener("load", () => {
+					old.remove();
+					resolve();
+				});
+				next.addEventListener("error", () => {
+					next.remove();
+					old.id = "siteStyle";
+					resolve();
+				});
+				old.after(next);
+			});
+
+		styleBtn.addEventListener("click", async () => {
+			const alt = !isAlt();
+			const run = () => swapStylesheet(alt ? STYLE_ALT : STYLE_DEFAULT);
+			// Fondu natif quand le navigateur le permet (le site utilise déjà les view transitions)
+			if (document.startViewTransition)
+				await document.startViewTransition(run).finished;
+			else await run();
+			syncStyleButton();
+			try {
+				localStorage.setItem("style", alt ? "alternatif" : "defaut");
 			} catch (e) {
 				/* stockage indisponible */
 			}

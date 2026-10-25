@@ -7,7 +7,8 @@
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t.replace('-theme','')}catch(e){}</script>
   <link rel="preload" href="fonts/atkinson-hyperlegible-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/bricolage-grotesque-wght.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css">
+  <script>document.write('<link rel="stylesheet" id="siteStyle" href="'+(function(){try{if(localStorage.getItem('style')==='alternatif')return'style_alternatif.css'}catch(e){}return'style.css'})()+'">')</script>
+  <noscript><link rel="stylesheet" href="style.css"></noscript>
   <link rel="icon" type="image/png" href="favicon-32x32.png">
   <script src="header-component.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script> <!-- librairie pour le graphique -->
