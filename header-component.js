@@ -15,7 +15,13 @@ class AppHeader extends HTMLElement {
           <a href="edt_v2.html">edt dev</a>
         </div>
         <div class="theme-switch">
-          <button type="button" class="btn btn--sm" id="styleToggle" aria-pressed="false" aria-label="Style alternatif" title="Basculer vers le style alternatif">Style</button>
+          <select id="styleSelect" class="field" aria-label="Style">
+            <option value="">Neumorphisme</option>
+            <option value="alternatif">Brutalisme</option>
+            <option value="contraste">Contraste élevé</option>
+            <option value="terminal">Terminal</option>
+            <option value="papier">Papier</option>
+          </select>
           <label class="switch">
             <input type="checkbox" id="themeToggle" aria-label="Activer le thème sombre">
             <span></span>
@@ -62,22 +68,15 @@ class AppHeader extends HTMLElement {
 			}
 		});
 
-		// Style : style.css (par défaut) ou style_alternatif.css.
+		// Style : style.css (par défaut) ou style_<nom>.css.
 		// Le choix est lu avant le premier rendu par un script inline dans chaque
-		// <head> (qui écrit <link id="siteStyle">) : même clé "style", mêmes fichiers.
-		const STYLE_DEFAULT = "style.css";
-		const STYLE_ALT = "style_alternatif.css";
-		const styleBtn = this.querySelector("#styleToggle");
+		// <head> (qui écrit <link id="siteStyle">) : même clé "style" dans localStorage,
+		// la valeur "<nom>" désigne le fichier style_<nom>.css. Pas de valeur = style.css.
+		const styleSelect = this.querySelector("#styleSelect");
 		const styleLink = () => document.getElementById("siteStyle");
-		const isAlt = () => styleLink()?.getAttribute("href") === STYLE_ALT;
-
-		const syncStyleButton = () => {
-			styleBtn.setAttribute("aria-pressed", String(isAlt()));
-			styleBtn.title = isAlt()
-				? "Revenir au style d'origine"
-				: "Basculer vers le style alternatif";
-		};
-		syncStyleButton();
+		const currentStyle = () =>
+			(styleLink()?.getAttribute("href").match(/^style_([a-z]+)\.css$/) || [])[1] || "";
+		styleSelect.value = currentStyle();
 
 		// Charge la nouvelle feuille AVANT de retirer l'ancienne : pas de page sans style
 		const swapStylesheet = (href) =>
@@ -101,16 +100,15 @@ class AppHeader extends HTMLElement {
 				old.after(next);
 			});
 
-		styleBtn.addEventListener("click", async () => {
-			const alt = !isAlt();
-			const run = () => swapStylesheet(alt ? STYLE_ALT : STYLE_DEFAULT);
+		styleSelect.addEventListener("change", async () => {
+			const name = styleSelect.value;
+			const run = () => swapStylesheet(name ? `style_${name}.css` : "style.css");
 			// Fondu natif quand le navigateur le permet (le site utilise déjà les view transitions)
-			if (document.startViewTransition)
-				await document.startViewTransition(run).finished;
+			if (document.startViewTransition) await document.startViewTransition(run).finished;
 			else await run();
-			syncStyleButton();
+			styleSelect.value = currentStyle(); // revient à l'ancien choix si le fichier est introuvable
 			try {
-				localStorage.setItem("style", alt ? "alternatif" : "defaut");
+				localStorage.setItem("style", currentStyle() || "defaut");
 			} catch (e) {
 				/* stockage indisponible */
 			}
