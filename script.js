@@ -28,6 +28,11 @@ const COLUMNS = [
 	["Observation", "observation"],
 ];
 
+// Masquer la colonne « Examen » pour le site Citadelle
+function colonneMasquee(key) {
+	return key === "examen" && siteSelect.value === "CITA";
+}
+
 // Affiche un message d'erreur visible (lecteurs d'écran inclus : role="alert")
 function showError(message) {
 	errorBox.textContent = message;
@@ -51,7 +56,7 @@ function saveSite(value) {
 	}
 }
 
-// Selection du le site
+// Selection du site
 const siteSelect = document.getElementById("siteSelect");
 
 // Écouteur pour sauvegarder le choix du site
@@ -158,6 +163,11 @@ function applyFilters() {
 function renderTable(rows) {
 	const fragment = document.createDocumentFragment();
 
+	// En-têtes : masquer/afficher selon le site
+	table.querySelectorAll("thead th").forEach((th, i) => {
+		th.style.display = colonneMasquee(COLUMNS[i][1]) ? "none" : "";
+	});
+
 	if (rows.length === 0) {
 		const tr = document.createElement("tr");
 		const td = document.createElement("td");
@@ -174,6 +184,7 @@ function renderTable(rows) {
 			const td = document.createElement("td");
 			td.dataset.name = label;
 			td.textContent = row[key] ?? "";
+			if (colonneMasquee(key)) td.style.display = "none";
 			tr.appendChild(td);
 		});
 		fragment.appendChild(tr);
@@ -338,22 +349,26 @@ function updateChart(data) {
 		chartInstance.destroy(); // Supprime l'ancien graphique s'il existe
 	}
 
+	const datasets = [
+		{
+			label: "Cours",
+			data: capacities,
+			backgroundColor: "rgba(54, 162, 235, 0.7)",
+		},
+	];
+	if (!colonneMasquee("examen")) {
+		datasets.push({
+			label: "Examen",
+			data: exams,
+			backgroundColor: "rgba(255, 99, 132, 0.7)",
+		});
+	}
+
 	chartInstance = new Chart(ctx, {
 		type: "bar",
 		data: {
 			labels: labels,
-			datasets: [
-				{
-					label: "Cours",
-					data: capacities,
-					backgroundColor: "rgba(54, 162, 235, 0.7)",
-				},
-				{
-					label: "Examen",
-					data: exams,
-					backgroundColor: "rgba(255, 99, 132, 0.7)",
-				},
-			],
+			datasets: datasets,
 		},
 		options: {
 			responsive: true,
@@ -393,7 +408,7 @@ function exporterEnExcel(tableId) {
 	}
 	const table = document.getElementById(tableId);
 	const wb = XLSX.utils.book_new(); // créé un nouveau classeur excel
-	const ws = XLSX.utils.table_to_sheet(table); //convertit table en worksheet
+	const ws = XLSX.utils.table_to_sheet(table, { display: true }); //convertit table en worksheet
 
 	// Largeur automatique : calcule la largeur de chaque colonne selon le contenu
 	const range = XLSX.utils.decode_range(ws["!ref"]);
