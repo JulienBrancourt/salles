@@ -68,7 +68,6 @@ const ORDRE_CITADELLE = [
 	"H",
 	"J",
 	"Citadelle",
-	"Véhicules",
 ];
 
 function normaliser(s) {
