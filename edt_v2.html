@@ -8,19 +8,80 @@
   <noscript><link rel="stylesheet" href="style.css"></noscript>
   <link rel="icon" type="image/png" href="favicon-32x32.png">
   <script src="header-component.js" defer></script>
+<style>
+  /* Planning des salles – grille 8h–20h */
+  .edt-table { --lh: 3.2rem; }
+  #print-out { display:none; }
+  .bar { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; }
+  #out { padding: .5rem 1rem 2rem; }
+  .edt-sub { margin:.25rem 0; font-weight:600; }
+  .edt-day { margin: 1rem 0 2rem; }
+  .edt-day h2 { margin:.5rem 0; font-size:1.15rem; }
+  .edt-table { width:100%; border-collapse:collapse; table-layout:fixed; font-size:.72rem; }
+  .edt-table th, .edt-table td { padding:0; border:1px solid #b9bec7; vertical-align:top; }
+  .edt-roomh, .edt-room { width:11rem; text-align:left; padding:0 .4rem !important; }
+  .edt-room { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; background:#f1f3f6; color:#1b1f27; vertical-align:middle !important; }
+  .edt-roomh, .edt-timeh { background:#e3e7ee; color:#1b1f27; }
+  .edt-table thead th { position:sticky; top:0; z-index:3; }
+  .edt-hours { display:flex; }
+  .edt-hours span { flex:1 1 0; text-align:left; padding:.15rem .2rem; border-left:1px solid #b9bec7; font-weight:600; }
+  .edt-hours span:first-child { border-left:0; }
+  .edt-bld td { background:#cfd6e4; color:#1b1f27; font-weight:700; padding:.15rem .5rem; }
+  .edt-line {
+    position:relative; height:calc(var(--lanes, 1) * var(--lh)); background-color:#fff;
+    background-image:linear-gradient(to right, #d5d9e0 1px, transparent 1px);
+    background-size:calc(100% / 12) 100%;
+  }
+  .edt-free .edt-line { height:1.3rem; }
+  .edt-free .edt-room { color:#5b6270; font-weight:400; }
+  .edt-ev {
+    position:absolute; top:calc(var(--lane, 0) * var(--lh) + 1px); height:calc(var(--lh) - 2px);
+    box-sizing:border-box; padding:1px 3px; overflow:hidden; border-radius:3px; border:1px solid rgba(0,0,0,.35);
+    color:#111; line-height:1.15; z-index:1;
+  }
+  .edt-l1, .edt-l2 { display:block; overflow:hidden; text-overflow:ellipsis; }
+  .edt-l2 { white-space:nowrap; }
+  .edt-l1 { font-weight:700; display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; word-break:break-word; }
+  .edt-cut-l { border-left:4px solid #c0392b; }
+  .edt-cut-r { border-right:4px solid #c0392b; }
+  .edt-cm    { background:#f6c6c6; }
+  .edt-td    { background:#bcd9f5; }
+  .edt-cmtd  { background:#e2c8f0; }
+  .edt-tp    { background:#c7ecc9; }
+  .edt-dist  { background:#e6e6e6; border-style:dashed; }
+  .edt-autre { background:#fbe6a2; }
+  .edt-indispo { background:repeating-linear-gradient(45deg,#d9d9d9,#d9d9d9 6px,#efefef 6px,#efefef 12px); color:#333; }
 
+  @page { size: A4 landscape; margin: 7mm; }
+  @media print {
+    app-header, .bar, noscript, #out { display:none !important; }
+    #print-out { display:block !important; }
+    html, body { background:#fff !important; color:#000 !important; margin:0; }
+    .edt-page { break-after:page; margin:0; }
+    .edt-page:last-child { break-after:auto; }
+    .edt-day h2 { font-size:11pt; margin:0 0 2mm; }
+    .edt-table { --lh: 10mm; font-size:6.5pt; }
+    .edt-roomh, .edt-room { width:36mm; }
+    .edt-free .edt-line { height:4.2mm; }
+    .edt-ev { font-size:6.5pt; line-height:1.1; padding:0 1px; }
+    .edt-table thead { display:table-header-group; }
+    .edt-row, .edt-bld { break-inside:avoid; }
+    .edt-table thead th { position:static; }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
 </head>
 <body>
     <app-header></app-header>
   <header class="bar">
   <h1>Planning des salles – Citadelle</h1>
-  <label class="btn">Charger le PDF CELCAT<input id="file" type="file" accept="application/pdf" hidden></label>
+  <label class="btn">Charger le CSV<input id="file" type="file" accept=".csv,text/csv" hidden></label>
+  <label class="btn" id="jsonlabel" hidden>Charger data.json<input id="jsonfile" type="file" accept=".json,application/json" hidden></label>
   <button id="print" class="btn" disabled>Imprimer / Enregistrer en PDF</button>
   <span id="status">Aucun fichier chargé.</span>
 </header>
 <main id="out"></main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="parser.js"></script>
+<div id="print-out"></div>
 <script src="script_edt_v2.js"></script>
 
     

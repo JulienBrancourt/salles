@@ -1,67 +1,372 @@
-/* Mise en page : une page par bâtiment (E, F, G x3), puis Global */
-const WORKER_URL = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-// Un worker cross-origin est refusé par les navigateurs : on passe par un blob.
-const workerReady = fetch(WORKER_URL)
-  .then(r => r.blob())
-  .then(b => { pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(b); })
-  .catch(() => { pdfjsLib.GlobalWorkerOptions.workerSrc = WORKER_URL; }); // repli : mode sans worker
+/* EDT_v2 – Planning des salles Citadelle (grille horaire 8h–20h)
+ * Entrées : un CSV d'export d'emploi du temps + data.json (liste des salles).
+ * Les salles affichées sont celles de data.json dont le code commence par "CITA".
+ */
+(function () {
+  'use strict';
 
-const T0 = 7 * 60, T1 = 22 * 60, ROWS = 10;
-const ORDER = [['B',1],['C',1],['D',1],['E',3],['F',3],['G',3],['H',1],['J',1],['Global',1]];
-const $ = id => document.getElementById(id);
-const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-const bldg = code => /^CIT-Hall/.test(code) ? null : (code.match(/^CIT-([A-Z])/) || [])[1] || null;
-const cmp = (a, b) => a.code.localeCompare(b.code, 'fr', { numeric: true });
+  var H_START = 8 * 60;            // 08:00
+  var H_END = 20 * 60;             // 20:00
+  var SPAN = H_END - H_START;
+  // Ordre d'impression : [bâtiment, nombre d'exemplaires]. 'Global' = toutes les salles.
+  var PRINT_PLAN = [['B', 1], ['C', 1], ['D', 1], ['E', 3], ['F', 3], ['G', 3], ['H', 1], ['J', 1], ['Global', 1]];
+  var DAYS = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 
-function lanes(evts) {          // chevauchements -> sous-lignes dans la salle
-  const ends = [], res = [];
-  [...evts].sort((a, b) => a.s - b.s || a.e - b.e).forEach(e => {
-    let i = ends.findIndex(x => x <= e.s); if (i < 0) i = ends.length;
-    ends[i] = e.e; res.push({ ...e, lane: i });
-  });
-  return { list: res, n: Math.max(1, ends.length) };
-}
+  var $file = document.getElementById('file');
+  var $print = document.getElementById('print');
+  var $status = document.getElementById('status');
+  var $out = document.getElementById('out');
+  var $json = document.getElementById('jsonfile');
+  var $jsonLabel = document.getElementById('jsonlabel');
+  var $print_out = document.getElementById('print-out');
 
-function roomRow(r) {
-  const { list, n } = lanes(r.events);
-  const ev = list.map(e => {
-    const l = (e.s - T0) / (T1 - T0) * 100, w = (e.e - e.s) / (T1 - T0) * 100;
-    const txt = e.lines.slice(1).map(esc).join('<br>');
-    return `<div class="ev" style="left:${l}%;width:${w}%;top:${e.lane/n*100}%;height:${100/n}%;background:${e.color}" title="${esc(e.lines.join(' | '))}">${txt}</div>`;
-  }).join('');
-  return `<div class="row"><div class="room">${esc(r.label)}</div><div class="grid">${ev}</div></div>`;
-}
+  var rooms = null;                // [{key, nom, code, batiment}]
+  var lastState = null;            // {days:[{day,events,weeks}], roomList, title} du dernier rendu
+  var lastCsv = null;              // dernier CSV lu (pour re-rendu après chargement de data.json)
 
-function sheet(title, sub, rooms) {
-  let h = '';
-  for (let i = 0; i < Math.max(rooms.length, 1); i += ROWS) {
-    const hrs = Array.from({ length: 15 }, (_, k) => `<span>${String(7 + k).padStart(2, '0')}:00</span>`).join('');
-    h += `<section class="sheet"><div class="ttl"><b>${title}</b> – ${esc(sub)}</div>
-      <div class="row head"><div class="room">Salle</div><div class="grid hours">${hrs}</div></div>
-      ${rooms.slice(i, i + ROWS).map(roomRow).join('')}</section>`;
+  /* ---------- Utilitaires ---------- */
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
   }
-  return h;
-}
 
-function render(data) {
-  const all = [...data.rooms].sort(cmp);
-  let html = '';
-  ORDER.forEach(([b, copies]) => {
-    const rooms = b === 'Global' ? all : all.filter(r => bldg(r.code) === b);
-    for (let c = 1; c <= copies; c++)
-      html += sheet(b === 'Global' ? 'Global' : 'Bâtiment ' + b + (copies > 1 ? ` (${c}/${copies})` : ''), data.title, rooms);
+  function toMin(hhmm) {
+    var m = /^(\d{1,2}):(\d{2})/.exec(hhmm || '');
+    return m ? (+m[1]) * 60 + (+m[2]) : null;
+  }
+
+  function fmt(min) {
+    return String(Math.floor(min / 60)).padStart(2, '0') + ':' + String(min % 60).padStart(2, '0');
+  }
+
+  // Clé normalisée d'une salle : "CIT-B002 - 90 max", "CITA- G121 - 8 max", "CIT-J-101 …" -> "B002", "G121", "J101", "Hall B"
+  var ROOM_RE = /CITA?-\s*(Hall\s*[A-Z]|[A-Z]-?\d+)/i;
+  function roomKey(s) {
+    var m = ROOM_RE.exec(s || '');
+    if (!m) return null;
+    var k = m[1].replace(/-/g, '');
+    if (/^hall/i.test(k)) return 'Hall ' + k.replace(/^hall\s*/i, '').toUpperCase();
+    return k.toUpperCase();
+  }
+
+  function sortRooms(a, b) {
+    var ha = /^Hall/.test(a.key), hb = /^Hall/.test(b.key);
+    if (ha !== hb) return ha ? 1 : -1;                 // les halls en dernier
+    return a.key.localeCompare(b.key, 'fr', { numeric: true });
+  }
+
+  function buildingOf(key) {
+    return /^Hall/.test(key) ? 'Halls' : key.charAt(0);
+  }
+
+  /* ---------- Lecture du CSV ---------- */
+
+  function decode(buf) {
+    try {
+      return new TextDecoder('utf-8', { fatal: true }).decode(buf).replace(/^\uFEFF/, '');
+    } catch (e) {
+      return new TextDecoder('windows-1252').decode(buf);
+    }
+  }
+
+  function parseCSV(text) {
+    var rows = [], row = [], cur = '', q = false, i, c;
+    var sep = (text.split('\n', 5).join('\n').split(';').length > text.split('\n', 5).join('\n').split(',').length) ? ';' : ',';
+    for (i = 0; i < text.length; i++) {
+      c = text[i];
+      if (q) {
+        if (c === '"') {
+          if (text[i + 1] === '"') { cur += '"'; i++; } else q = false;
+        } else cur += c;
+      } else if (c === '"') q = true;
+      else if (c === sep) { row.push(cur); cur = ''; }
+      else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+      else if (c !== '\r') cur += c;
+    }
+    if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+    return rows;
+  }
+
+  function parseEvents(rows) {
+    var h = -1, i;
+    for (i = 0; i < rows.length; i++) {
+      var low = rows[i].map(function (x) { return x.trim().toLowerCase(); });
+      if (low.indexOf('day') >= 0 && low.indexOf('start') >= 0) { h = i; break; }
+    }
+    if (h < 0) throw new Error("En-têtes introuvables (colonnes Day, Start, End… attendues).");
+    var cols = {};
+    rows[h].forEach(function (n, idx) { cols[n.trim().toLowerCase()] = idx; });
+    function g(r, n) { return (r[cols[n]] || '').trim(); }
+
+    var title = rows.slice(0, h).map(function (r) { return r.join(' ').trim(); }).filter(Boolean).join(' – ');
+    var events = [], skipped = 0;
+    rows.slice(h + 1).forEach(function (r) {
+      if (!r.length || !r.some(function (x) { return x.trim(); })) return;
+      var s = toMin(g(r, 'start')), e = toMin(g(r, 'end'));
+      var day = g(r, 'day').toLowerCase();
+      if (s == null || e == null || e <= s || !day) { skipped++; return; }
+      var keys = g(r, 'rooms').split(';').map(roomKey).filter(Boolean);
+      if (!keys.length) { skipped++; return; }
+      events.push({
+        day: day, start: s, end: e, weeks: g(r, 'weeks'),
+        category: g(r, 'category'), module: g(r, 'modules'), staff: g(r, 'staff'),
+        rooms: keys, roomsRaw: g(r, 'rooms')
+      });
+    });
+    return { title: title, events: events, skipped: skipped };
+  }
+
+  /* ---------- Libellés des créneaux ---------- */
+
+  // "REEES02 - Education et sociétés" -> "Education et sociétés" (sans le code du module)
+  function moduleNames(mod) {
+    return mod.split(';').map(function (m) {
+      m = m.trim();
+      var i = m.search(/\s+-\s+/);
+      return (i >= 0 ? m.slice(i).replace(/^\s+-\s+/, '') : m).trim();
+    }).filter(Boolean).join(' / ');
+  }
+
+  function typeClass(cat) {
+    var c = cat.toLowerCase();
+    if (c.indexOf('indispon') === 0) return 'indispo';
+    if (c.indexOf('distanciel') >= 0) return 'dist';
+    if (c.indexOf('cm/td') === 0) return 'cmtd';
+    if (c.indexOf('cm') === 0) return 'cm';
+    if (c.indexOf('td') === 0) return 'td';
+    if (c.indexOf('tp') === 0) return 'tp';
+    return 'autre';
+  }
+
+  /* ---------- Rendu ---------- */
+
+  function assignLanes(list) {
+    list.sort(function (a, b) { return a.s - b.s || a.e - b.e; });
+    var ends = [];
+    list.forEach(function (ev) {
+      var l = 0;
+      while (l < ends.length && ends[l] > ev.s) l++;
+      ends[l] = ev.e;
+      ev.lane = l;
+    });
+    return ends.length;
+  }
+
+  function dedupe(list) {
+    var seen = {};
+    return list.filter(function (ev) {
+      var k = [ev.start, ev.end, ev.category, ev.module, ev.staff].join('|');
+      if (seen[k]) return false;
+      return (seen[k] = true);
+    });
+  }
+
+  function hoursHeader() {
+    var wrap = el('div', 'edt-hours');
+    for (var h = H_START / 60; h < H_END / 60; h++) wrap.appendChild(el('span', null, h + 'h'));
+    return wrap;
+  }
+
+  function renderDay(day, events, roomList, weeks, prefix) {
+    var sec = el('section', 'edt-day');
+    var t = day.charAt(0).toUpperCase() + day.slice(1);
+    sec.appendChild(el('h2', null, (prefix ? prefix + ' – ' : '') + t + (weeks.length ? ' – semaine' + (weeks.length > 1 ? 's ' : ' ') + weeks.join(', ') : '')));
+
+    var byRoom = {};
+    events.forEach(function (ev) {
+      ev.rooms.forEach(function (k) { (byRoom[k] = byRoom[k] || []).push(ev); });
+    });
+
+    var table = el('table', 'edt-table');
+    var thead = el('thead');
+    var trh = el('tr');
+    trh.appendChild(el('th', 'edt-roomh', 'Salle'));
+    var thh = el('th', 'edt-timeh');
+    thh.appendChild(hoursHeader());
+    trh.appendChild(thh);
+    thead.appendChild(trh);
+    table.appendChild(thead);
+
+    var tbody = el('tbody');
+    var lastB = null, used = 0;
+    roomList.forEach(function (room) {
+      var b = buildingOf(room.key);
+      if (b !== lastB) {
+        var trb = el('tr', 'edt-bld');
+        var tdb = el('td', null, b === 'Halls' ? 'Halls' : 'Bâtiment ' + b);
+        tdb.colSpan = 2;
+        trb.appendChild(tdb);
+        tbody.appendChild(trb);
+        lastB = b;
+      }
+      var tr = el('tr', 'edt-row');
+      var th = el('th', 'edt-room', room.label);
+      th.title = room.title || room.label;
+      tr.appendChild(th);
+      var td = el('td', 'edt-line');
+
+      var list = dedupe(byRoom[room.key] || []).map(function (ev) {
+        return { ev: ev, s: Math.max(ev.start, H_START), e: Math.min(ev.end, H_END) };
+      }).filter(function (x) { return x.e > x.s; });
+      var lanes = assignLanes(list);
+      if (lanes) used++;
+      td.style.setProperty('--lanes', Math.max(lanes, 0));
+      if (!lanes) tr.classList.add('edt-free');
+
+      list.forEach(function (x) {
+        var ev = x.ev;
+        var cls = typeClass(ev.category);
+        var blk = el('div', 'edt-ev edt-' + cls);
+        blk.style.left = ((x.s - H_START) / SPAN * 100) + '%';
+        blk.style.width = ((x.e - x.s) / SPAN * 100) + '%';
+        blk.style.setProperty('--lane', x.lane);
+        if (ev.start < H_START) blk.classList.add('edt-cut-l');
+        if (ev.end > H_END) blk.classList.add('edt-cut-r');
+
+        var names = moduleNames(ev.module);
+        var line1 = cls === 'indispo' ? 'Indisponible' : (names ? names + ' · ' + ev.category : ev.category);
+        blk.appendChild(el('span', 'edt-l1', line1));
+        blk.appendChild(el('span', 'edt-l2', fmt(ev.start) + '–' + fmt(ev.end)));
+        blk.title = [ev.category, ev.module, fmt(ev.start) + '–' + fmt(ev.end),
+          ev.staff && 'Enseignant : ' + ev.staff, 'Salle(s) : ' + ev.roomsRaw].filter(Boolean).join('\n');
+        td.appendChild(blk);
+      });
+      tr.appendChild(td);
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    sec.appendChild(table);
+    return { node: sec, used: used };
+  }
+
+  function render(csv) {
+    $out.textContent = '';
+    var data = parseEvents(csv.rows);
+    var base = rooms ? rooms.slice() : [];
+    var known = {};
+    base.forEach(function (r) { known[r.key] = true; });
+
+    // Salles du CSV absentes de data.json : ajoutées en fin de liste pour ne rien perdre
+    var extra = {};
+    data.events.forEach(function (ev) {
+      ev.rooms.forEach(function (k) { if (!known[k] && !extra[k]) extra[k] = { key: k, label: k, title: k + ' (absente de data.json)' }; });
+    });
+    var extraList = Object.keys(extra).map(function (k) { return extra[k]; }).sort(sortRooms);
+    var roomList = base.concat(extraList);
+
+    if (data.title) $out.appendChild(el('p', 'edt-sub', data.title));
+
+    var byDay = {};
+    data.events.forEach(function (ev) { (byDay[ev.day] = byDay[ev.day] || []).push(ev); });
+    var days = Object.keys(byDay).sort(function (a, b) {
+      var ia = DAYS.indexOf(a), ib = DAYS.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    });
+
+    var usedTotal = {};
+    lastState = { days: [], roomList: roomList, title: data.title };
+    days.forEach(function (d) {
+      var weeks = [];
+      byDay[d].forEach(function (ev) { if (ev.weeks && weeks.indexOf(ev.weeks) < 0) weeks.push(ev.weeks); });
+      lastState.days.push({ day: d, events: byDay[d], weeks: weeks });
+      var r = renderDay(d, byDay[d], roomList, weeks);
+      $out.appendChild(r.node);
+      byDay[d].forEach(function (ev) { ev.rooms.forEach(function (k) { usedTotal[k] = true; }); });
+    });
+
+    var msg = data.events.length + ' créneaux · ' + Object.keys(usedTotal).length + '/' + roomList.length + ' salles occupées';
+    if (data.skipped) msg += ' · ' + data.skipped + ' ligne(s) ignorée(s)';
+    if (extraList.length) msg += ' · ' + extraList.length + ' salle(s) hors data.json : ' + extraList.map(function (r) { return r.key; }).join(', ');
+    if (!rooms) msg += ' · data.json non chargé (salles déduites du CSV)';
+    $status.textContent = csv.name + ' – ' + msg;
+    $print.disabled = false;
+  }
+
+  /* ---------- Impression (A4 paysage) ---------- */
+
+  // Construit le contenu à imprimer dans l'ordre de PRINT_PLAN (une section = nouvelle page).
+  function buildPrint() {
+    $print_out.textContent = '';
+    if (!lastState) return;
+    PRINT_PLAN.forEach(function (p) {
+      var name = p[0], copies = p[1];
+      var list = name === 'Global' ? lastState.roomList
+        : lastState.roomList.filter(function (r) { return buildingOf(r.key) === name; });
+      if (!list.length) return;
+      var prefix = 'Citadelle – ' + (name === 'Global' ? 'Global' : 'Bâtiment ' + name);
+      for (var c = 0; c < copies; c++) {
+        lastState.days.forEach(function (d) {
+          var r = renderDay(d.day, d.events, list, d.weeks, prefix);
+          r.node.classList.add('edt-page');
+          $print_out.appendChild(r.node);
+        });
+      }
+    });
+  }
+
+  window.addEventListener('beforeprint', buildPrint);
+  window.addEventListener('afterprint', function () { $print_out.textContent = ''; });
+
+  /* ---------- Chargement des salles (data.json) ---------- */
+
+  function setRooms(arr) {
+    rooms = arr.filter(function (x) { return /^CITA\b/i.test(x.code || ''); }).map(function (x) {
+      var key = roomKey(x.code);
+      return key ? { key: key, label: (x.nom || key), title: x.nom + (x.capacite ? ' – ' + x.capacite + ' places' : ''), code: x.code } : null;
+    }).filter(Boolean).sort(sortRooms);
+    $jsonLabel.hidden = true;
+  }
+
+  function loadRoomsFetch() {
+    return fetch('data.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(setRooms)
+      .catch(function () {
+        rooms = null;
+        $jsonLabel.hidden = false;      // ex. page ouverte en local : chargement manuel possible
+        $status.textContent = "data.json introuvable : chargez-le manuellement ou servez la page via un serveur web.";
+      });
+  }
+
+  /* ---------- Événements ---------- */
+
+  function safeRender() {
+    try { render(lastCsv); }
+    catch (err) { $out.textContent = ''; $print.disabled = true; $status.textContent = 'Erreur : ' + err.message; }
+  }
+
+  $file.addEventListener('change', function () {
+    var f = $file.files[0];
+    if (!f) return;
+    $status.textContent = 'Lecture de ' + f.name + '…';
+    f.arrayBuffer().then(function (buf) {
+      lastCsv = { name: f.name, rows: parseCSV(decode(buf)) };
+      return roomsReady.then(safeRender);
+    });
+    $file.value = '';
   });
-  $('out').innerHTML = html;
-  $('status').textContent = `${data.rooms.length} salles, ${data.rooms.reduce((a, r) => a + r.events.length, 0)} créneaux, ${$('out').children.length} pages.`;
-  $('print').disabled = false;
-}
 
-$('file').addEventListener('change', async e => {
-  const f = e.target.files[0]; if (!f) return;
-  $('status').textContent = 'Lecture du PDF…';
-  try {
-    await workerReady;
-    render(await CelcatParser.parsePdf(pdfjsLib, new Uint8Array(await f.arrayBuffer())));
-  } catch (err) { $('status').textContent = 'Erreur : ' + err.message; }
-});
-$('print').onclick = () => print();
+  $json.addEventListener('change', function () {
+    var f = $json.files[0];
+    if (!f) return;
+    f.text().then(function (t) {
+      setRooms(JSON.parse(t));
+      if (lastCsv) safeRender(); else $status.textContent = 'data.json chargé (' + rooms.length + ' salles Citadelle). Chargez le CSV.';
+    }).catch(function () { $status.textContent = 'data.json invalide.'; });
+    $json.value = '';
+  });
+
+  $print.addEventListener('click', function () {
+    var old = document.title;
+    document.title = 'Planning_Citadelle';         // nom proposé pour le fichier PDF
+    window.print();
+    document.title = old;
+  });
+
+  var roomsReady = loadRoomsFetch().then(function () {
+    if (rooms) $status.textContent = 'Aucun fichier chargé (' + rooms.length + ' salles Citadelle connues).';
+  });
+})();

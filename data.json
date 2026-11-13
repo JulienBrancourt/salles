@@ -1177,17 +1177,6 @@
         "batiment": "G"
     },
     {
-        "code": "CITA-F109 - 8 max",
-        "nom": "F109",
-        "capacite": 4,
-        "examen": "",
-        "categorie": "salle banalisée",
-        "reserve": "",
-        "observation": "",
-        "accessibilite": "",
-        "batiment": "F"
-    },
-    {
         "code": "CITA-B202 - 27 max (Laboratoire de langues)",
         "nom": "B202 LANGUES",
         "capacite": "27 / 14",
@@ -1386,17 +1375,6 @@
         "batiment": "B"
     },
     {
-        "code": "CITA-E123 - 12  max",
-        "nom": "E123",
-        "capacite": 6,
-        "examen": "",
-        "categorie": "autre",
-        "reserve": "bureau maintenant",
-        "observation": "",
-        "accessibilite": "",
-        "batiment": "E"
-    },
-    {
         "code": "CITA-E111 - 30",
         "nom": "E111",
         "capacite": 30,
@@ -1580,17 +1558,6 @@
         "categorie": "salle d'innovation pédagogique",
         "reserve": "",
         "observation": "à réserver en même temps que la F003",
-        "accessibilite": "",
-        "batiment": "F"
-    },
-    {
-        "code": "CITA-F012 - 19 max (Plateau Image / Vidéo)",
-        "nom": "F012 Non équipéé",
-        "capacite": 9,
-        "examen": "",
-        "categorie": "autre",
-        "reserve": "",
-        "observation": "Plateau image vidéo",
         "accessibilite": "",
         "batiment": "F"
     },
@@ -2398,17 +2365,6 @@
         "batiment": "E"
     },
     {
-        "code": "CITA-A202 - 8 max",
-        "nom": "A202",
-        "capacite": 4,
-        "examen": "",
-        "categorie": "salle de réunion",
-        "reserve": "",
-        "observation": "",
-        "accessibilite": "",
-        "batiment": "A"
-    },
-    {
         "code": "CITA-E207 - 31 max",
         "nom": "E207 -SHSP",
         "capacite": 31,
@@ -2517,17 +2473,6 @@
         "observation": "",
         "accessibilite": "ouverture par le pc sécurité, à réserver en même temps que la E002 pour les évènements",
         "batiment": "E"
-    },
-    {
-        "code": "CITA-F311 - 27  max",
-        "nom": "F311 LANGUES",
-        "capacite": 27,
-        "examen": "",
-        "categorie": "salle de réunion",
-        "reserve": "",
-        "observation": "",
-        "accessibilite": "",
-        "batiment": "F"
     },
     {
         "code": "CITA-E004",
