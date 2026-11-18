@@ -12,7 +12,8 @@
   /* Planning des salles – grille 8h–20h */
   .edt-table { --lh: 3.2rem; }
   #print-out { display:none; }
-  .bar { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; }
+  .bar { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; flex-direction: column; }
+  .interactions {display: flex;gap: 15px;}
   #out { padding: .5rem 1rem 2rem; }
   .edt-sub { margin:.25rem 0; font-weight:600; }
   .edt-day { margin: 1rem 0 2rem; }
@@ -75,10 +76,13 @@
     <app-header></app-header>
   <header class="bar">
   <h1>Planning des salles – Citadelle</h1>
-  <label class="btn">Charger le CSV<input id="file" type="file" accept=".csv,text/csv" hidden></label>
+  <div class="interactions">
+     <label class="btn">Charger le CSV<input id="file" type="file" accept=".csv,text/csv" hidden></label>
   <label class="btn" id="jsonlabel" hidden>Charger data.json<input id="jsonfile" type="file" accept=".json,application/json" hidden></label>
   <button id="print" class="btn" disabled>Imprimer / Enregistrer en PDF</button>
-  <span id="status">Aucun fichier chargé.</span>
+  <span id="status">Aucun fichier chargé.</span> 
+  </div>
+
 </header>
 <main id="out"></main>
 <div id="print-out"></div>

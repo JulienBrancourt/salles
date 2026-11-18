@@ -9,7 +9,7 @@
   var H_END = 20 * 60;             // 20:00
   var SPAN = H_END - H_START;
   // Ordre d'impression : [bâtiment, nombre d'exemplaires]. 'Global' = toutes les salles.
-  var PRINT_PLAN = [['B', 1], ['C', 1], ['D', 1], ['E', 3], ['F', 3], ['G', 3], ['H', 1], ['J', 1], ['Global', 1]];
+  var PRINT_PLAN = [['Global', 1], ['B', 1], ['C', 1], ['D', 1], ['E', 3], ['F', 3], ['G', 3], ['H', 1], ['J', 1]];
   var DAYS = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 
   var $file = document.getElementById('file');
