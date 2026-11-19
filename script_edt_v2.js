@@ -26,6 +26,7 @@
   var rooms = null;                // [{key, nom, code, batiment}]
   var lastState = null;            // {days:[{day,events,weeks}], roomList, title} du dernier rendu
   var teachers = null;             // {codeNormalisé: "Nom Prénom"}
+  var TEACHERS_KEY = 'edt_enseignants';   // clé localStorage (copie privée, propre à ce navigateur)
   var unmatched = {};              // codes enseignants du CSV absents de enseignants.json
   var lastCsv = null;              // dernier CSV lu (pour re-rendu après chargement de data.json)
 
@@ -384,8 +385,13 @@
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(setTeachers)
       .catch(function () {
+        // Pas de enseignants.json sur le serveur (cas voulu : fichier non publié) :
+        // on reprend la copie mémorisée dans ce navigateur lors d'un chargement manuel précédent.
+        var saved = null;
+        try { saved = JSON.parse(localStorage.getItem(TEACHERS_KEY)); } catch (e) {}
+        if (Array.isArray(saved)) { setTeachers(saved); return; }
         teachers = null;
-        $tjsonLabel.hidden = false;     // ex. page ouverte en local : chargement manuel possible
+        $tjsonLabel.hidden = false;     // chargement manuel possible
       });
   }
 
@@ -421,8 +427,10 @@
     var f = $tjson.files[0];
     if (!f) return;
     f.text().then(function (t) {
-      setTeachers(JSON.parse(t));
-      if (lastCsv) safeRender(); else $status.textContent = 'enseignants.json chargé. Chargez le CSV.';
+      var arr = JSON.parse(t);
+      setTeachers(arr);
+      try { localStorage.setItem(TEACHERS_KEY, JSON.stringify(arr)); } catch (e) {}   // mémorisé pour les prochaines visites
+      if (lastCsv) safeRender(); else $status.textContent = 'enseignants.json chargé (mémorisé dans ce navigateur). Chargez le CSV.';
     }).catch(function () { $status.textContent = 'enseignants.json invalide.'; });
     $tjson.value = '';
   });
