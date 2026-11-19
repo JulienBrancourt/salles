@@ -1,5 +1,6 @@
 /* EDT_v2 – Planning des salles Citadelle (grille horaire 8h–20h)
- * Entrées : un CSV d'export d'emploi du temps + data.json (liste des salles).
+ * Entrées : un CSV d'export d'emploi du temps + data.json (liste des salles)
+ * + enseignants.json (correspondance code -> "Nom Prénom", à la racine du projet).
  * Les salles affichées sont celles de data.json dont le code commence par "CITA".
  */
 (function () {
@@ -19,9 +20,13 @@
   var $json = document.getElementById('jsonfile');
   var $jsonLabel = document.getElementById('jsonlabel');
   var $print_out = document.getElementById('print-out');
+  var $tjson = document.getElementById('teachersfile');
+  var $tjsonLabel = document.getElementById('teacherslabel');
 
   var rooms = null;                // [{key, nom, code, batiment}]
   var lastState = null;            // {days:[{day,events,weeks}], roomList, title} du dernier rendu
+  var teachers = null;             // {codeNormalisé: "Nom Prénom"}
+  var unmatched = {};              // codes enseignants du CSV absents de enseignants.json
   var lastCsv = null;              // dernier CSV lu (pour re-rendu après chargement de data.json)
 
   /* ---------- Utilitaires ---------- */
@@ -117,6 +122,31 @@
       });
     });
     return { title: title, events: events, skipped: skipped };
+  }
+
+  /* ---------- Enseignants ---------- */
+
+  function normCode(c) { return String(c || '').trim().replace(/\s+/g, ' ').toLowerCase(); }
+
+  function lookupTeacher(code) {
+    return teachers ? teachers[normCode(code)] || null : null;
+  }
+
+  // "M9557" ou "MOREL DOMINIQUE [M9557]" (plusieurs séparés par ";") -> "Morel Dominique, Dupont Jean"
+  function teacherNames(staff) {
+    if (!staff) return '';
+    return staff.split(';').map(function (s) {
+      s = s.trim();
+      if (!s) return '';
+      var t = lookupTeacher(s);
+      if (!t) {
+        var m = /\[([^\]]+)\]/.exec(s);
+        if (m) t = lookupTeacher(m[1]);                       // "NOM PRENOM [CODE]"
+        if (!t) t = lookupTeacher(s.replace(/\s*\[[^\]]*\]\s*$/, ''));   // "CODE [suffixe]" -> "CODE"
+      }
+      if (!t && teachers) unmatched[s] = true;
+      return t || s;                 // code non trouvé : on garde la valeur brute
+    }).filter(Boolean).join(', ');
   }
 
   /* ---------- Libellés des créneaux ---------- */
@@ -229,9 +259,10 @@
         var names = moduleNames(ev.module);
         var line1 = cls === 'indispo' ? 'Indisponible' : (names ? names + ' · ' + ev.category : ev.category);
         blk.appendChild(el('span', 'edt-l1', line1));
-        blk.appendChild(el('span', 'edt-l2', fmt(ev.start) + '–' + fmt(ev.end)));
+        var teacher = cls === 'indispo' ? '' : teacherNames(ev.staff);
+        blk.appendChild(el('span', 'edt-l2', fmt(ev.start) + '–' + fmt(ev.end) + (teacher ? ' · ' + teacher : '')));
         blk.title = [ev.category, ev.module, fmt(ev.start) + '–' + fmt(ev.end),
-          ev.staff && 'Enseignant : ' + ev.staff, 'Salle(s) : ' + ev.roomsRaw].filter(Boolean).join('\n');
+          teacher && 'Enseignant : ' + teacher, 'Salle(s) : ' + ev.roomsRaw].filter(Boolean).join('\n');
         td.appendChild(blk);
       });
       tr.appendChild(td);
@@ -244,6 +275,7 @@
 
   function render(csv) {
     $out.textContent = '';
+    unmatched = {};
     var data = parseEvents(csv.rows);
     var base = rooms ? rooms.slice() : [];
     var known = {};
@@ -280,6 +312,9 @@
     var msg = data.events.length + ' créneaux · ' + Object.keys(usedTotal).length + '/' + roomList.length + ' salles occupées';
     if (data.skipped) msg += ' · ' + data.skipped + ' ligne(s) ignorée(s)';
     if (extraList.length) msg += ' · ' + extraList.length + ' salle(s) hors data.json : ' + extraList.map(function (r) { return r.key; }).join(', ');
+    var nUnmatched = Object.keys(unmatched).length;
+    if (!teachers) msg += ' · enseignants.json non chargé (codes affichés tels quels)';
+    else if (nUnmatched) msg += ' · ' + nUnmatched + ' code(s) enseignant non trouvé(s) : ' + Object.keys(unmatched).slice(0, 5).join(', ') + (nUnmatched > 5 ? '…' : '');
     if (!rooms) msg += ' · data.json non chargé (salles déduites du CSV)';
     $status.textContent = csv.name + ' – ' + msg;
     $print.disabled = false;
@@ -331,6 +366,29 @@
       });
   }
 
+  /* ---------- Chargement des enseignants (enseignants.json) ---------- */
+
+  // Accepte [{"Nom Prénom": "...", "Code": "..."}, ...]
+  function setTeachers(arr) {
+    teachers = {};
+    arr.forEach(function (x) {
+      var name = x['Nom Prénom'] || x['Nom Prenom'] || x.nom || '';
+      var code = x.Code != null ? x.Code : x.code;
+      if (code != null && name) teachers[normCode(code)] = name;
+    });
+    $tjsonLabel.hidden = true;
+  }
+
+  function loadTeachersFetch() {
+    return fetch('enseignants.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(setTeachers)
+      .catch(function () {
+        teachers = null;
+        $tjsonLabel.hidden = false;     // ex. page ouverte en local : chargement manuel possible
+      });
+  }
+
   /* ---------- Événements ---------- */
 
   function safeRender() {
@@ -344,7 +402,7 @@
     $status.textContent = 'Lecture de ' + f.name + '…';
     f.arrayBuffer().then(function (buf) {
       lastCsv = { name: f.name, rows: parseCSV(decode(buf)) };
-      return roomsReady.then(safeRender);
+      return Promise.all([roomsReady, teachersReady]).then(safeRender);
     });
     $file.value = '';
   });
@@ -359,6 +417,16 @@
     $json.value = '';
   });
 
+  $tjson.addEventListener('change', function () {
+    var f = $tjson.files[0];
+    if (!f) return;
+    f.text().then(function (t) {
+      setTeachers(JSON.parse(t));
+      if (lastCsv) safeRender(); else $status.textContent = 'enseignants.json chargé. Chargez le CSV.';
+    }).catch(function () { $status.textContent = 'enseignants.json invalide.'; });
+    $tjson.value = '';
+  });
+
   $print.addEventListener('click', function () {
     var old = document.title;
     document.title = 'Planning_Citadelle';         // nom proposé pour le fichier PDF
@@ -366,6 +434,7 @@
     document.title = old;
   });
 
+  var teachersReady = loadTeachersFetch();
   var roomsReady = loadRoomsFetch().then(function () {
     if (rooms) $status.textContent = 'Aucun fichier chargé (' + rooms.length + ' salles Citadelle connues).';
   });
